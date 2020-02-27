@@ -1,9 +1,9 @@
-public abstract class User {
+abstract class User {
 
     private String username;
     private String password;
 
-    public abstract User(String name, String pass) {
+    public User(String name, String pass) {
         this.username = name;
         this.password = pass;
     }
