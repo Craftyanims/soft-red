@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application{
@@ -28,7 +28,7 @@ public class Main extends Application{
         /*
         * Populate the login page
         */
-        StackPane login_layout = new StackPane();
+        BorderPane login_layout = new BorderPane();
 
         TextField login_tf = new TextField();
 
@@ -38,40 +38,41 @@ public class Main extends Application{
             primaryStage.setScene(researcher_scene);
         });
 
-        login_layout.getChildren().addAll(login_tf, login_b);
+        login_layout.setTop(login_b);
+        login_layout.setCenter(login_tf);
         login_scene = new Scene(login_layout, 800, 600);
 
 
         /*
         * Populate the Researcher User page
         */
-        StackPane researcher_layout = new StackPane();
+        BorderPane researcher_layout = new BorderPane();
 
         Label researcher_l = new Label("Researcher");
 
-        researcher_layout.getChildren().addAll(researcher_l);
+        researcher_layout.setCenter(researcher_l);
         researcher_scene = new Scene(researcher_layout, 800, 600);
 
 
         /*
          * Populate the Reviewer User page
          */
-        StackPane reviewer_layout = new StackPane();
+        BorderPane reviewer_layout = new BorderPane();
 
         Label reviewer_l = new Label("Reviewer");
 
-        reviewer_layout.getChildren().addAll(reviewer_l);
+        reviewer_layout.setCenter(reviewer_l);
         reviewer_scene = new Scene(reviewer_layout, 800, 600);
 
 
         /*
          * Populate the Editor User page
          */
-        StackPane editor_layout = new StackPane();
+        BorderPane editor_layout = new BorderPane();
 
         Label editor_l = new Label("Editor");
 
-        editor_layout.getChildren().addAll(editor_l);
+        editor_layout.setCenter(editor_l);
         editor_scene = new Scene(editor_layout, 800, 600);
 
 
