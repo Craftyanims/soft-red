@@ -40,13 +40,8 @@ public class Main extends Application{
         /*
         * Populate the Researcher User page
         */
-        StackPane researcher_layout = new StackPane();
-
-        Label researcher_l = new Label("Researcher");
-
-        researcher_layout.getChildren().addAll(researcher_l);
-        researcher_scene = new Scene(researcher_layout, 600, 800);
-
+        ResearcherPane researcher_layout = new ResearcherPane(primaryStage);
+        researcher_scene = new Scene(researcher_layout.getPane(), 600, 800);
 
         /*
          * Populate the Reviewer User page
