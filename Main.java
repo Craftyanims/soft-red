@@ -46,34 +46,32 @@ public class Main extends Application{
         /*
         * Populate the Researcher User page
         */
-        BorderPane researcher_layout = new BorderPane();
 
-        Label researcher_l = new Label("Researcher");
-
-        researcher_layout.setCenter(researcher_l);
-        researcher_scene = new Scene(researcher_layout, 800, 600);
+        ResearcherPane researcher_layout = new ResearcherPane(primaryStage);
+        researcher_scene = new Scene(researcher_layout.getPane(), 600, 800);
 
 
         /*
          * Populate the Reviewer User page
          */
-        BorderPane reviewer_layout = new BorderPane();
 
-        Label reviewer_l = new Label("Reviewer");
+        ReviewerPane reviewer_layout = new ReviewerPane(primaryStage);
 
-        reviewer_layout.setCenter(reviewer_l);
-        reviewer_scene = new Scene(reviewer_layout, 800, 600);
+
+
+
+        reviewer_scene = new Scene(reviewer_layout.getPane(), 600, 800);
+
 
 
         /*
          * Populate the Editor User page
          */
-        BorderPane editor_layout = new BorderPane();
 
-        Label editor_l = new Label("Editor");
+        EditorPane editor_layout = new EditorPane(primaryStage);
 
-        editor_layout.setCenter(editor_l);
-        editor_scene = new Scene(editor_layout, 800, 600);
+        editor_scene = new Scene(editor_layout.getPane(), 600, 800);
+
 
 
         primaryStage.setScene(login_scene);
