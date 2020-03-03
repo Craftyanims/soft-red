@@ -46,23 +46,18 @@ public class Main extends Application{
         /*
          * Populate the Reviewer User page
          */
-        StackPane reviewer_layout = new StackPane();
+        ReviewerPane reviewer_layout = new ReviewerPane(primaryStage);
 
-        Label reviewer_l = new Label("Reviewer");
 
-        reviewer_layout.getChildren().addAll(reviewer_l);
-        reviewer_scene = new Scene(reviewer_layout, 600, 800);
+        reviewer_scene = new Scene(reviewer_layout.getPane(), 600, 800);
 
 
         /*
          * Populate the Editor User page
          */
-        StackPane editor_layout = new StackPane();
+        EditorPane editor_layout = new EditorPane(primaryStage);
 
-        Label editor_l = new Label("Editor");
-
-        editor_layout.getChildren().addAll(editor_l);
-        editor_scene = new Scene(editor_layout, 600, 800);
+        editor_scene = new Scene(editor_layout.getPane(), 600, 800);
 
 
         primaryStage.setScene(login_scene);
