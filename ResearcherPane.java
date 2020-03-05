@@ -16,6 +16,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javafx.collections.FXCollections;
+import javafx.scene.control.ChoiceBox;
+
 class ResearcherPane extends StackPane{
     private StackPane pane;
     private File entry;
@@ -28,6 +31,12 @@ class ResearcherPane extends StackPane{
 
         createSubmission(ps);
 
+        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
+        	    "First", "Second", "Third")
+        	);
+        
+        addChild(cb);
+        
         addChild(researcher_l);
     }
 
