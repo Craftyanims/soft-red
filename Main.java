@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import view.JournalListPane;
 
 public class Main extends Application{
 
@@ -75,6 +76,13 @@ public class Main extends Application{
 
 
         primaryStage.setScene(login_scene);
+        primaryStage.show();
+        
+        
+        //TEMP
+        JournalListPane jlp = new JournalListPane(primaryStage);
+        Scene journalListScene = new Scene(jlp, 600, 600);
+        primaryStage.setScene(journalListScene);
         primaryStage.show();
     }
 
