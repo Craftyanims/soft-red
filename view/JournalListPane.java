@@ -2,15 +2,20 @@ package view;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
-
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+
+import model.Journal;
 
 public class JournalListPane extends BorderPane {
 
@@ -29,12 +34,38 @@ public class JournalListPane extends BorderPane {
 		ArrayList<model.Journal> journals = createFakeJournals();
 		
 		Label titleLabel = new Label("Journal List Page");
+		Pane titlePane = new Pane();
+		titlePane.getChildren().addAll(titleLabel);
+		titlePane.setStyle("-fx-background-color: orange");
+		this.setTop(titlePane);
 		
-		Pane topPane = new Pane();
-		topPane.getChildren().addAll(titleLabel);
 		
-		topPane.setBackground(new Background(Color.RED, CornerRadii.EMPTY, Insets.EMPTY));
+		Pane navPane = new Pane();
+		navPane.setStyle("-fx-background-color: cyan");
+		Label navLabel = new Label("Nav Label");
+		navPane.getChildren().addAll(navLabel);
+		this.setLeft(navPane);
 		
-		this.setTop(topPane);
+		VBox contentPane = new VBox();
+		
+		
+		for (int i = 0; i < journals.size(); i++) { 
+			Pane journalBox = generateJournalListItem(journals.get(i));
+			journalBox.setStyle("-fx-background-color: pink; -fx-padding: 10px;");
+			contentPane.getChildren().addAll(journalBox);
+		}
+		this.setCenter(contentPane);
+		
+	}
+	
+	public Pane generateJournalListItem(model.Journal journal) {
+		HBox container = new HBox();
+		
+		Label titleLabel = new Label(journal.name);
+		Button viewButton = new Button("View");
+		
+		container.getChildren().addAll(titleLabel, viewButton);
+		
+		return container;
 	}
 }
