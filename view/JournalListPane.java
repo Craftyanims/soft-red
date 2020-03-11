@@ -17,7 +17,7 @@ import javafx.geometry.Insets;
 
 import model.Journal;
 
-public class JournalListPane extends BorderPane {
+public class JournalListPane extends BasePane {
 
 	private ArrayList<model.Journal> createFakeJournals() {
 		ArrayList<model.Journal> fake = new ArrayList<model.Journal>();
@@ -30,24 +30,11 @@ public class JournalListPane extends BorderPane {
 	}
 	
 	public JournalListPane(Stage stage) {
+		super(stage, "Journal List Page");
 		
 		ArrayList<model.Journal> journals = createFakeJournals();
 		
-		Label titleLabel = new Label("Journal List Page");
-		Pane titlePane = new Pane();
-		titlePane.getChildren().addAll(titleLabel);
-		titlePane.setStyle("-fx-background-color: orange");
-		this.setTop(titlePane);
-		
-		
-		Pane navPane = new Pane();
-		navPane.setStyle("-fx-background-color: cyan");
-		Label navLabel = new Label("Nav Label");
-		navPane.getChildren().addAll(navLabel);
-		this.setLeft(navPane);
-		
 		VBox contentPane = new VBox();
-		
 		
 		for (int i = 0; i < journals.size(); i++) { 
 			Pane journalBox = generateJournalListItem(journals.get(i));
@@ -55,7 +42,6 @@ public class JournalListPane extends BorderPane {
 			contentPane.getChildren().addAll(journalBox);
 		}
 		this.setCenter(contentPane);
-		
 	}
 	
 	public Pane generateJournalListItem(model.Journal journal) {

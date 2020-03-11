@@ -11,8 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import view.JournalListPane;
+import view.ResearcherPane;
 
 public class Main extends Application{
 
@@ -29,39 +31,41 @@ public class Main extends Application{
         /*
         * Populate the login page
         */
-        BorderPane login_layout = new BorderPane();
-
-        TextField login_tf = new TextField();
-
-        Button login_b = new Button("Press Me");
-        // TODO: set this to have logic based on the account given as input
-        login_b.setOnAction(e -> {
-            primaryStage.setScene(researcher_scene);
-        });
-
-        login_layout.setTop(login_b);
-        login_layout.setCenter(login_tf);
-        login_scene = new Scene(login_layout, 800, 600);
+        //Pane loginPane = new view.LoginPane(primaryStage);
+        
+//        BorderPane login_layout = new BorderPane();
+//
+//        TextField login_tf = new TextField();
+//
+//        Button login_b = new Button("Press Me");
+//        // TODO: set this to have logic based on the account given as input
+//        login_b.setOnAction(e -> {
+//            primaryStage.setScene(researcher_scene);
+//        });
+//
+//        login_layout.setTop(login_b);
+//        login_layout.setCenter(login_tf);
+//        login_scene = new Scene(login_layout, 800, 600);
 
 
         /*
         * Populate the Researcher User page
         */
 
-        ResearcherPane researcher_layout = new ResearcherPane(primaryStage);
-        researcher_scene = new Scene(researcher_layout.getPane(), 600, 800);
+        //view.ResearcherPane researcher_layout = new view.ResearcherPane(primaryStage);
+        //researcher_scene = new Scene(researcher_layout.getPane(), 600, 800);
 
 
         /*
          * Populate the Reviewer User page
          */
 
-        ReviewerPane reviewer_layout = new ReviewerPane(primaryStage);
+        //view.ReviewerPane reviewer_layout = new view.ReviewerPane(primaryStage);
 
 
 
 
-        reviewer_scene = new Scene(reviewer_layout.getPane(), 600, 800);
+        //reviewer_scene = new Scene(reviewer_layout.getPane(), 600, 800);
 
 
 
@@ -69,9 +73,9 @@ public class Main extends Application{
          * Populate the Editor User page
          */
 
-        EditorPane editor_layout = new EditorPane(primaryStage);
+        //view.EditorPane editor_layout = new view.EditorPane(primaryStage);
 
-        editor_scene = new Scene(editor_layout.getPane(), 600, 800);
+        //editor_scene = new Scene(editor_layout.getPane(), 600, 800);
 
 
 
