@@ -40,12 +40,18 @@ public class DataStore implements Serializable {
 	 * serialization and deserialization code adapted from 
 	 * https://www.geeksforgeeks.org/object-graph-java-serialization/
 	 */	
-	public static DataStore load()  throws Exception {
-		FileInputStream fis = new FileInputStream("serialized.database"); 
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		
-		DataStore db = (DataStore) ois.readObject();
-		
-		return db;
+	public static DataStore load() {
+		try {
+			FileInputStream fis = new FileInputStream("serialized.database"); 
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			DataStore db = (DataStore) ois.readObject();
+			
+			return db;
+		}
+		catch(Exception e) {
+			//TODO: This is terrible and should never have existed.
+			return new DataStore();
+		}
 	}
 }

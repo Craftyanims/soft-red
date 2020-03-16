@@ -1,3 +1,4 @@
+package view;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,11 +20,14 @@ import java.io.OutputStream;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 
-class ResearcherPane extends StackPane{
+public class ResearcherPane extends BasePane {
     private StackPane pane;
     private File entry;
     private Label fileDir;
     public ResearcherPane(Stage ps){
+    	super(ps, "Researcher Pane");
+    	
+    	
         pane = new StackPane();
 
         Label researcher_l = new Label("Researcher");
@@ -38,6 +42,8 @@ class ResearcherPane extends StackPane{
         addChild(cb);
         
         addChild(researcher_l);
+        
+        this.setCenter(pane);
     }
 
     private void addChild(Node child){

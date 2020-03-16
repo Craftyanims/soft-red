@@ -9,11 +9,11 @@ import java.util.List;
 public class University implements Serializable {
 
 	public String name;
-	public List<Journal> journals;
+	public ArrayList<Journal> journals;
 	
-	public List<Administrator> administrators;
+	public ArrayList<Administrator> administrators;
 	
-	public List<Reviewer> reviewers;
+	public ArrayList<Reviewer> reviewers;
 	
 	public University(String name) {
 		this.name = name;
