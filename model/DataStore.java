@@ -11,11 +11,22 @@ public class DataStore implements Serializable {
 	public University university; 
 	
 	
-	
-	public int myMethod() {
+	public DataStore() {
 		
-		return 3;
+		//Create some hard-coded data to allow the datastore to work
+		
+		University uni = new University("University of Calgary");
+		
+		this.university = uni;
+		
+		
+		Journal mainJournal = new Journal("The main, hard-coded journal");
+		this.university.addJournal(mainJournal);
+		
+		
+		
 	}
+	
 	
 
 	/**
