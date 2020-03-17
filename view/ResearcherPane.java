@@ -6,8 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.DataStore;
+import model.Reviewer;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
 import java.io.File;
@@ -16,34 +21,64 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 
 public class ResearcherPane extends BasePane {
-    private StackPane pane;
+    private Pane pane;
+    private Pane pane2;
     private File entry;
     private Label fileDir;
     public ResearcherPane(Stage ps){
     	super(ps, "Researcher Pane");
     	
     	
-        pane = new StackPane();
+        pane = new VBox();
+        pane2 = new HBox();
+        
 
         Label researcher_l = new Label("Researcher");
         researcher_l.setTranslateY(-300);
 
         createSubmission(ps);
+        DataStore test = new DataStore();
+        test.serialize();
+        
+        DataStore db = DataStore.load();  
+        ArrayList<Reviewer> reviewers = db.university.reviewers;
+        //ArrayList<String> names = new ArrayList<String>();
 
-        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
+
+       // ChoiceBox cb = new ChoiceBox();
+       // for(Reviewer r : reviewers) {
+         //      cb.getItems().add(r.name);
+        //}
+        
+       // ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
+        	//    "First", "Second", "Third")
+        //	);
+        //in choicebox get list of reviewers or make a function to get reviewers
+        
+        ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
         	    "First", "Second", "Third")
         	);
         
-        addChild(cb);
+       ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
+        	    "First", "Second", "Third")
+        	);
         
-        addChild(researcher_l);
+   //     addChild(cb);
+        addChild(cb1);
+        addChild(cb2);
+      //  addChild(researcher_l);
         
         this.setCenter(pane);
+       // this.setCenter(cb);
+      // this.setRight(cb1);
+        
+        
     }
 
     private void addChild(Node child){
@@ -53,8 +88,8 @@ public class ResearcherPane extends BasePane {
 
     public void createSubmission(Stage ps){
         Button findBtn = new Button("open file");
-        findBtn.setTranslateY(-100);
-        findBtn.setTranslateX(200);
+      //  findBtn.setTranslateY(-100);
+      //  findBtn.setTranslateX(200);
         // TODO: set this to have logic based on the account given as input
         findBtn.setOnAction(e -> {
             entry = selectFile(ps);
@@ -73,12 +108,15 @@ public class ResearcherPane extends BasePane {
         fileDir = new Label("select a pdf file");
 
 
-        fileDir.setTranslateY(-100);
+       // fileDir.setTranslateY(-100);
 
-        addChild(fileDir);
-        addChild(findBtn);
-        addChild(submitBtn);
-
+      //  addChild(fileDir);
+        //addChild(findBtn);
+        //addChild(submitBtn);
+        pane2.getChildren().addAll(fileDir);
+        pane2.getChildren().addAll(findBtn);
+        pane2.getChildren().addAll(submitBtn);
+        addChild(pane2);
     }
 
     //    private void saveFile(File file){
@@ -135,7 +173,7 @@ public class ResearcherPane extends BasePane {
         }
     }
 
-    public StackPane getPane(){
+    public Pane getPane(){
         return pane;
     }
 
