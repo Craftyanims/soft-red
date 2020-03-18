@@ -40,7 +40,9 @@ public class User implements Serializable {
 	 * @return
 	 */
 	private byte[] generatePasswordHash(String password, byte[] salt) throws Exception {
-		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+		
+		// 100 iterations is NOT ENOUGH. But for debugging purposes on laptops we're keeping this artificially low. (It caused an issue with my debugging)
+		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 100, 128);
 		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		byte[] hash = factory.generateSecret(spec).getEncoded();
 		

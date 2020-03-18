@@ -1,6 +1,7 @@
 package view;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ public class NavigationPane extends VBox {
 		links.put("Researcher", ResearcherPane.class);
 		links.put("Reviewer", ReviewerPane.class);
 		links.put("Editor", EditorPane.class);
+		links.put("Administrator", AdministratorPane.class);
 		
 		links.forEach((name, pane) -> {
 			Button button = new Button(name);
@@ -34,10 +36,24 @@ public class NavigationPane extends VBox {
 					primaryStage.setScene(newScene);
 			        //primaryStage.show();	
 				}
-				catch(Exception exception) {
+				catch(NoSuchMethodException exception) {
 					// Swallowing exceptions is bad but I think it is impossible for a
 					// subclass of Pane not to have a constructor that takes a Stage object.
 					// Which would make this safe to do...
+				}
+				catch(InvocationTargetException exception) {
+					// Swallowing exceptions is bad but I think it is impossible for a
+					// subclass of Pane not to have a constructor that takes a Stage object.
+					// Which would make this safe to do...
+				} catch (InstantiationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalArgumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				
 	        });
