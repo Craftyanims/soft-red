@@ -9,11 +9,14 @@ import java.util.List;
 public class University implements Serializable {
 
 	public String name;
+	
 	public ArrayList<Journal> journals;
 	
 	public ArrayList<Administrator> administrators;
 	
 	public ArrayList<Reviewer> reviewers;
+	
+	public ArrayList<Researcher> researchers;
 	
 	public University(String name) {
 		this.name = name;
@@ -21,6 +24,7 @@ public class University implements Serializable {
 		this.journals = new ArrayList<Journal>();
 		this.administrators = new ArrayList<Administrator>();
 		this.reviewers = new ArrayList<Reviewer>();
+		this.researchers = new ArrayList<Researcher>();
 	}
 	
 	public void addJournal(Journal journal) {
@@ -28,4 +32,6 @@ public class University implements Serializable {
 		
 		journal.owningUniversity = this;
 	}
+	
+	
 }
