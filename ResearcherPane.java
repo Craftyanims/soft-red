@@ -47,15 +47,19 @@ class ResearcherPane extends StackPane{
         Button submitBtn = new Button("submit");
 
         submitBtn.setOnAction(e -> {
-            System.out.println("saving. . .");
+            System.out.println("process of submitting . . .");
             try{
                 saveFile(entry);
+                System.out.println("- submission complete -");
             }catch (IOException error){
+                System.out.println("-!- SUBMISSION FAILED -!-");
                 error.printStackTrace();
+                System.out.println("-!- SUBMISSION FAILED -!-");
             }
         });
 
         fileDir = new Label("select a pdf file");
+
 
 
         fileDir.setTranslateY(-100);
