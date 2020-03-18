@@ -13,8 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import view.JournalListPane;
-import view.ResearcherPane;
+import view.*;
 
 public class Main extends Application{
 
@@ -79,10 +78,10 @@ public class Main extends Application{
 
 
 
-        primaryStage.setScene(login_scene);
-        primaryStage.show();
-        
-        
+//        primaryStage.setScene(login_scene);
+//        primaryStage.show();
+//
+        System.out.println("starting . . . ");
         //TEMP
         JournalListPane jlp = new JournalListPane(primaryStage);
         Scene journalListScene = new Scene(jlp, 600, 600);

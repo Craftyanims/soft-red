@@ -39,18 +39,26 @@ public class JournalListPane extends BasePane {
 
     public JournalListPane(Stage stage) {
         super(stage, "Journal List Page");
+        System.out.println("Journal List Pane");
         this.stage = stage;
 
-        ArrayList<model.Journal> journals = createFakeJournals();
 
+        VBox contentPane = createPane(null);
+        this.setCenter(contentPane);
+
+    }
+
+    public VBox createPane(ArrayList<model.Journal> journals){
         VBox contentPane = new VBox();
-
+        if(journals == null){
+            journals = createFakeJournals();
+        }
         for (int i = 0; i < journals.size(); i++) {
             Pane journalBox = generateJournalListItem(journals.get(i));
             journalBox.setStyle("-fx-background-color: pink; -fx-padding: 10px;");
             contentPane.getChildren().addAll(journalBox);
         }
-        this.setCenter(contentPane);
+        return contentPane;
     }
 
     public Pane generateJournalListItem(model.Journal journal) {

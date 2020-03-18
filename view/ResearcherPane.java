@@ -1,4 +1,5 @@
 package view;
+import model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -100,6 +101,8 @@ public class ResearcherPane extends BasePane {
             System.out.println("saving. . .");
             try{
                 saveFile(entry);
+                System.out.println("Complete!");
+
             }catch (IOException error){
                 error.printStackTrace();
             }
@@ -135,6 +138,10 @@ public class ResearcherPane extends BasePane {
         folder.mkdirs();
 
         File dest = new File("All Journals\\NAME_"+source.getName());
+        DataStore db = new DataStore();
+        University u = db.load().university;
+        u.journals.add(new Journal(source.getName()));
+        db.serialize();
         //boolean b = dest.mkdirs();
 
         InputStream is = null;
