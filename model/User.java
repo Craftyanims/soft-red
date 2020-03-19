@@ -18,8 +18,16 @@ public class User implements Serializable {
 	public User(String name, String password) throws Exception {
 		this.name = name;
 		
-		this.salt = generatePasswordSalt();
-		this.hashedPassword = generatePasswordHash(password, this.salt);
+		setPassword(password);
+		
+		assignUserId();
+	}
+	
+	private void assignUserId() {
+		DataStore db = DataStore.load();
+		this.id = db.nextUserId;
+		db.nextUserId++;
+		db.serialize();
 	}
 	
 	private byte[] generatePasswordSalt() {
@@ -56,5 +64,9 @@ public class User implements Serializable {
 		return Arrays.equals(this.hashedPassword, hashToCheck);
 	}
 	
+	public void setPassword(String password) throws Exception {
+		this.salt = generatePasswordSalt();
+		this.hashedPassword = generatePasswordHash(password, this.salt);
+	}
 	
 }
