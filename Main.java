@@ -3,6 +3,7 @@
  * Created for SENG 300 at The University of Calgary during the winter semester of 2020
  */
 
+import global.Navigation;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +26,8 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) {
+    	Navigation.setPrimaryStage(primaryStage);
+    	
         primaryStage.setTitle("Journal Submission System");
 
         /*
