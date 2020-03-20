@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 
+import global.Navigation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -21,6 +22,7 @@ import java.nio.file.Files;
 import java.io.File;
 import java.io.IOException;
 
+import model.DataStore;
 import model.Journal;
 
 public class JournalListPane extends BasePane {
@@ -42,8 +44,9 @@ public class JournalListPane extends BasePane {
         System.out.println("Journal List Pane");
         this.stage = stage;
 
-
-        VBox contentPane = createPane(null);
+        DataStore db = DataStore.load();
+        
+        VBox contentPane = createPane(db.university.journals);
         this.setCenter(contentPane);
 
     }
@@ -58,6 +61,14 @@ public class JournalListPane extends BasePane {
             journalBox.setStyle("-fx-background-color: pink; -fx-padding: 10px;");
             contentPane.getChildren().addAll(journalBox);
         }
+        
+        
+        // Insert the "add new journal" button
+        Button newJournal = new Button("New Journal");
+        newJournal.setOnAction(event -> Navigation.navigate(NewJournalPane.class));
+        
+        contentPane.getChildren().add(newJournal);
+        
         return contentPane;
     }
 
