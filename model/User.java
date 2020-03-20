@@ -69,4 +69,8 @@ public class User implements Serializable {
 		this.hashedPassword = generatePasswordHash(password, this.salt);
 	}
 	
+	public String toString() {
+		return this.name;
+	}
+	
 }
