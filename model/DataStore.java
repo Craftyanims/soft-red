@@ -98,5 +98,24 @@ public class DataStore implements Serializable {
 		
 	}
 	
+	/*
+	 * Remove a researcher from the main universities pool of users
+	 * by user id of researcher
+	 */
+	public static void removeResearcher(Researcher researcherToRemove) {
+		DataStore db = DataStore.load();
+		ArrayList<Researcher> researchers = db.university.researchers;
+		
+		// Loop through the reviewers and remove the one with the matching user id
+		for(Researcher researcher : researchers) {
+			if(researcher.id == researcherToRemove.id) {
+				researchers.remove(researcher);
+				db.serialize();
+				break;
+			}
+		}
+		
+	}
+	
 	
 }
