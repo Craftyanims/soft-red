@@ -117,5 +117,24 @@ public class DataStore implements Serializable {
 		
 	}
 	
+	/*
+	 * Remove a editor from the main universities pool of users
+	 * by user id of editor
+	 */
+	public static void removeEditor(Editor editorToRemove) {
+		DataStore db = DataStore.load();
+		ArrayList<Editor> editors = db.university.editors;
+		
+		// Loop through the editors and remove the one with the matching user id
+		for(Editor editor: editors) {
+			if(editor.id == editorToRemove.id) {
+				editors.remove(editor);
+				db.serialize();
+				break;
+			}
+		}
+		
+	}
+	
 	
 }

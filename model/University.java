@@ -18,6 +18,8 @@ public class University implements Serializable {
 	
 	public ArrayList<Researcher> researchers;
 	
+	public ArrayList<Editor> editors;
+	
 	public University(String name) {
 		this.name = name;
 		
@@ -25,6 +27,7 @@ public class University implements Serializable {
 		this.administrators = new ArrayList<Administrator>();
 		this.reviewers = new ArrayList<Reviewer>();
 		this.researchers = new ArrayList<Researcher>();
+		this.editors = new ArrayList<Editor>();
 	}
 	
 	public void addJournal(Journal journal) {

@@ -49,8 +49,11 @@ public class AdministratorPane extends BasePane {
 		
 		ResearcherListPane researcherListPane = new ResearcherListPane(db.university.researchers, "Researcher List");
 		
+		EditorListPane editorListPane = new EditorListPane(db.university.editors, "Editor List");
+		
 		mainPane.getChildren().add(reviewerListpane);
 		mainPane.getChildren().add(researcherListPane);
+		mainPane.getChildren().add(editorListPane);
 	}
 	
 	
