@@ -32,6 +32,7 @@ public class ResearcherPane extends BasePane {
     private Pane pane2;
     private File entry;
     private Label fileDir;
+    private Label pickR;
     public ResearcherPane(Stage ps){
     	super(ps, "Researcher Pane");
     	
@@ -63,19 +64,30 @@ public class ResearcherPane extends BasePane {
         ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
         	    "First", "Second", "Third")
         	);
-        
+        cb1.setTranslateY(120);
+        cb1.setTranslateX(275);
        ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
         	    "First", "Second", "Third")
         	);
-        
-   //     addChild(cb);
+       cb2.setTranslateY(140);
+       cb2.setTranslateX(275);
+       ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
+       	    "First", "Second", "Third")
+       	);
+       cb3.setTranslateY(160);
+       cb3.setTranslateX(275);
+ 
+   
+       
         addChild(cb1);
         addChild(cb2);
-      //  addChild(researcher_l);
+        addChild(cb3);
+      //  addChild(pickR);
+       // addChild(assignBtn);
+       // addChild(researcher_l);
         
         this.setCenter(pane);
-       // this.setCenter(cb);
-      // this.setRight(cb1);
+   
         
         
     }
@@ -87,14 +99,17 @@ public class ResearcherPane extends BasePane {
 
     public void createSubmission(Stage ps){
         Button findBtn = new Button("open file");
-      //  findBtn.setTranslateY(-100);
-      //  findBtn.setTranslateX(200);
+        findBtn.setTranslateY(100);
+        findBtn.setTranslateX(200);
         // TODO: set this to have logic based on the account given as input
         findBtn.setOnAction(e -> {
             entry = selectFile(ps);
         });
         Button submitBtn = new Button("submit");
+        submitBtn.setTranslateY(100);
+        submitBtn.setTranslateX(220);
 
+        
         submitBtn.setOnAction(e -> {
             System.out.println("saving. . .");
             try{
@@ -105,18 +120,25 @@ public class ResearcherPane extends BasePane {
                 error.printStackTrace();
             }
         });
+        pickR = new Label("select a researcher");
+        pickR.setTranslateY(200);
+        pickR.setTranslateX(-90);
+        
+        Button assignBtn = new Button("assign");
+        assignBtn.setTranslateY(270);
+        assignBtn.setTranslateX(200);
 
         fileDir = new Label("select a pdf file");
-
-
-       // fileDir.setTranslateY(-100);
-
+         fileDir.setTranslateY(105);
+         fileDir.setTranslateX(120);
       //  addChild(fileDir);
         //addChild(findBtn);
         //addChild(submitBtn);
         pane2.getChildren().addAll(fileDir);
         pane2.getChildren().addAll(findBtn);
         pane2.getChildren().addAll(submitBtn);
+        pane2.getChildren().addAll(assignBtn);
+        pane2.getChildren().addAll(pickR);
         addChild(pane2);
     }
 
