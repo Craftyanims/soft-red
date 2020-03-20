@@ -33,7 +33,7 @@ public class AdministratorPane extends BasePane {
 		
 		this.primaryStage = stage;
 		
-		this.mainPane = new Pane();
+		this.mainPane = new VBox();
 		
 		displayReviewers();
 		
@@ -45,9 +45,12 @@ public class AdministratorPane extends BasePane {
 		// Re-load db because a new user could have been created since.
 		this.db = DataStore.load();
 		
-		ReviewerListPane rlp = new ReviewerListPane(db.university.reviewers, "Reviewer List");
+		ReviewerListPane reviewerListpane = new ReviewerListPane(db.university.reviewers, "Reviewer List");
 		
-		mainPane.getChildren().add(rlp);
+		ResearcherListPane researcherListPane = new ResearcherListPane(db.university.researchers, "Researcher List");
+		
+		mainPane.getChildren().add(reviewerListpane);
+		mainPane.getChildren().add(researcherListPane);
 	}
 	
 	
