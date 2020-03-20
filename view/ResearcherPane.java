@@ -44,8 +44,6 @@ public class ResearcherPane extends BasePane {
         researcher_l.setTranslateY(-300);
 
         createSubmission(ps);
-        DataStore test = new DataStore();
-        test.serialize();
         
         DataStore db = DataStore.load();  
         ArrayList<Reviewer> reviewers = db.university.reviewers;
