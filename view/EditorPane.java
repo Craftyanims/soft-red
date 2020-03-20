@@ -92,20 +92,20 @@ public class   EditorPane extends BasePane {
     };
 
     public void createSubmission(Stage ps){
-        Button findBtn = new Button("open file");
+        Button findBtn = new Button("Open File");
         findBtn.setTranslateY(100);
         findBtn.setTranslateX(200);
         // TODO: set this to have logic based on the account given as input
         findBtn.setOnAction(e -> {
             entry = selectFile(ps);
         });
-        Button submitBtn = new Button("submit");
+        Button submitBtn = new Button("Submit");
         submitBtn.setTranslateY(100);
-        submitBtn.setTranslateX(220);
+        submitBtn.setTranslateX(250);
 
         
         submitBtn.setOnAction(e -> {
-            System.out.println("saving. . .");
+            System.out.println("Saving. . .");
             try{
                 saveFile(entry);
                 System.out.println("Complete!");
@@ -114,17 +114,17 @@ public class   EditorPane extends BasePane {
                 error.printStackTrace();
             }
         });
-        pickR = new Label("select a Reviewer");
-        pickR.setTranslateY(200);
-        pickR.setTranslateX(-90);
+        pickR = new Label("Select a Reviewer");
+        pickR.setTranslateY(150);
+        pickR.setTranslateX(-126);
         
-        Button assignBtn = new Button("assign");
-        assignBtn.setTranslateY(270);
-        assignBtn.setTranslateX(200);
+        Button assignBtn = new Button("Assign");
+        assignBtn.setTranslateY(236);
+        assignBtn.setTranslateX(195);
 
-        fileDir = new Label("select a pdf file");
+        fileDir = new Label("Select a PDF File");
          fileDir.setTranslateY(105);
-         fileDir.setTranslateX(120);
+         fileDir.setTranslateX(132);
    
         
         pane2.getChildren().addAll(fileDir);
