@@ -1,11 +1,26 @@
 package view;
 
 import javafx.stage.Stage;
-import model.Journal;
+import java.util.ArrayList;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import model.Journal;
+import model.DataStore;
 public class JournalItemPage extends BasePane {
 
 	private Journal journal;
+	private model.DataStore db;
+	private Stage primaryStage;
+	private Pane mainPane;
 	
 	public JournalItemPage(Stage stage, String title, Journal journal) {
 		super(stage, title);
@@ -22,4 +37,5 @@ public class JournalItemPage extends BasePane {
 		mainPane.getChildren().add(journalListpane);
 		
 
+}
 }
