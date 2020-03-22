@@ -137,5 +137,24 @@ public class DataStore implements Serializable {
 		
 	}
 	
+	/*
+	 * Remove a journal from the main universities pool of journals
+	 * by id of journal
+	 */
+	public static void removeJournal(Journal journalToRemove) {
+		DataStore db = DataStore.load();
+		ArrayList<Journal> journals = db.university.journals;
+		
+		// Loop through the journals and remove the one with the matching id
+		for(Journal journal: journals) {
+			if(journal.id == journalToRemove.id) {
+				journals.remove(journal);
+				db.serialize();
+				break;
+			}
+		}
+		
+	}
+	
 	
 }
