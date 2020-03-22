@@ -12,5 +12,14 @@ public class JournalItemPage extends BasePane {
 		this.journal = journal;
 		// TODO Auto-generated constructor stub
 	}
+	
+	private void displayJournals() {
+		// Re-load db because a new user could have been created since.
+		this.db = DataStore.load();
+		
+		JournalListPane journalListpane = new JournalListPane(db.university.journals, "Journal List");
+		
+		mainPane.getChildren().add(journalListpane);
+		
 
 }
