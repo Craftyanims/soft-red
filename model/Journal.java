@@ -12,6 +12,7 @@ public class Journal  implements Serializable {
 	public List<Paper> papers;
 	
 	public University owningUniversity;
+	public Object id;
 	
 	public Journal(String name) {
 		this.name = name;

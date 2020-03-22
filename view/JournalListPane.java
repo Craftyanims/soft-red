@@ -21,6 +21,7 @@ public class JournalListPane extends GridPane {
     
     private ArrayList<Journal> journals;
     private int currentRow = 0;
+	private String title;
     
   //  private Stage stage;
 
@@ -51,7 +52,11 @@ public class JournalListPane extends GridPane {
 		buildJournalList();
 	}
     
-    	private void buildJournalList() {
+    	public JournalListPane(Stage ps) {
+		// TODO Auto-generated constructor stub
+	}
+
+		private void buildJournalList() {
 		Label title = new Label(this.title);
 		title.setFont(new Font(30));
 		this.add(title, 0, currentRow, 4, 1);
@@ -177,4 +182,9 @@ public class JournalListPane extends GridPane {
 
         return container;
     }
+
+	public Pane createPane(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
