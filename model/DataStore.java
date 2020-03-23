@@ -71,7 +71,7 @@ public class DataStore implements Serializable {
 			catch(Exception e) {
 				//TODO: This is terrible and should never have existed.
 				e.printStackTrace();
-				DataStore db =new DataStore();
+				DataStore db = new DataStore();
 				db.serialize();
 				return db;
 			}

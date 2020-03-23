@@ -1,4 +1,6 @@
 package view;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,6 +25,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
@@ -30,6 +35,7 @@ import javafx.scene.control.ChoiceBox;
 public class   EditorPane extends BasePane {
     private Pane pane;
     private Pane pane2;
+    private Pane pane3;
     private File entry;
     private Label fileDir;
     private Label pickR;
@@ -39,12 +45,14 @@ public class   EditorPane extends BasePane {
     	
         pane = new VBox();
         pane2 = new HBox();
+        pane3 = new HBox();
         
 
         Label researcher_l = new Label("Editor");
         researcher_l.setTranslateY(-300);
 
         createSubmission(ps);
+        setDeadline(ps);
         
         DataStore db = DataStore.load();  
         ArrayList<Reviewer> reviewers = db.university.reviewers;
@@ -73,8 +81,8 @@ public class   EditorPane extends BasePane {
        	);
        cb3.setTranslateY(160);
        cb3.setTranslateX(275);
- 
-   
+
+
        
         addChild(cb1);
         addChild(cb2);
@@ -89,7 +97,7 @@ public class   EditorPane extends BasePane {
     private void addChild(Node child){
         pane.getChildren().addAll(child);
 
-    };
+    }
 
     public void createSubmission(Stage ps){
         Button findBtn = new Button("Open File");
@@ -114,6 +122,7 @@ public class   EditorPane extends BasePane {
                 error.printStackTrace();
             }
         });
+
         pickR = new Label("Select a Reviewer");
         pickR.setTranslateY(150);
         pickR.setTranslateX(-126);
@@ -181,6 +190,105 @@ public class   EditorPane extends BasePane {
             return null;
         }
     }
+
+    private void setDeadline(Stage ps) {
+        TextField deadlineTF = new TextField("yyyy-mm-dd");
+        deadlineTF.setTranslateX(198);
+        deadlineTF.setTranslateY(330);
+
+        Label selectJournalL = new Label("Set journal deadline");
+        selectJournalL.setTranslateX(138);
+        selectJournalL.setTranslateY(300);
+
+        ChoiceBox selectDeadlineCB = new ChoiceBox();
+        selectDeadlineCB.setTranslateX(-210);
+        selectDeadlineCB.setTranslateY(360);
+
+        DataStore db = DataStore.load();
+        ArrayList<Journal> journalList = db.university.journals;
+
+        ChoiceBox selectJournalCB = new ChoiceBox();
+        selectJournalCB.setTranslateX(80);
+        selectJournalCB.setTranslateY(300);
+        for (Journal journal : journalList) {
+            selectJournalCB.getItems().add(journal.name);
+        }
+
+        selectJournalCB.getSelectionModel().selectedIndexProperty().addListener(e -> {
+            // Checks if the selected journal has been changed
+
+            //find chosen journal
+            Journal index = null;
+            for (Journal journal : journalList) {
+                if (journal.name == selectJournalCB.getValue()) {
+                    index = journal;
+                }
+            }
+
+            selectDeadlineCB.setItems(null);
+            if (index != null && index.deadlines != null) {
+                for (String deadline : index.deadlines) {
+                    selectDeadlineCB.getItems().add(deadline);
+                }
+            }
+        });
+
+        Button deadlineB = new Button("Add deadline");
+        deadlineB.setTranslateX(50);
+        deadlineB.setTranslateY(330);
+
+        deadlineB.setOnAction(e -> {
+            if (isValidDate(deadlineTF.getText())) {
+                //TODO : this is a mess, there should be a better way of finding the index
+                for (Journal journal : journalList) {
+                    if (journal.name == selectJournalCB.getValue()) {
+                        journal.deadlines.add(deadlineTF.getText());
+                        db.serialize();
+
+                        //refresh deadlines choice box
+                        selectDeadlineCB.setItems(null);
+                        for (String deadline : journal.deadlines) {
+                            selectDeadlineCB.getItems().add(deadline);
+                        }
+                    }
+                }
+            } else {
+                //TODO : send error message to user
+            }
+        });
+
+        Button deadlineDeleteB = new Button("Remove deadline");
+        deadlineDeleteB.setTranslateX(0);
+        deadlineDeleteB.setTranslateY(360);
+
+        deadlineDeleteB.setOnAction(e -> {
+            for (Journal journal : journalList) {
+                if (journal.name == selectJournalCB.getValue()) {
+                    journal.deadlines.remove(selectDeadlineCB.getValue());
+                    db.serialize();
+
+                    //refresh deadlines choice box
+                    selectDeadlineCB.setItems(null);
+                    for (String deadline : journal.deadlines) {
+                        selectDeadlineCB.getItems().add(deadline);
+                    }
+                }
+            }
+        });
+
+        //TODO : sort deadlines by date before saving them to database
+
+        pane3.getChildren().addAll(selectJournalL, deadlineTF, selectJournalCB,
+                deadlineB, deadlineDeleteB, selectDeadlineCB);
+        addChild(pane3);
+    }
+
+
+    private boolean isValidDate(String aDate) {
+        // Makes sure the date is in the correct format
+        return Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", "aDate");
+    }
+
 
     public Pane getPane(){
         return pane;
