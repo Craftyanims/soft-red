@@ -74,7 +74,8 @@ public class NewJournalPane extends BasePane {
 			this.db.university.journals.add(journal);
 			this.db.serialize();
 			
-			Navigation.navigate(JournalListPane.class);
+			FrontPane fp = new FrontPane(Navigation.primaryStage, "Front Page");
+			Navigation.navigate(fp);
 		}
 		catch(Exception e) {
 			// TODO: proper error handling

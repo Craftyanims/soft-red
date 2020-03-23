@@ -32,9 +32,9 @@ public class JournalItemPage extends BasePane {
 		// Re-load db because a new user could have been created since.
 		this.db = DataStore.load();
 		
-		JournalListPane journalListpane = new JournalListPane(db.university.journals, "Journal List");
+		FrontPane frontPane = new FrontPane(primaryStage, "Front Page");
 		
-		mainPane.getChildren().add(journalListpane);
+		mainPane.getChildren().add(frontPane);
 		
 
 }

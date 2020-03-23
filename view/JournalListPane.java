@@ -52,11 +52,13 @@ public class JournalListPane extends GridPane {
 		buildJournalList();
 	}
     
-    	public JournalListPane(Stage ps) {
+
+		public JournalListPane(Stage ps) {
 		// TODO Auto-generated constructor stub
 	}
 
-		private void buildJournalList() {
+
+	private void buildJournalList() {
 		Label title = new Label(this.title);
 		title.setFont(new Font(30));
 		this.add(title, 0, currentRow, 4, 1);
@@ -146,7 +148,7 @@ public class JournalListPane extends GridPane {
 	}
 
     
-    public Pane generateJournalListItem(model.Journal journal) {
+	public Pane generateJournalListItem(model.Journal journal) {
         HBox container = new HBox();
 
         Label titleLabel = new Label(journal.name);

@@ -1,4 +1,5 @@
 package view;
+import global.Navigation;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,14 +15,8 @@ public class ReviewerPane extends BasePane {
     public ReviewerPane(Stage ps){
         super(ps, "Reviewer Pane");
         System.out.println("Reviewer Pane");
-    	JournalListPane jp = new JournalListPane(ps);
-        pane = new StackPane();
-        Pane journalList = jp.createPane(null);
-        Label reviewer_l = new Label("Reviewer");
-        pane.getChildren().addAll(reviewer_l);
-        pane.getChildren().addAll(journalList);
-
-        this.setCenter(pane);
+        FrontPane frontPane = new FrontPane(ps, "Front Page");
+        Navigation.navigate(frontPane);
     }
 
     public StackPane getPane(){
