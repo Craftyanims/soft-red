@@ -2,3 +2,7 @@
 *.xml
 *.iml
 *.class
+serialized.database
+.settings/org.eclipse.jdt.core.prefs
+.classpath
+.classpath
