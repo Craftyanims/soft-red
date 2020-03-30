@@ -38,6 +38,8 @@ public class ResearcherPane extends BasePane {
 
 	private ComboBox<Reviewer> selectedReviewer;
 	
+	private GridPane container;
+	
     	public ResearcherPane(Stage ps){
     		super(ps, "Researcher Pane");
     	
