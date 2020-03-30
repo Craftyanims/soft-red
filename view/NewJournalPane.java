@@ -44,6 +44,8 @@ public class NewJournalPane extends BasePane {
 		newJournalName = new TextField();
 		container.add(newJournalName, 1, 1);
 		
+		Label editor = new Label("Select Editor:");
+		container.add(editor, 0, 2);
 		try {
 			selectedEditor = new ComboBox<Editor>();
 			selectedEditor.getItems().addAll(this.db.university.editors);

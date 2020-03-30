@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 
 public class ResearcherPane extends BasePane {
     	private Pane pane;
@@ -38,10 +40,11 @@ public class ResearcherPane extends BasePane {
 
 	private ComboBox<Reviewer> selectedReviewer;
 	
+	private GridPane container;
     	public ResearcherPane(Stage ps){
     		super(ps, "Researcher Pane");
     	
-    		this.db = DataStore.load;
+    		this.db = DataStore.load();
        		pane = new VBox();
         	pane2 = new HBox();
         
