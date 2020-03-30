@@ -57,11 +57,16 @@ public class User implements Serializable {
 		return hash;	
 	}
 	
-	public boolean checkPassword(String passwordToCheck) throws Exception {
-		byte[] hashToCheck = generatePasswordHash(passwordToCheck, this.salt);
-		
-		// https://stackoverflow.com/a/9499597
-		return Arrays.equals(this.hashedPassword, hashToCheck);
+	public boolean checkPassword(String passwordToCheck) {
+		try {
+			byte[] hashToCheck = generatePasswordHash(passwordToCheck, this.salt);
+			// https://stackoverflow.com/a/9499597
+			return Arrays.equals(this.hashedPassword, hashToCheck);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public void setPassword(String password) throws Exception {

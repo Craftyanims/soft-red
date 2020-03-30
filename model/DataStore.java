@@ -136,5 +136,40 @@ public class DataStore implements Serializable {
 		
 	}
 	
+
+	public static User checkPasswordAndGetUser(String userName, String password) {
+		DataStore db = DataStore.load();
+		
+		// Create a list of all users
+		ArrayList<User> allUsers = new ArrayList<User>();
+		allUsers.addAll(db.university.administrators);
+		allUsers.addAll(db.university.reviewers);
+		allUsers.addAll(db.university.researchers);
+		allUsers.addAll(db.university.editors);
+		
+		User existingUser = null;
+		
+		// Search for the user by userName
+		for(User u : allUsers) {
+			if(u.name.equals(userName)) {
+				existingUser = u;
+				break;
+			}
+		}
+		
+		if(existingUser == null) {
+			return null;
+		}
+		
+		// If the user exists check if the given password matches the stored password
+		boolean isCorrectPassword = existingUser.checkPassword(password);
+		
+		if(isCorrectPassword) {
+			return existingUser;
+		}
+		else {
+			return null;
+		}
+	}
 	
 }
