@@ -12,7 +12,8 @@ public class BasePane extends BorderPane {
 		Label titleLabel = new Label(title);
 		Pane titlePane = new Pane();
 		titlePane.getChildren().addAll(titleLabel);
-		titlePane.setStyle("-fx-background-color: orange");
+		titleLabel.setStyle("-fx-text-fill: white");
+		titlePane.setStyle("-fx-background-color: #737373");
 		this.setTop(titlePane);
 		
 		
