@@ -19,22 +19,12 @@ import model.Journal;
 
 public class JournalListPane extends GridPane {
     
-    private ArrayList<Journal> journals;
-    private int currentRow = 0;
+	private ArrayList<Journal> journals;
+	private int currentRow = 0;
 	private String title;
     
-  //  private Stage stage;
-
-    //private ArrayList<model.Journal> createFakeJournals() {
-      //  ArrayList<model.Journal> fake = new ArrayList<model.Journal>();
-        //fake.add(new model.Journal("sample_1"));
-        //fake.add(new model.Journal("sample_2"));
-       // fake.add(new model.Journal("sample_3"));
-
-        //return fake;
-    //}
     
-    public JournalListPane(ArrayList<Journal> journals, String title) {
+	public JournalListPane(ArrayList<Journal> journals, String title) {
 		this.journals = journals;
 		this.title = title;
 		
@@ -53,7 +43,7 @@ public class JournalListPane extends GridPane {
 	}
     
 
-		public JournalListPane(Stage ps) {
+	public JournalListPane(Stage ps) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -129,10 +119,11 @@ public class JournalListPane extends GridPane {
         
         //return contentPane;
     //}
+	
 
-    private void displayNewJournal() {
+	private void displayNewJournal() {
 		Navigation.navigate(NewJournalPane.class);
-	}
+    	}
 	
 	private void deleteJournal(Journal j) {
 		DataStore.removeJournal(j);
@@ -183,7 +174,7 @@ public class JournalListPane extends GridPane {
         container.getChildren().addAll(titleLabel, viewButton);
 
         return container;
-    }
+    	}
 
 	public Pane createPane(Object object) {
 		// TODO Auto-generated method stub
