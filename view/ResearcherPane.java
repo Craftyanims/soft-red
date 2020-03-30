@@ -56,19 +56,19 @@ public class ResearcherPane extends BasePane {
         	DataStore db = DataStore.load();  
         	ArrayList<Reviewer> reviewers = db.university.reviewers;
        
-       		try {
-			selectedReviewer = new ComboBox<Reviewer>();
-			selectedReviewer.getItems().addAll(this.db.university.reviewers);
-			container.add(selectedReviewer, 1, 2);
-		} catch (Exception e) {
+       		//try {
+			//selectedReviewer = new ComboBox<Reviewer>();
+			//selectedReviewer.getItems().addAll(this.db.university.reviewers);
+			//container.add(selectedReviewer, 1, 2);
+		//} catch (Exception e) {
 			// TODO: Deal with this properly
-		}
+		//}
         
-        	//ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
-       		//	    "First", "Second", "Third")
-     		//	);
-        	//cb1.setTranslateY(120);
-        	//cb1.setTranslateX(275);
+        	ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
+       			    "First", reviewers)
+     			);
+        	cb1.setTranslateY(120);
+        	cb1.setTranslateX(275);
       		// ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
       		//  	    "First", "Second", "Third")
      		//  	);
