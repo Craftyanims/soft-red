@@ -90,6 +90,8 @@ public class ResearcherPane extends BasePane {
        		// addChild(researcher_l);
         
         	this.setCenter(pane);
+		
+		this.setCenter(container);
    
         
         
