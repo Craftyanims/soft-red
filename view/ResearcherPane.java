@@ -58,42 +58,31 @@ public class ResearcherPane extends BasePane {
         	DataStore db = DataStore.load();  
         	ArrayList<Reviewer> reviewers = db.university.reviewers;
        
-       		//try {
-			//selectedReviewer = new ComboBox<Reviewer>();
-			//selectedReviewer.getItems().addAll(this.db.university.reviewers);
-			//container.add(selectedReviewer, 1, 2);
-		//} catch (Exception e) {
-			// TODO: Deal with this properly
-		//}
         
         	ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
-       			    "First", reviewers)
+       			    reviewers)
      			);
         	cb1.setTranslateY(120);
         	cb1.setTranslateX(275);
-      		// ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
-      		//  	    "First", "Second", "Third")
-     		//  	);
-      		// cb2.setTranslateY(140);
-      		// cb2.setTranslateX(275);
-       		//ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
-       		//	    "First", "Second", "Third")
-       		//	);
-       		//cb3.setTranslateY(160);
-       		//cb3.setTranslateX(275);
+      		
+		ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
+      		  	    reviewers)
+     		  	);
+      		cb2.setTranslateY(140);
+      		cb2.setTranslateX(275);
+       		
+		ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
+       			    reviewers)
+       			);
+       		cb3.setTranslateY(160);
+       		cb3.setTranslateX(275);
  
-   
-       
-       		// addChild(cb1);
-       		// addChild(cb2);
-       		// addChild(cb3);
-      		//  addChild(pickR);
-       		// addChild(assignBtn);
-       		// addChild(researcher_l);
+       		addChild(cb1);
+       		addChild(cb2);
+       		addChild(cb3);
+      		
         
         	this.setCenter(pane);
-		
-		this.setCenter(container);
    
         
         
