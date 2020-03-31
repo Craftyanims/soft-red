@@ -58,18 +58,18 @@ public class   EditorPane extends BasePane {
         
         
         ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
-        	    "First", "Reviewers")
+        	    reviewers)
         	);
         cb1.setTranslateY(120);
         cb1.setTranslateX(275);
         
        ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
-        	    "Second", "Reviewers")
+        	    reviewers)
         	);
        cb2.setTranslateY(140);
        cb2.setTranslateX(275);
        ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
-       	    "Third", "Reviewers" )
+       	        reviewers)
        	);
        cb3.setTranslateY(160);
        cb3.setTranslateX(275);
