@@ -68,7 +68,8 @@ public class JournalListPane extends GridPane {
 				Button edit = new Button("Edit");
 				edit.setOnAction(event -> editJournal(j));
 				
-				//Button view = new Button("View");
+				Button view = new Button("View");
+				view.setOnAction(event -> viewJournal(j));
 				
 				Button delete = new Button("Delete");
 				delete.setOnAction(event -> deleteJournal(j));
@@ -136,6 +137,13 @@ public class JournalListPane extends GridPane {
 		Pane editPane = new EditJournalPane(Navigation.primaryStage, j);
 		
 		Navigation.navigate(editPane);
+	}
+	
+	private void viewJournal(Journal j) {
+		
+		Pane viewItems = new JournalItemPage(Navigation.primaryStage, j);
+		
+		Navigation.navigate(viewItems);
 	}
 
     
