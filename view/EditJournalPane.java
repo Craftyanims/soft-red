@@ -18,6 +18,8 @@ public class EditJournalPane extends BasePane {
 	
 	private TextField updateJournalName;
 	
+	private ComboBox<Editor> selectedEditor;
+	
 	private GridPane container;
 	
 	private Journal journal;
