@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.DataStore;
 import view.*;
 
 public class Main extends Application{
@@ -86,9 +87,9 @@ public class Main extends Application{
 //
         System.out.println("starting . . . ");
         //TEMP
-        JournalListPane jlp = new JournalListPane(primaryStage);
-        Scene journalListScene = new Scene(jlp, 600, 600);
-        primaryStage.setScene(journalListScene);
+        FrontPane frontPage = new FrontPane(primaryStage, "Front Page");
+        Scene scene = new Scene(frontPage, 600, 600);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

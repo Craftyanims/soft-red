@@ -19,7 +19,7 @@ public class NavigationPane extends VBox {
 	private HashMap<String, Class<? extends Pane>> links = new HashMap<String, Class<? extends Pane>> ();
 	
 	public NavigationPane(Stage primaryStage)  {
-		links.put("Journal List", JournalListPane.class);
+		links.put("Journal List", FrontPane.class);
 		links.put("Login", LoginPane.class);
 		links.put("Researcher", ResearcherPane.class);
 		links.put("Reviewer", ReviewerPane.class);
@@ -32,7 +32,7 @@ public class NavigationPane extends VBox {
 			button.setOnAction(event -> {
                     try {
 						Navigation.navigate(pane);
-					} catch (Exception e) {
+                    } catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

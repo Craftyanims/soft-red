@@ -6,29 +6,30 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.DataStore;
 import model.Editor;
 import model.Journal;
-import model.Researcher;
-import model.Reviewer;
 
-public class NewJournalPane extends BasePane {
+public class EditJournalPane extends BasePane {
 
 	private model.DataStore db;
 	
-	private TextField newJournalName;
+	private TextField updateJournalName;
+	
 	private ComboBox<Editor> selectedEditor;
 	
 	private GridPane container;
 	
-	public NewJournalPane(Stage stage) {
-		super(stage, "New Journal Form");
+	private Journal journal;
+	
+	public EditJournalPane(Stage stage, Journal journal) {
+		super(stage, "Edit Journal Form");
 		
 		this.db = DataStore.load();
+		this.journal = journal;
 		
 		//https://docs.oracle.com/javafx/2/get_started/form.htm
 		container = new GridPane();
@@ -41,8 +42,8 @@ public class NewJournalPane extends BasePane {
 		Label name = new Label("Journal Name:");
 		container.add(name, 0, 1);
 		
-		newJournalName = new TextField();
-		container.add(newJournalName, 1, 1);
+		updateJournalName = new TextField(this.journal.name);
+		container.add(updateJournalName, 1, 1);
 		
 		Label editor = new Label("Select Editor:");
 		container.add(editor, 0, 2);
@@ -55,32 +56,28 @@ public class NewJournalPane extends BasePane {
 		}
 		
 		Button submit = new Button("Submit");
-		submit.setOnAction(event -> createNewJournal());
-		container.add(submit, 0, 3, 1, 2);
+		submit.setOnAction(event -> updateJournal());
+		container.add(submit, 0, 3, 1, 3);
 		
 		
 		this.setCenter(container);
 	}
 	
-	private void createNewJournal() {
+	private void updateJournal() {
 		//TODO: Error handling for the form
 		try {
-			String name = newJournalName.getText();
-			Editor editor = selectedEditor.getValue();
+			String name = updateJournalName.getText();
 			
+			this.journal.name = name;
 			
-			
-			Journal journal = new Journal(name);
-			journal.editor = editor;
-		
-			this.db.university.journals.add(journal);
+			//this.db.university.Journals.add(Journal);
 			this.db.serialize();
 			
-			FrontPane fp = new FrontPane(Navigation.primaryStage, "Front Page");
-			Navigation.navigate(fp);
+			Navigation.navigate(AdministratorPane.class);
 		}
 		catch(Exception e) {
 			// TODO: proper error handling
 		}
 	}
 }
+
