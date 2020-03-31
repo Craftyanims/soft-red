@@ -150,6 +150,8 @@ public class JournalListPane extends GridPane {
     		Navigation.navigate(journalPage);
         	
         });
+        
+        
 //        viewButton.setOnAction(e -> {
 //            FileChooser fileChooser = new FileChooser();
 //            fileChooser.setTitle("Save Journal");
