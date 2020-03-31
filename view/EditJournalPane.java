@@ -17,7 +17,6 @@ public class EditJournalPane extends BasePane {
 	private model.DataStore db;
 	
 	private TextField updateJournalName;
-	private PasswordField updateJournalPassword;
 	
 	private GridPane container;
 	
@@ -71,12 +70,9 @@ public class EditJournalPane extends BasePane {
 		//TODO: Error handling for the form
 		try {
 			String name = updateJournalName.getText();
-			String password = updateJournalPassword.getText();
-			
 			
 			this.journal.name = name;
-			//this.journal.setPassword(password);
-		
+			
 			//this.db.university.Journals.add(Journal);
 			this.db.serialize();
 			

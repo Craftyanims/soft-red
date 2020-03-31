@@ -127,7 +127,7 @@ public class JournalListPane extends GridPane {
 	
 	private void deleteJournal(Journal j) {
 		DataStore.removeJournal(j);
-		Navigation.navigate(JournalItemPage.class);
+		Navigation.navigate(FrontPane.class);
 	}
 	
 	private void editJournal(Journal j) {
