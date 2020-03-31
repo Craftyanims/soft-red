@@ -58,14 +58,7 @@ public class ResearcherPane extends BasePane {
         	DataStore db = DataStore.load();  
         	ArrayList<Reviewer> reviewers = db.university.reviewers;
        
-       		//try {
-			//selectedReviewer = new ComboBox<Reviewer>();
-			//selectedReviewer.getItems().addAll(this.db.university.reviewers);
-			//container.add(selectedReviewer, 1, 2);
-		//} catch (Exception e) {
-			// TODO: Deal with this properly
-		//}
-        
+
         	ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
        			   reviewers)
      			);
@@ -87,10 +80,7 @@ public class ResearcherPane extends BasePane {
        		addChild(cb1);
        		addChild(cb2);
        		addChild(cb3);
-      		//  addChild(pickR);
-       		// addChild(assignBtn);
-       		// addChild(researcher_l);
-        
+
         	this.setCenter(pane);
 
    

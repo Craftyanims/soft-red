@@ -99,21 +99,21 @@ public class   EditorPane extends BasePane {
         findBtn.setOnAction(e -> {
             entry = selectFile(ps);
         });
-        Button submitBtn = new Button("Submit");
-        submitBtn.setTranslateY(100);
-        submitBtn.setTranslateX(250);
+      //  Button submitBtn = new Button("Submit");
+      //  submitBtn.setTranslateY(100);
+      //  submitBtn.setTranslateX(250);
 
         
-        submitBtn.setOnAction(e -> {
-            System.out.println("Saving. . .");
-            try{
-                saveFile(entry);
-                System.out.println("Complete!");
+     //   submitBtn.setOnAction(e -> {
+     //       System.out.println("Saving. . .");
+     //       try{
+     //           saveFile(entry);
+     //           System.out.println("Complete!");
 
-            }catch (IOException error){
-                error.printStackTrace();
-            }
-        });
+     //       }catch (IOException error){
+     //           error.printStackTrace();
+     //       }
+     //   });
         pickR = new Label("Select a Reviewer");
         pickR.setTranslateY(150);
         pickR.setTranslateX(-126);
@@ -129,7 +129,7 @@ public class   EditorPane extends BasePane {
         
         pane2.getChildren().addAll(fileDir);
         pane2.getChildren().addAll(findBtn);
-        pane2.getChildren().addAll(submitBtn);
+   //     pane2.getChildren().addAll(submitBtn);
         pane2.getChildren().addAll(assignBtn);
         pane2.getChildren().addAll(pickR);
         addChild(pane2);
