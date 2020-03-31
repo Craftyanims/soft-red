@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.DataStore;
+import model.Editor;
 import model.Journal;
 
 public class EditJournalPane extends BasePane {
