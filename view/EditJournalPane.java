@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -54,14 +53,6 @@ public class EditJournalPane extends BasePane {
 		} catch (Exception e) {
 			// TODO: Deal with this properly
 		}
-		
-		
-//		Label password = new Label("Password:");
-	//	container.add(password, 0, 2);
-		
-//		updateJournalPassword = new PasswordField();
-//		container.add(updateJournalPassword, 1, 2);
-		
 		
 		Button submit = new Button("Submit");
 		submit.setOnAction(event -> updateJournal());
