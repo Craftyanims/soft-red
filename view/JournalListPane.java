@@ -76,8 +76,8 @@ public class JournalListPane extends GridPane {
 				
 				this.add(journalName, 0, currentRow);
 				this.add(edit, 1, currentRow);
-				//this.add(view, 2, currentRow);
-				this.add(delete, 2, currentRow);
+				this.add(view, 2, currentRow);
+				this.add(delete, 3, currentRow);
 				currentRow++;
 			}
 		}
