@@ -43,6 +43,14 @@ public class EditJournalPane extends BasePane {
 		updateJournalName = new TextField(this.journal.name);
 		container.add(updateJournalName, 1, 1);
 		
+		try {
+			selectedEditor = new ComboBox<Editor>();
+			selectedEditor.getItems().addAll(this.db.university.editors);
+			container.add(selectedEditor, 1, 2);
+		} catch (Exception e) {
+			// TODO: Deal with this properly
+		}
+		
 		
 //		Label password = new Label("Password:");
 	//	container.add(password, 0, 2);
@@ -53,7 +61,7 @@ public class EditJournalPane extends BasePane {
 		
 		Button submit = new Button("Submit");
 		submit.setOnAction(event -> updateJournal());
-		container.add(submit, 0, 3, 1, 2);
+		container.add(submit, 0, 3, 1, 3);
 		
 		
 		this.setCenter(container);
