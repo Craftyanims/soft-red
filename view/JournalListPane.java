@@ -28,6 +28,7 @@ import model.Journal;
 public class JournalListPane extends BasePane {
 
     private Stage stage;
+    private boolean canDownload = true;
 
     private ArrayList<model.Journal> createFakeJournals() {
         ArrayList<model.Journal> fake = new ArrayList<model.Journal>();
@@ -50,6 +51,18 @@ public class JournalListPane extends BasePane {
         this.setCenter(contentPane);
 
     }
+    public JournalListPane(Stage stage, boolean canDownload) {
+        super(stage, "Journal List Page");
+        System.out.println("Journal List Pane");
+        this.stage = stage;
+
+        DataStore db = DataStore.load();
+
+        VBox contentPane = createPane(db.university.journals);
+        this.setCenter(contentPane);
+        this.canDownload = canDownload;
+
+    }
 
     public VBox createPane(ArrayList<model.Journal> journals){
         VBox contentPane = new VBox();
@@ -64,11 +77,12 @@ public class JournalListPane extends BasePane {
         
         
         // Insert the "add new journal" button
-        Button newJournal = new Button("New Journal");
-        newJournal.setOnAction(event -> Navigation.navigate(NewJournalPane.class));
-        
-        contentPane.getChildren().add(newJournal);
-        
+        if(canDownload) {
+            Button newJournal = new Button("New Journal");
+            newJournal.setOnAction(event -> Navigation.navigate(NewJournalPane.class));
+
+            contentPane.getChildren().add(newJournal);
+        }
         return contentPane;
     }
 
