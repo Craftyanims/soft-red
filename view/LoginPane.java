@@ -85,7 +85,7 @@ public class LoginPane extends BasePane {
 		boolean result = Auth.login(userName, password);
 		
 		if(result) {
-			Navigation.navigate(JournalListPane.class);	
+			Navigation.navigate(FrontPane.class);	
 		}
 		else {
 			Navigation.navigate(LoginPane.class);

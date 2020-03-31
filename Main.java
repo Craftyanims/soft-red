@@ -87,8 +87,12 @@ public class Main extends Application{
 //
         System.out.println("starting . . . ");
         //TEMP
-        FrontPane frontPage = new FrontPane(primaryStage, "Front Page");
-        Scene scene = new Scene(frontPage, 600, 600);
+        //FrontPane frontPage = new FrontPane(primaryStage, "Front Page");
+        //Scene scene = new Scene(frontPage, 600, 600);
+        
+        LoginPane loginPane = new LoginPane(primaryStage);
+        Scene scene = new Scene(loginPane, 600, 600);
+        
         primaryStage.setScene(scene);
         primaryStage.show();
     }
