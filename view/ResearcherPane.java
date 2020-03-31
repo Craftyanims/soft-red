@@ -39,25 +39,25 @@ public class ResearcherPane extends BasePane {
 	private model.DataStore db;
 
 	private ComboBox<Reviewer> selectedReviewer;
-	
+
 	private GridPane container;
 
     	public ResearcherPane(Stage ps){
     		super(ps, "Researcher Pane");
-    	
+
     		this.db = DataStore.load();
        		pane = new VBox();
         	pane2 = new HBox();
-        
+
 
         	Label researcher_l = new Label("Researcher");
        		researcher_l.setTranslateY(-300);
 
         	createSubmission(ps);
-        
-        	DataStore db = DataStore.load();  
+
+        	DataStore db = DataStore.load();
         	ArrayList<Reviewer> reviewers = db.university.reviewers;
-       
+
 
         	ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
        			   reviewers)
@@ -74,18 +74,18 @@ public class ResearcherPane extends BasePane {
        			);
        		cb3.setTranslateY(160);
        		cb3.setTranslateX(275);
- 
-   
-       
+
+
+
        		addChild(cb1);
        		addChild(cb2);
        		addChild(cb3);
 
         	this.setCenter(pane);
 
-   
-        
-        
+
+
+
     	}
 
     	private void addChild(Node child){
@@ -105,7 +105,7 @@ public class ResearcherPane extends BasePane {
         	submitBtn.setTranslateY(100);
         	submitBtn.setTranslateX(250);
 
-        
+
         	submitBtn.setOnAction(e -> {
             		System.out.println("Saving. . .");
             		try{
@@ -119,7 +119,7 @@ public class ResearcherPane extends BasePane {
        		pickR = new Label("Select a Reviewer");
         	pickR.setTranslateY(150);
         	pickR.setTranslateX(-126);
-        
+
         	Button assignBtn = new Button("Request");
         	assignBtn.setTranslateY(236);
         	assignBtn.setTranslateX(195);
