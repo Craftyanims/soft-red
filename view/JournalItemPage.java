@@ -37,5 +37,5 @@ public class JournalItemPage extends BasePane {
 		mainPane.getChildren().add(frontPane);
 		
 
-}
+	}
 }
