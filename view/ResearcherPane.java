@@ -1,4 +1,5 @@
 package view;
+
 import model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import model.DataStore;
 import model.Reviewer;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -25,11 +27,26 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 
 public class ResearcherPane extends BasePane {
+
+    private BorderPane center;
+
+        
+
+
     	private Pane pane;
     	private Pane pane2;
     	private File entry;
@@ -44,6 +61,7 @@ public class ResearcherPane extends BasePane {
 
     	public ResearcherPane(Stage ps){
     		super(ps, "Researcher Pane");
+        initGUI();
 
     		this.db = DataStore.load();
        		pane = new VBox();
@@ -137,6 +155,20 @@ public class ResearcherPane extends BasePane {
         	pane2.getChildren().addAll(pickR);
         	addChild(pane2);
     	}
+  
+    public void initGUI() {
+        BorderPane bp = new BorderPane();
+        HBox bg = new HBox();
+        Image image = new Image("GUI_assets/icon_researcher.png");
+        ImageView iv = new ImageView(image);
+        iv.setFitWidth(200);
+        iv.setFitHeight(200);
+        iv.setPreserveRatio(true);
+        bg.setAlignment(Pos.BOTTOM_RIGHT);
+        bg.getChildren().add(iv);
+        bp.setRight(iv);
+        center.setBottom(bp);
+    }
 
     //    private void saveFile(File file){
 //        File dest = new File("\\All_Entries");
@@ -153,7 +185,7 @@ public class ResearcherPane extends BasePane {
         File folder = new File("All Journals");
         folder.mkdirs();
 
-        File dest = new File("All Journals\\NAME_"+source.getName());
+        File dest = new File("All Journals\\NAME_" + source.getName());
         DataStore db = new DataStore();
         University u = db.load().university;
         u.journals.add(new Journal(source.getName()));
@@ -179,25 +211,26 @@ public class ResearcherPane extends BasePane {
         }
     }
 
-    private File selectFile(Stage ps){
+    private File selectFile(Stage ps) {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.pdf")
         );
 
         File f = fc.showOpenDialog(ps);
-        if(f != null) {
+        if (f != null) {
             fileDir.setText(f.getName());
 
             return f;
-        }else{
+        } else {
             System.out.println("file not selected");
             return null;
         }
     }
 
-    public Pane getPane(){
+    public Pane getPane() {
         return pane;
+
     }
 
 

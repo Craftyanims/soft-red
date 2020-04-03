@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import model.DataStore;
 import model.Journal;
 
+
 public class JournalListPane extends GridPane {
     
 	private ArrayList<Journal> journals;
@@ -140,6 +141,7 @@ public class JournalListPane extends GridPane {
 
     
 	public Pane generateJournalListItem(model.Journal journal) {
+
         HBox container = new HBox();
 
         Label titleLabel = new Label(journal.name);
