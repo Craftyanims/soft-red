@@ -38,10 +38,10 @@ public class BasePane extends BorderPane {
 		}
 		
 		//headerPane.getChildren().addAll(titleLabel);
-		
-		
-		headerPane.setStyle("-fx-background-color: orange");
-		
+
+        titleLabel.setStyle("-fx-text-fill: white");
+        headerPane.setStyle("-fx-background-color: #737373");
+
 		this.setTop(headerPane);
 
 		

@@ -33,7 +33,7 @@ public class NavigationPane extends VBox {
 		links.put("Administrator", AdministratorPane.class);
 		
 		links.forEach((name, pane) -> {
-			Button button = new Button(name);
+			Button button = new NavigationBtn(name);
 			
 			button.setOnAction(event -> {
                     try {
@@ -42,15 +42,15 @@ public class NavigationPane extends VBox {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                }
+                    }
 
             );
+            getChildren().addAll(button);
 
 
-            buttonLayout.getChildren().addAll(button);
         });
         VBox logoLayout = initLogo();
-        getChildren().addAll(buttonLayout, logoLayout);
+        getChildren().addAll(logoLayout);
         setSpacing(30);
         //setAlignment(Pos.BASELINE_CENTER);
         setStyle("-fx-background-color:#D0D0D0");
