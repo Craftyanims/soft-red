@@ -21,27 +21,29 @@ import javafx.scene.text.TextAlignment;
 
 public class NavigationPane extends VBox {
 
-    private HashMap<String, Class<? extends Pane>> links = new HashMap<String, Class<? extends Pane>>();
 
-    public NavigationPane(Stage primaryStage) {
-        links.put("Journal List", JournalListPane.class);
-        links.put("Login", LoginPane.class);
-        links.put("Researcher", ResearcherPane.class);
-        links.put("Reviewer", ReviewerPane.class);
-        links.put("Editor", EditorPane.class);
-        links.put("Administrator", AdministratorPane.class);
+	private HashMap<String, Class<? extends Pane>> links = new HashMap<String, Class<? extends Pane>> ();
+	
+	public NavigationPane(Stage primaryStage)  {
+		links.put("Journal List", FrontPane.class);
+		links.put("Login", LoginPane.class);
+		links.put("Researcher", ResearcherPane.class);
+		links.put("Reviewer", ReviewerPane.class);
+		links.put("Editor", EditorPane.class);
+		links.put("Administrator", AdministratorPane.class);
+		
+		links.forEach((name, pane) -> {
+			Button button = new Button(name);
+			
+			button.setOnAction(event -> {
+                    try {
+						Navigation.navigate(pane);
+                    } catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
 
-        VBox buttonLayout = new VBox(2);
-        links.forEach((name, pane) -> {
-            Button button = new NavigationBtn(name);
-            button.setOnAction(event -> {
-                        try {
-                            Navigation.navigate(pane);
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
             );
 
 
