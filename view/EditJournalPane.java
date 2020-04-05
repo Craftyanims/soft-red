@@ -76,7 +76,7 @@ public class EditJournalPane extends BasePane {
 			//this.db.university.Journals.add(Journal);
 			this.db.serialize();
 			
-			Navigation.navigate(AdministratorPane.class);
+			Navigation.navigate(JournalListPane.class);
 		}
 		catch(Exception e) {
 			// TODO: proper error handling
