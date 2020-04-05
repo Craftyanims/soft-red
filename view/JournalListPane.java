@@ -141,8 +141,9 @@ public class JournalListPane extends GridPane {
 	
 	private void viewJournal(Journal j) {
 		
-		Pane viewItems = new JournalItemPage(Navigation.primaryStage, title, j);
-		
+
+		Pane viewItems = new JournalItemPage(Navigation.primaryStage,"Journal Item Page", j);
+
 		Navigation.navigate(viewItems);
 	}
 
