@@ -34,6 +34,7 @@ public class JournalItemPage extends BasePane {
 		this.journal = journal;
 		
 		this.mainPane = new VBox();
+		buildJournalList();
 		
 //		this.setAlignment(Pos.CENTER);
 //		this.setHgap(10);
@@ -63,6 +64,10 @@ public class JournalItemPage extends BasePane {
 		-------------------------------------------------*/
 		
 		buildJournalItemPage();
+			Label title = new Label(this.title);
+			title.setFont(new Font(30));
+			this.add(title, 0, currentRow, 4, 1);
+			currentRow++;
 		
 		
 	}
