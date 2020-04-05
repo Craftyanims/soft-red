@@ -16,14 +16,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Journal;
+import model.Paper;
+import model.Researcher;
 import model.DataStore;
 public class JournalItemPage extends BasePane {
 
 	private Journal journal;
 	private model.DataStore db;
 	private Stage primaryStage;
-	private Pane mainPane;
-	private ArrayList<Journal> journals;
+	private VBox mainPane;
 	private int currentRow = 0;
 	private String title;
     
@@ -32,124 +33,108 @@ public class JournalItemPage extends BasePane {
 		super(stage, title);
 		this.journal = journal;
 		
-		this.setAlignment(Pos.CENTER);
-		this.setHgap(10);
-		this.setVgap(10);
-		this.setPadding(new Insets(25, 25, 25, 25));
+		this.mainPane = new VBox();
 		
-		// Build the list
-		buildJournalList();
-		// TODO Auto-generated constructor stub
+//		this.setAlignment(Pos.CENTER);
+//		this.setHgap(10);
+//		this.setVgap(10);
+//		this.setPadding(new Insets(25, 25, 25, 25));
+		
+		
+		addFakePapers();
+		
+		
+		
+		/*-----------------------------------------------
+		|
+		|	Name: <JOURNAL NAME>
+		|	Editor: <EDITOR NAME>
+		|	
+		|	1. Paper Name
+		|		Author: NAME
+		|		Button: View paper
+		|
+		|	2. Paper Name 2
+		|		Author: Name
+		|		Button: View paper
+		|   etc...
+		|
+		|
+		-------------------------------------------------*/
+		
+		buildJournalItemPage();
+		
+		
 	}
 	
-	private void setAlignment(Pos center) {
-		// TODO Auto-generated method stub
+	private void addFakePapers() {
 		
-	}
-
-	private void setVgap(int i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void setHgap(int i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void displayJournals() {
-		// Re-load db because a new user could have been created since.
-		this.db = DataStore.load();
-		
-		FrontPane frontPane = new FrontPane(primaryStage, "Front Page");
-		
-		mainPane.getChildren().add(frontPane);
-	}		
-		
-		private void buildJournalList() {
-			Label title = new Label(this.title);
-			title.setFont(new Font(30));
-			this.add(title, 0, currentRow, 4, 1);
-			currentRow++;
+		try {
+			Paper paper1 = new Paper("Paper Title");
+			paper1.author = new Researcher("res name", "password");
+			Paper paper2 = new Paper("Paper Title");
+			paper2.author = new Researcher("res2 name", "password");
+			Paper paper3 = new Paper("Paper Title");
+			paper3.author = new Researcher("res3 name", "password");
 			
 			
-			if(journals.size() <= 0) {
-				Label message = new Label("There are no journals");
-				this.add(message, 0, currentRow, 3, 1);
-				currentRow++;
-			}
-			else {
-				
-				for(Journal j : journals) {
-					Label journalName = new Label(j.name);
-					
-					Button edit = new Button("Edit");
-					edit.setOnAction(event -> editJournal(j));
-					
-					Button view = new Button("View");
-					view.setOnAction(event -> viewJournal(j));
-					
-					Button delete = new Button("Delete");
-					delete.setOnAction(event -> deleteJournal(j));
-					
-					this.add(journalName, 0, currentRow);
-					this.add(edit, 1, currentRow);
-					this.add(view, 2, currentRow);
-					this.add(delete, 3, currentRow);
-					currentRow++;
-				}
-			}
-			
-			Button add = new Button("Add new journal");
-			add.setOnAction(event -> displayNewJournal());
-			this.add(add, 0, currentRow, 3, 1);
-			currentRow++;
+			journal.papers.add(paper1);
+			journal.papers.add(paper2);
+			journal.papers.add(paper3);
 		}
+		catch(Exception e) {
+			//TODO: Handle errors properly
+		}
+
+	}
+	
+	private void buildJournalItemPage() {
+		Label name = new Label("Name: " + journal.name);
+		Label editor = new Label("Editor: " + journal.editor.name);
+		
+		
+		VBox paperList = generatePaperList();
+		
+		
+		mainPane.getChildren().addAll(name, editor, paperList);
+		this.setCenter(mainPane);
+	}
+	
+	private VBox generatePaperList() {
+		VBox paperList = new VBox(20);
+		
+		for(Paper p : journal.papers) {
+			VBox itemBox = new VBox(10);
+			
+			Label paperName = new Label("Paper Name: " + p.name);
+			Label authorName = new Label("Author Name: " + p.author.name);
+			Button viewPaperButton = new Button("View Paper");
+			
+			itemBox.getChildren().addAll(paperName, authorName, viewPaperButton);
+			paperList.getChildren().add(itemBox);
+		}
+		
+		return paperList;
+	}
+
 
 	
 
-	private void add(Button add, int i, int currentRow2, int j, int k) {
-			// TODO Auto-generated method stub
-			
-		}
 
-	private void add(Label title2, int i, int currentRow2, int j, int k) {
-			// TODO Auto-generated method stub
-			
-		}
-
-	private void add(Label journalName, int i, int currentRow2) {
-			// TODO Auto-generated method stub
-			
-		}
-
-	private void add(Button edit, int i, int currentRow2) {
-			// TODO Auto-generated method stub
-			
-		}
-
-	private void displayNewJournal() {
-		Navigation.navigate(NewJournalPane.class);
-    	}
 	
-	private void deleteJournal(Journal j) {
-		DataStore.removeJournal(j);
-		Navigation.navigate(FrontPane.class);
-	}
 	
-	private void editJournal(Journal j) {
-		
-		// HACK: With proper design Navigation.primaryStage shouldn't be needed
-		Pane editPane = new EditJournalPane(Navigation.primaryStage, j);
-		
-		Navigation.navigate(editPane);
-	}
+//	private void deleteJournal(Journal j) {
+//		DataStore.removeJournal(j);
+//		Navigation.navigate(FrontPane.class);
+//	}
+//	
+//	private void editJournal(Journal j) {
+//		
+//		// HACK: With proper design Navigation.primaryStage shouldn't be needed
+//		Pane editPane = new EditJournalPane(Navigation.primaryStage, j);
+//		
+//		Navigation.navigate(editPane);
+//	}
 	
-	private void viewJournal(Journal j) {
-		
-		Pane viewItems = new JournalItemPage(Navigation.primaryStage, title, j);
-		
-		Navigation.navigate(viewItems);
-	}
 
 }
