@@ -17,13 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Journal;
 import model.Paper;
+import model.Reviewer;
 import model.Researcher;
 import model.DataStore;
 public class PaperListPage extends BasePane {
 
 
 
-	private Journal journal;
+	private Paper paper;
 	private model.DataStore db;
 	private Stage primaryStage;
 	private VBox mainPane;
@@ -31,41 +32,31 @@ public class PaperListPage extends BasePane {
 	private String title;
     
 	
-	public PaperListPage(Stage stage, String title, Journal journal) {
+	public PaperListPage(Stage stage, String title, Paper paper) {
 		super(stage, title);
-		this.journal = journal;
+		this.paper = paper;
 		
 		this.mainPane = new VBox();
-		buildJournalItemPage();
+		buildPaperListPage();		
 		
-//		this.setAlignment(Pos.CENTER);
-//		this.setHgap(10);
-//		this.setVgap(10);
-//		this.setPadding(new Insets(25, 25, 25, 25));
-		
-		
-		addFakePapers();
+		addFakeReviewers();
 		
 		
 		
 		/*-----------------------------------------------
 		|
-		|	Name: <JOURNAL NAME>
-		|	Editor: <EDITOR NAME>
+		|	Name: <Paper NAME>
+		|	Editor: <Researcher NAME>
 		|	
-		|	1. Paper Name
-		|		Author: NAME
-		|		Button: View paper
-		|
-		|	2. Paper Name 2
-		|		Author: Name
-		|		Button: View paper
-		|   etc...
-		|
+		|	1. reviewer		
+		|	2. rerviwer
+		|	3. reviewer
+		|		Button: Edit reviewers
+		|  		|
 		|
 		-------------------------------------------------*/
 		
-		buildJournalItemPage();
+		buildPaperListPage();
 			Label title1 = new Label(this.title);
 			title1.setFont(new Font(30));
 			this.add(title1, 0, currentRow, 4, 1);
@@ -79,20 +70,17 @@ public class PaperListPage extends BasePane {
 		
 	}
 
-	private void addFakePapers() {
+	private void addFakeReviewers() {
 		
 		try {
-			Paper paper1 = new Paper("Paper Title");
-			paper1.author = new Researcher("res name", "password");
-			Paper paper2 = new Paper("Paper Title");
-			paper2.author = new Researcher("res2 name", "password");
-			Paper paper3 = new Paper("Paper Title");
-			paper3.author = new Researcher("res3 name", "password");
+			Reviewer re1 = new Reviewer("name1", "password1");
+			Reviewer re2 = new Reviewer("name2", "password2");
+			Reviewer re3 = new Reviewer("name3", "password3");
 			
+			paper.add(re1);
+			paper.add(re2);
+			paper.add(re3);
 			
-			journal.papers.add(paper1);
-			journal.papers.add(paper2);
-			journal.papers.add(paper3);
 		}
 		catch(Exception e) {
 			//TODO: Handle errors properly
@@ -100,33 +88,34 @@ public class PaperListPage extends BasePane {
 
 	}
 	
-	private void buildJournalItemPage() {
-		Label name = new Label("Name: " + journal.name);
-		Label editor = new Label("Editor: " + journal.editor.name);
+	private void buildPaperListPage() {
+		Label name = new Label("Name: " + paper.name);
+		Label researcher = new Label("Researcher: " + paper.researcher.name);
 		
 		
-		VBox paperList = generatePaperList();
+		VBox reviewerList = generateReviewerList();
 		
 		
-		mainPane.getChildren().addAll(name, editor, paperList);
+		mainPane.getChildren().addAll(name, researcher, reviewerList);
 		this.setCenter(mainPane);
 	}
 	
-	private VBox generatePaperList() {
-		VBox paperList = new VBox(20);
+	private VBox generateReviewerList() {
+		VBox reviewerList = new VBox(20);
 		
-		for(Paper p : journal.papers) {
+		for(Reviewer r : paper.reviewers) {
 			VBox itemBox = new VBox(10);
 			
-			Label paperName = new Label("Paper Name: " + p.name);
-			Label authorName = new Label("Author Name: " + p.author.name);
-			Button viewPaperButton = new Button("View Paper");
+			Label reviewerName1 = new Label("Reviewer 1: " + r.re1.name);
+			Label reviewerName2 = new Label("Reviewer 2: " + r.re2.name);
+			Label reviewerName3 = new Label("Reviewer 3: " + r.re3.name);
+			Button editReviewerButton = new Button("Edit Reviewers");
 			
-			itemBox.getChildren().addAll(paperName, authorName, viewPaperButton);
+			itemBox.getChildren().addAll(reviewerName1, reviewerName2, reviewerName3, editReviewerButton);
 			paperList.getChildren().add(itemBox);
 		}
 		
-		return paperList;
+		return reviewerList;
 	}
 
 
