@@ -17,13 +17,16 @@ import javafx.scene.image.ImageView;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 public class ReviewerPane extends BasePane {
+    private BorderPane center;
     private StackPane pane;
     public ReviewerPane(Stage ps){
         super(ps, "Reviewer Pane");
-
-        System.out.println("Reviewer Pane");
-        FrontPane frontPane = new FrontPane(ps, "Front Page");
-        Navigation.navigate(frontPane);
+//        this.setCenter(pane);
+        pane = new StackPane();
+        initGUI();
+        this.setCenter(pane);
+        //FrontPane frontPane = new FrontPane(ps, "Front Page");
+        //Navigation.navigate(frontPane);
 
     }
     public void initGUI(){
