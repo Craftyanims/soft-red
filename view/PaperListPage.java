@@ -19,7 +19,9 @@ import model.Journal;
 import model.Paper;
 import model.Researcher;
 import model.DataStore;
-public class JournalItemPage extends BasePane {
+public class PaperListPage extends BasePane {
+
+
 
 	private Journal journal;
 	private model.DataStore db;
@@ -29,7 +31,7 @@ public class JournalItemPage extends BasePane {
 	private String title;
     
 	
-	public JournalItemPage(Stage stage, String title, Journal journal) {
+	public PaperListPage(Stage stage, String title, Journal journal) {
 		super(stage, title);
 		this.journal = journal;
 		
