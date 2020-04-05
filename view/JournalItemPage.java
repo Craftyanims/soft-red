@@ -38,7 +38,7 @@ public class JournalItemPage extends BasePane {
 		this.setPadding(new Insets(25, 25, 25, 25));
 		
 		// Build the list
-		buildJournalList();
+		buildJournalItem();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -66,45 +66,45 @@ public class JournalItemPage extends BasePane {
 		mainPane.getChildren().add(frontPane);
 	}		
 		
-		private void buildJournalList() {
-			Label title = new Label(this.title);
-			title.setFont(new Font(30));
-			this.add(title, 0, currentRow, 4, 1);
-			currentRow++;
+	private void buildJournalItem() {
+		Label title = new Label(this.title);
+		title.setFont(new Font(30));
+		this.add(title, 0, currentRow, 4, 1);
+		currentRow++;
 			
 			
-			if(journals.size() <= 0) {
-				Label message = new Label("There are no journals");
-				this.add(message, 0, currentRow, 3, 1);
-				currentRow++;
-			}
-			else {
-				
-				for(Journal j : journals) {
-					Label journalName = new Label(j.name);
-					
-					Button edit = new Button("Edit");
-					edit.setOnAction(event -> editJournal(j));
-					
-					Button view = new Button("View");
-					view.setOnAction(event -> viewJournal(j));
-					
-					Button delete = new Button("Delete");
-					delete.setOnAction(event -> deleteJournal(j));
-					
-					this.add(journalName, 0, currentRow);
-					this.add(edit, 1, currentRow);
-					this.add(view, 2, currentRow);
-					this.add(delete, 3, currentRow);
-					currentRow++;
-				}
-			}
-			
-			Button add = new Button("Add new journal");
-			add.setOnAction(event -> displayNewJournal());
-			this.add(add, 0, currentRow, 3, 1);
+		if(journals.size() <= 0) {
+			Label message = new Label("There are no papers");
+			this.add(message, 0, currentRow, 3, 1);
 			currentRow++;
 		}
+		else {
+				
+			for(Journal j : journals) {
+				Label journalName = new Label(j.name);
+					
+				Button edit = new Button("Edit");
+				edit.setOnAction(event -> editJournal(j));
+					
+				Button view = new Button("View");
+				view.setOnAction(event -> viewJournal(j));
+					
+				Button delete = new Button("Delete");
+				delete.setOnAction(event -> deleteJournal(j));
+					
+				this.add(journalName, 0, currentRow);
+				this.add(edit, 1, currentRow);
+				this.add(view, 2, currentRow);
+				this.add(delete, 3, currentRow);
+				currentRow++;
+			}
+		}
+			
+		Button add = new Button("Add new paper");
+		add.setOnAction(event -> displayNewJournal());
+		this.add(add, 0, currentRow, 3, 1);
+		currentRow++;
+	}
 
 	
 
