@@ -137,7 +137,7 @@ public class JournalItemPage extends BasePane {
 	private void viewPaper(Paper p) {
 		Pane viewItem = new PaperListPage(Navigation.primaryStage, "Paper List Page", p);
 		
-		Navigation.navigate(PaperListPage.class);
+		Navigation.navigate(viewItem);
 	}
 //	
 //	private void editJournal(Journal j) {
