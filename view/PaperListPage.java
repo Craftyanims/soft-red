@@ -92,12 +92,13 @@ public class PaperListPage extends BasePane {
 	private void buildPaperListPage() {
 		Label name = new Label("Name: " + paper.name);
 		Label researcher = new Label("Researcher: " + paper.author.name);
+		Button editButton = new Button("Edit Reviewers");
 		
 		
 		VBox reviewerList = generateReviewerList();
 		
 		
-		mainPane.getChildren().addAll(name, researcher, reviewerList);
+		mainPane.getChildren().addAll(name, researcher, reviewerList, editButton);
 		this.setCenter(mainPane);
 	}
 	
