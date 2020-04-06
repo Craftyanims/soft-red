@@ -93,6 +93,7 @@ public class PaperListPage extends BasePane {
 		Label name = new Label("Name: " + paper.name);
 		Label researcher = new Label("Researcher: " + paper.author.name);
 		Button editButton = new Button("Edit Reviewers");
+		editButton.setOnAction(event -> editReviewers())
 		
 		
 		VBox reviewerList = generateReviewerList();
@@ -119,9 +120,9 @@ public class PaperListPage extends BasePane {
 		
 		return reviewerList;
 	}
-
-
 	
+	private void editReviewers() {
+		Navigation.navigate(EditorPane.class);
 
 
 	
