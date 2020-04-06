@@ -90,7 +90,7 @@ public class PaperListPage extends BasePane {
 	
 	private void buildPaperListPage() {
 		Label name = new Label("Name: " + paper.name);
-		Label researcher = new Label("Researcher: " + paper.researcher.name);
+		Label researcher = new Label("Researcher: " + paper.author.name);
 		
 		
 		VBox reviewerList = generateReviewerList();
@@ -106,13 +106,13 @@ public class PaperListPage extends BasePane {
 		for(Reviewer r : paper.reviewers) {
 			VBox itemBox = new VBox(10);
 			
-			Label reviewerName1 = new Label("Reviewer 1: " + r.re1.name);
-			Label reviewerName2 = new Label("Reviewer 2: " + r.re2.name);
-			Label reviewerName3 = new Label("Reviewer 3: " + r.re3.name);
+			Label reviewerName1 = new Label("Reviewer 1: " + r.reviewer.name);
+			Label reviewerName2 = new Label("Reviewer 2: " + r.reviewer.name);
+			Label reviewerName3 = new Label("Reviewer 3: " + r.reviewer.name);
 			Button editReviewerButton = new Button("Edit Reviewers");
 			
 			itemBox.getChildren().addAll(reviewerName1, reviewerName2, reviewerName3, editReviewerButton);
-			paperList.getChildren().add(itemBox);
+			reviewerList.getChildren().add(itemBox);
 		}
 		
 		return reviewerList;
