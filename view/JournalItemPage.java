@@ -119,6 +119,7 @@ public class JournalItemPage extends BasePane {
 			Label paperName = new Label("Paper Name: " + p.name);
 			Label authorName = new Label("Author Name: " + p.author.name);
 			Button viewPaperButton = new Button("View Paper");
+			viewPaperButton.setOnAction(event -> viewPaper(p));
 			
 			itemBox.getChildren().addAll(paperName, authorName, viewPaperButton);
 			paperList.getChildren().add(itemBox);
@@ -133,10 +134,11 @@ public class JournalItemPage extends BasePane {
 
 	
 	
-//	private void deleteJournal(Journal j) {
-//		DataStore.removeJournal(j);
-//		Navigation.navigate(FrontPane.class);
-//	}
+	private void viewPaper(Paper p) {
+		Pane viewItem = new PaperListPage(Navigation.primaryStage, p);
+		
+		Navigation.navigate(PaperListPage.class);
+	}
 //	
 //	private void editJournal(Journal j) {
 //		
