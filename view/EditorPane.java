@@ -83,18 +83,18 @@ public class EditorPane extends BasePane {
         	    reviewers)
         	);
         cb1.setTranslateY(120);
-        cb1.setTranslateX(275);
+        cb1.setTranslateX(195);
         
        ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
         	    reviewers)
         	);
        cb2.setTranslateY(140);
-       cb2.setTranslateX(275);
+       cb2.setTranslateX(195);
        ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
        	        reviewers)
        	);
        cb3.setTranslateY(160);
-       cb3.setTranslateX(275);
+       cb3.setTranslateX(195);
  
    
        
@@ -130,13 +130,13 @@ public class EditorPane extends BasePane {
     ;
 
     public void createSubmission(Stage ps) {
-        Button findBtn = new Button("Open File");
-        findBtn.setTranslateY(100);
-        findBtn.setTranslateX(200);
+//        Button findBtn = new Button("Open File");
+//        findBtn.setTranslateY(100);
+//        findBtn.setTranslateX(200);
         // TODO: set this to have logic based on the account given as input
-        findBtn.setOnAction(e -> {
-            entry = selectFile(ps);
-        });
+//        findBtn.setOnAction(e -> {
+//            entry = selectFile(ps);
+//        });
       //  Button submitBtn = new Button("Submit");
       //  submitBtn.setTranslateY(100);
       //  submitBtn.setTranslateX(250);
@@ -156,19 +156,19 @@ public class EditorPane extends BasePane {
 
         pickR = new Label("Select a Reviewer");
         pickR.setTranslateY(150);
-        pickR.setTranslateX(-126);
+        pickR.setTranslateX(40);
 
         Button assignBtn = new Button("Assign");
         assignBtn.setTranslateY(236);
-        assignBtn.setTranslateX(195);
+        assignBtn.setTranslateX(275);
 
-        fileDir = new Label("Select a PDF File");
-        fileDir.setTranslateY(105);
-        fileDir.setTranslateX(132);
+//        fileDir = new Label("Select a PDF File");
+//        fileDir.setTranslateY(105);
+//        fileDir.setTranslateX(132);
 
 
-        pane2.getChildren().addAll(fileDir);
-        pane2.getChildren().addAll(findBtn);
+//        pane2.getChildren().addAll(fileDir);
+//        pane2.getChildren().addAll(findBtn);
    //     pane2.getChildren().addAll(submitBtn);
         pane2.getChildren().addAll(assignBtn);
         pane2.getChildren().addAll(pickR);
