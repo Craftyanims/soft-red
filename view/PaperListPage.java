@@ -30,6 +30,7 @@ public class PaperListPage extends BasePane {
 	private VBox mainPane;
 	private int currentRow = 0;
 	private String title;
+//	private ArrayList<Reviewer> reviewers;
     
 	
 	public PaperListPage(Stage stage, String title, Paper paper) {
@@ -124,18 +125,7 @@ public class PaperListPage extends BasePane {
 
 	
 	
-//	private void deleteJournal(Journal j) {
-//		DataStore.removeJournal(j);
-//		Navigation.navigate(FrontPane.class);
-//	}
-//	
-//	private void editJournal(Journal j) {
-//		
-//		// HACK: With proper design Navigation.primaryStage shouldn't be needed
-//		Pane editPane = new EditJournalPane(Navigation.primaryStage, j);
-//		
-//		Navigation.navigate(editPane);
-//	}
+
 	
 
 }
