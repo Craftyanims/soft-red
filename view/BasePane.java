@@ -17,6 +17,7 @@ public class BasePane extends BorderPane {
 		BorderPane headerPane = new BorderPane();
 		
 		Label titleLabel = new Label(title);
+
 		headerPane.setLeft(titleLabel);
 		
 		
@@ -37,11 +38,12 @@ public class BasePane extends BorderPane {
 		}
 		
 		//headerPane.getChildren().addAll(titleLabel);
-		
-		
-		headerPane.setStyle("-fx-background-color: orange");
-		
+
+        titleLabel.setStyle("-fx-text-fill: white");
+        headerPane.setStyle("-fx-background-color: #737373");
+
 		this.setTop(headerPane);
+
 		
 		
 		

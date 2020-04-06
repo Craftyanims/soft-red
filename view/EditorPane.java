@@ -1,4 +1,5 @@
 package view;
+
 import model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import model.DataStore;
 import model.Reviewer;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.FileInputStream;
@@ -27,37 +29,57 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 
-public class   EditorPane extends BasePane {
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+
+
+public class EditorPane extends BasePane {
+    private BorderPane center;
+
     private Pane pane;
     private Pane pane2;
     private File entry;
     private Label fileDir;
     private Label pickR;
-    public EditorPane(Stage ps){
-    	super(ps, "Editor Pane");
-    	
-    	
+
+    public EditorPane(Stage ps) {
+        super(ps, "Editor Pane");
+
+        center = new BorderPane();
         pane = new VBox();
         pane2 = new HBox();
-        
+
+        center.setPadding(new Insets(20));
+        initGUI();
+
 
         Label researcher_l = new Label("Editor");
         researcher_l.setTranslateY(-300);
 
         createSubmission(ps);
-        
-        DataStore db = DataStore.load();  
+
+        DataStore db = DataStore.load();
         ArrayList<Reviewer> reviewers = db.university.reviewers;
         //ArrayList<String> names = new ArrayList<String>();
 
 
-       // ChoiceBox cb = new ChoiceBox();
-       // for(Reviewer r : reviewers) {
-         //      cb.getItems().add(r.name);
+        // ChoiceBox cb = new ChoiceBox();
+        // for(Reviewer r : reviewers) {
+        //      cb.getItems().add(r.name);
         //}
-        
-        
+
+
         ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
+
+
+
+
         	    reviewers)
         	);
         cb1.setTranslateY(120);
@@ -79,19 +101,35 @@ public class   EditorPane extends BasePane {
         addChild(cb1);
         addChild(cb2);
         addChild(cb3);
-        
-        this.setCenter(pane);
-   
-        
-        
+
+        center.setCenter(pane);
+        this.setCenter(center);
+
+
     }
 
-    private void addChild(Node child){
+    public void initGUI() {
+        BorderPane bp = new BorderPane();
+        HBox bg = new HBox();
+        Image image = new Image("GUI_assets/icon_editor.png");
+        ImageView iv = new ImageView(image);
+        iv.setFitWidth(200);
+        iv.setFitHeight(200);
+        iv.setPreserveRatio(true);
+        bg.setAlignment(Pos.BOTTOM_RIGHT);
+        bg.getChildren().add(iv);
+        bp.setRight(iv);
+        center.setBottom(bp);
+    }
+
+    private void addChild(Node child) {
         pane.getChildren().addAll(child);
 
-    };
+    }
 
-    public void createSubmission(Stage ps){
+    ;
+
+    public void createSubmission(Stage ps) {
         Button findBtn = new Button("Open File");
         findBtn.setTranslateY(100);
         findBtn.setTranslateX(200);
@@ -102,6 +140,7 @@ public class   EditorPane extends BasePane {
       //  Button submitBtn = new Button("Submit");
       //  submitBtn.setTranslateY(100);
       //  submitBtn.setTranslateX(250);
+
 
         
      //   submitBtn.setOnAction(e -> {
@@ -114,19 +153,20 @@ public class   EditorPane extends BasePane {
      //           error.printStackTrace();
      //       }
      //   });
+
         pickR = new Label("Select a Reviewer");
         pickR.setTranslateY(150);
         pickR.setTranslateX(-126);
-        
+
         Button assignBtn = new Button("Assign");
         assignBtn.setTranslateY(236);
         assignBtn.setTranslateX(195);
 
         fileDir = new Label("Select a PDF File");
-         fileDir.setTranslateY(105);
-         fileDir.setTranslateX(132);
-   
-        
+        fileDir.setTranslateY(105);
+        fileDir.setTranslateX(132);
+
+
         pane2.getChildren().addAll(fileDir);
         pane2.getChildren().addAll(findBtn);
    //     pane2.getChildren().addAll(submitBtn);
@@ -139,7 +179,7 @@ public class   EditorPane extends BasePane {
         File folder = new File("All Journals");
         folder.mkdirs();
 
-        File dest = new File("All Journals\\NAME_"+source.getName());
+        File dest = new File("All Journals\\NAME_" + source.getName());
         DataStore db = new DataStore();
         University u = db.load().university;
         u.journals.add(new Journal(source.getName()));
@@ -165,24 +205,24 @@ public class   EditorPane extends BasePane {
         }
     }
 
-    private File selectFile(Stage ps){
+    private File selectFile(Stage ps) {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.pdf")
         );
 
         File f = fc.showOpenDialog(ps);
-        if(f != null) {
+        if (f != null) {
             fileDir.setText(f.getName());
 
             return f;
-        }else{
+        } else {
             System.out.println("file not selected");
             return null;
         }
     }
 
-    public Pane getPane(){
+    public Pane getPane() {
         return pane;
     }
 
