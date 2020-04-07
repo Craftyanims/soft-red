@@ -103,6 +103,9 @@ public class PaperListPage extends BasePane {
 		this.setCenter(mainPane);
 	}
 	
+	private void nominatedReviewers() {
+		
+	}
 	private VBox generateReviewerList() {
 		VBox reviewerList = new VBox(20);
 		
