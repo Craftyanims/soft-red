@@ -62,7 +62,8 @@ public class PaperListPage extends BasePane {
 			title1.setFont(new Font(30));
 			this.add(title1, 0, currentRow, 4, 1);
 			currentRow++;
-		
+		//set UI to be this page
+		stage.setScene(this);
 		
 	}
 	
