@@ -96,7 +96,7 @@ public class ResearcherPane extends BasePane {
         addChild(cb1);
         addChild(cb2);
         addChild(cb3);
-        center.setCenter(container);
+        center.setCenter(pane);
         this.setCenter(center);
 
 
@@ -143,9 +143,9 @@ public class ResearcherPane extends BasePane {
         fileDir = new Label("Select a PDF File");
         fileDir.setTranslateY(105);
         fileDir.setTranslateX(132);
-        //addChild(fileDir);
-        //addChild(findBtn);
-        //addChild(submitBtn);
+        addChild(fileDir);
+        addChild(findBtn);
+        addChild(submitBtn);
         pane2.getChildren().addAll(fileDir);
         pane2.getChildren().addAll(findBtn);
         pane2.getChildren().addAll(submitBtn);
@@ -168,17 +168,7 @@ public class ResearcherPane extends BasePane {
         center.setBottom(bp);
     }
 
-    //    private void saveFile(File file){
-//        File dest = new File("\\All_Entries");
-//        try {
-//            Path src = Paths.get(file);
-//            Path fnl = Paths.get(dest);
-//            copy(src.toFile(),dest.toFile());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+
     private void saveFile(File source) throws IOException {
         File folder = new File("All Journals");
         folder.mkdirs();
