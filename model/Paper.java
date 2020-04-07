@@ -12,11 +12,12 @@ public class Paper implements Serializable {
 	public Reviewer reviewer;
 	
 	public List<Reviewer> reviewers;
-
-
+	
+	public ArrayList<Reviewer> nominated;
+	
 	public Object researcher;
 
-
+	public String paperPath;
 	
 	public Paper(String name) {
 		this.name = name;
