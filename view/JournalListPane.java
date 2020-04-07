@@ -69,15 +69,16 @@ public class JournalListPane extends GridPane {
 				Button edit = new Button("Edit");
 				edit.setOnAction(event -> editJournal(j));
 				
-				//Button view = new Button("View");
+				Button view = new Button("View");
+				view.setOnAction(event -> viewJournal(j));
 				
 				Button delete = new Button("Delete");
 				delete.setOnAction(event -> deleteJournal(j));
 				
 				this.add(journalName, 0, currentRow);
 				this.add(edit, 1, currentRow);
-				//this.add(view, 2, currentRow);
-				this.add(delete, 2, currentRow);
+				this.add(view, 2, currentRow);
+				this.add(delete, 3, currentRow);
 				currentRow++;
 			}
 		}
@@ -138,6 +139,14 @@ public class JournalListPane extends GridPane {
 		
 		Navigation.navigate(editPane);
 	}
+	
+	private void viewJournal(Journal j) {
+		
+
+		Pane viewItems = new JournalItemPage(Navigation.primaryStage,"Journal Item Page", j);
+
+		Navigation.navigate(viewItems);
+	}
 
     
 	public Pane generateJournalListItem(model.Journal journal) {
@@ -152,6 +161,8 @@ public class JournalListPane extends GridPane {
     		Navigation.navigate(journalPage);
         	
         });
+        
+        
 //        viewButton.setOnAction(e -> {
 //            FileChooser fileChooser = new FileChooser();
 //            fileChooser.setTitle("Save Journal");
