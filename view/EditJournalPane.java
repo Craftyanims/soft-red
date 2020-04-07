@@ -70,10 +70,13 @@ public class EditJournalPane extends BasePane {
 			
 			this.journal.name = name;
 			
+			Editor editor = selectedEditor.getValue();
+			this.journal.editor = editor;
+			
 			//this.db.university.Journals.add(Journal);
 			this.db.serialize();
 			
-			Navigation.navigate(AdministratorPane.class);
+			Navigation.navigate(JournalListPane.class);
 		}
 		catch(Exception e) {
 			// TODO: proper error handling
