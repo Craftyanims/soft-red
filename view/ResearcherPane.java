@@ -74,28 +74,36 @@ public class ResearcherPane extends BasePane {
 
         DataStore db = DataStore.load();
         ArrayList<Reviewer> reviewers = db.university.reviewers;
+        ArrayList<Journal> journals = db.university.journals;
 
 
         ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb1.setTranslateY(120);
+        cb1.setTranslateY(140);
         cb1.setTranslateX(275);
         ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb2.setTranslateY(140);
+        cb2.setTranslateY(160);
         cb2.setTranslateX(275);
         ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb3.setTranslateY(160);
+        cb3.setTranslateY(180);
+        cb3.setTranslateX(275);
+        
+        ChoiceBox journalsBox = new ChoiceBox(FXCollections.observableArrayList(
+               journals)
+        );
+        cb3.setTranslateY(120);
         cb3.setTranslateX(275);
 
 
         addChild(cb1);
         addChild(cb2);
         addChild(cb3);
+        addChild(journalsBox)
         center.setCenter(pane);
         this.setCenter(center);
 
@@ -133,7 +141,7 @@ public class ResearcherPane extends BasePane {
             }
         });
         pickR = new Label("Select a Reviewer");
-        pickR.setTranslateY(150);
+        pickR.setTranslateY(170);
         pickR.setTranslateX(-126);
 
         Button assignBtn = new Button("Request");
@@ -143,6 +151,11 @@ public class ResearcherPane extends BasePane {
         fileDir = new Label("Select a PDF File");
         fileDir.setTranslateY(105);
         fileDir.setTranslateX(132);
+        
+        pickJ = new Label("Select Journal");
+        pickJ.setTranslateY(150);
+        pickJ.setTranslateX(-126);
+        
         addChild(fileDir);
         addChild(findBtn);
         addChild(submitBtn);
@@ -151,6 +164,7 @@ public class ResearcherPane extends BasePane {
         pane2.getChildren().addAll(submitBtn);
         pane2.getChildren().addAll(assignBtn);
         pane2.getChildren().addAll(pickR);
+        pane2.getChildren().addAll(pickJ);
         addChild(pane2);
     }
 
