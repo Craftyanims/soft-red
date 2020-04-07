@@ -1,6 +1,7 @@
 package view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.paint.Color;
 import model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -24,6 +25,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -200,6 +203,12 @@ public class   EditorPane extends BasePane {
         selectJournalL.setTranslateX(138);
         selectJournalL.setTranslateY(300);
 
+        Label deadlineErrorL = new Label("Must be a valid date int the format: yyyy-mm-dd");
+        deadlineErrorL.setVisible(false);
+        deadlineErrorL.setTextFill(Color.web("#FF7263"));
+        deadlineErrorL.setTranslateX(0);
+        deadlineErrorL.setTranslateY(0);
+
         ChoiceBox selectDeadlineCB = new ChoiceBox();
         selectDeadlineCB.setTranslateX(-210);
         selectDeadlineCB.setTranslateY(360);
@@ -214,46 +223,40 @@ public class   EditorPane extends BasePane {
             selectJournalCB.getItems().add(journal.name);
         }
 
-        selectJournalCB.getSelectionModel().selectedIndexProperty().addListener(e -> {
-            // Checks if the selected journal has been changed
-
-            //find chosen journal
-            Journal index = null;
-            for (Journal journal : journalList) {
-                if (journal.name == selectJournalCB.getValue()) {
-                    index = journal;
-                }
-            }
-
-            selectDeadlineCB.setItems(null);
-            if (index != null && index.deadlines != null) {
-                for (String deadline : index.deadlines) {
+        selectJournalCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
+                // Checks if the selected journal has been changed
+                System.out.println("Loading deadlines for selected journal");
+                // populate ChoiceBox with journal's deadlines
+                selectDeadlineCB.getSelectionModel().clearSelection();
+                Journal selectedJournal = journalList.get(new_value.intValue());
+                for (String deadline : selectedJournal.deadlines) {
                     selectDeadlineCB.getItems().add(deadline);
                 }
             }
         });
 
         Button deadlineB = new Button("Add deadline");
-        deadlineB.setTranslateX(50);
+        deadlineB.setTranslateX(70);
         deadlineB.setTranslateY(330);
 
         deadlineB.setOnAction(e -> {
+            deadlineErrorL.setVisible(false);
             if (isValidDate(deadlineTF.getText())) {
-                //TODO : this is a mess, there should be a better way of finding the index
                 for (Journal journal : journalList) {
-                    if (journal.name == selectJournalCB.getValue()) {
+                    if (selectJournalCB.getValue() != null && journal.name == selectJournalCB.getValue()) {
                         journal.deadlines.add(deadlineTF.getText());
                         db.serialize();
 
                         //refresh deadlines choice box
-                        selectDeadlineCB.setItems(null);
+                        selectDeadlineCB.getSelectionModel().clearSelection();
                         for (String deadline : journal.deadlines) {
                             selectDeadlineCB.getItems().add(deadline);
                         }
                     }
                 }
             } else {
-                //TODO : send error message to user
+                deadlineErrorL.setVisible(true);
             }
         });
 
@@ -263,12 +266,12 @@ public class   EditorPane extends BasePane {
 
         deadlineDeleteB.setOnAction(e -> {
             for (Journal journal : journalList) {
-                if (journal.name == selectJournalCB.getValue()) {
-                    journal.deadlines.remove(selectDeadlineCB.getValue());
+                if (selectJournalCB.getValue() != null &&  journal.name == selectJournalCB.getValue()) {
+                    if (selectDeadlineCB.getValue() != null) journal.deadlines.remove(selectDeadlineCB.getValue());
                     db.serialize();
 
                     //refresh deadlines choice box
-                    selectDeadlineCB.setItems(null);
+                    selectDeadlineCB.getSelectionModel().clearSelection();
                     for (String deadline : journal.deadlines) {
                         selectDeadlineCB.getItems().add(deadline);
                     }
@@ -279,14 +282,25 @@ public class   EditorPane extends BasePane {
         //TODO : sort deadlines by date before saving them to database
 
         pane3.getChildren().addAll(selectJournalL, deadlineTF, selectJournalCB,
-                deadlineB, deadlineDeleteB, selectDeadlineCB);
+                deadlineB, deadlineDeleteB, selectDeadlineCB, deadlineErrorL);
         addChild(pane3);
     }
 
 
     private boolean isValidDate(String aDate) {
         // Makes sure the date is in the correct format
-        return Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", "aDate");
+        // Must be a valid date of the form yyyy-mm-dd
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+
+        try {
+            //if not valid, it will throw ParseException
+            Date date = sdf.parse(aDate);
+            return true;
+        } catch (ParseException e) {
+            //e.printStackTrace();
+        }
+        return false;
     }
 
 

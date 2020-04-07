@@ -15,7 +15,7 @@ public class Journal  implements Serializable {
 	
 	public University owningUniversity;
 
-	public ArrayList<String> deadlines;
+	public List<String> deadlines = new ArrayList<String>();
 	
 	public Journal(String name) {
 		this.name = name;
