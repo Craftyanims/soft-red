@@ -50,7 +50,7 @@ public class ResearcherPane extends BasePane {
     private File entry;
     private Label fileDir;
     private Label pickR;
-
+    private Label pickJ;
     private model.DataStore db;
 
     private ComboBox<Reviewer> selectedReviewer;
@@ -103,7 +103,7 @@ public class ResearcherPane extends BasePane {
         addChild(cb1);
         addChild(cb2);
         addChild(cb3);
-        addChild(journalsBox)
+        addChild(journalsBox);
         center.setCenter(pane);
         this.setCenter(center);
 

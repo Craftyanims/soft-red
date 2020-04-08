@@ -78,9 +78,9 @@ public class PaperListPage extends BasePane {
 			Reviewer re2 = new Reviewer("name2", "password2");
 			Reviewer re3 = new Reviewer("name3", "password3");
 			
-			paper.add(re1);
-			paper.add(re2);
-			paper.add(re3);
+			paper.reviewers.add(re1);
+			paper.reviewers.add(re2);
+			paper.reviewers.add(re3);
 			
 		}
 		catch(Exception e) {
