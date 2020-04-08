@@ -2,6 +2,7 @@ package view;
 
 import global.Navigation;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,7 +32,10 @@ import java.io.OutputStream;
 import javafx.scene.text.Font;
 import model.DataStore;
 import model.Journal;
+import model.Paper;
 import model.University;
+import model.Reviewer;
+import model.Review;
 import global.Auth;
 
 public class ReviewerPane extends BasePane {
@@ -59,16 +63,16 @@ public class ReviewerPane extends BasePane {
         currentRow++;
 
         DataStore db = DataStore.load();
-        ArrayList<Journal> journals = db.university.journals;
+        List<Paper> papers = db.university.journals.get(0).papers;
 
 
-        if (journals.size() <= 0) {
-            Label message = new Label("There are no journals");
+        if (papers.size() <= 0) {
+            Label message = new Label("There are no papers");
             gp.add(message, 0, currentRow, 3, 1);
             currentRow++;
         } else {
 
-            for (Journal j : journals) {
+            for (Paper j : papers) {
                 Label journalName = new Label(j.name);
 
                 Button view = new Button("VIEW");
@@ -82,7 +86,11 @@ public class ReviewerPane extends BasePane {
                     try {
                         File entry = selectFile(ps);
                         System.out.println("Saving. . .");
-                        saveFile(entry);
+                        String path = saveFile(entry);
+                        String name = Auth.getCurrentUser().name;
+                        Reviewer r = db.university.findReviewer(name);
+                        Review review = new Review(r,path);
+                        j.addReview(review);
                         System.out.println("Complete!");
 
                     } catch (IOException error) {
@@ -100,12 +108,12 @@ public class ReviewerPane extends BasePane {
         }
         pane.getChildren().add(gp);
     }
-    private void saveFile(File source) throws IOException {
-        File folder = new File("All Journals");
+    private String saveFile(File source) throws IOException {
+        File folder = new File("Journal_Comments");
         folder.mkdirs();
-
         String sig = "_COMMENT_" + Auth.getCurrentUser().name;
-        File dest = new File("All Journals\\"+source.getName()+sig+".pdf");
+        String path = "Journal_Comments\\"+source.getName()+sig+".pdf";
+        File dest = new File(path);
         DataStore db = new DataStore();
         University u = db.load().university;
         u.journals.add(new Journal(source.getName()+sig));
@@ -129,6 +137,7 @@ public class ReviewerPane extends BasePane {
             is.close();
             os.close();
         }
+        return path;
     }
 
     private File selectFile(Stage ps) {
