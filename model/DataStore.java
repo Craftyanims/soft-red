@@ -132,9 +132,64 @@ public class DataStore implements Serializable {
 				db.serialize();
 				break;
 			}
+			
 		}
 		
 	}
 	
+	/*
+	 * Remove a journal from the main universities pool of journals
+	 * by id of journal
+	 */
+	public static void removeJournal(Journal journalToRemove) {
+		DataStore db = DataStore.load();
+		ArrayList<Journal> journals = db.university.journals;
+		
+		// Loop through the journals and remove the one with the matching id
+		for(Journal journal: journals) {
+			if(journal.id == journalToRemove.id) {
+				journals.remove(journal);
+				db.serialize();
+				break;
+			}
+		}
+		
+	}
+	
+
+	public static User checkPasswordAndGetUser(String userName, String password) {
+		DataStore db = DataStore.load();
+		
+		// Create a list of all users
+		ArrayList<User> allUsers = new ArrayList<User>();
+		allUsers.addAll(db.university.administrators);
+		allUsers.addAll(db.university.reviewers);
+		allUsers.addAll(db.university.researchers);
+		allUsers.addAll(db.university.editors);
+		
+		User existingUser = null;
+		
+		// Search for the user by userName
+		for(User u : allUsers) {
+			if(u.name.equals(userName)) {
+				existingUser = u;
+				break;
+			}
+		}
+		
+		if(existingUser == null) {
+			return null;
+		}
+		
+		// If the user exists check if the given password matches the stored password
+		boolean isCorrectPassword = existingUser.checkPassword(password);
+		
+		if(isCorrectPassword) {
+			return existingUser;
+		}
+		else {
+			return null;
+		}
+	}
 	
 }
