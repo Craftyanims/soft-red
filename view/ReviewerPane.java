@@ -20,11 +20,19 @@ import javafx.scene.image.ImageView;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 
-
+import java.io.File;
+import java.io.IOException;
+import javafx.stage.FileChooser;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javafx.scene.text.Font;
 import model.DataStore;
 import model.Journal;
+import model.University;
+import global.Auth;
 
 public class ReviewerPane extends BasePane {
     private BorderPane center;
@@ -35,14 +43,14 @@ public class ReviewerPane extends BasePane {
 //        this.setCenter(pane);
         pane = new StackPane();
         initGUI();
-        initJournalList();
+        initJournalList(ps);
         this.setCenter(pane);
         FrontPane frontPane = new FrontPane(ps, "Front Page");
 
 
     }
 
-    private void initJournalList() {
+    private void initJournalList(Stage ps) {
         GridPane gp = new GridPane();
             Label title = new Label("Journals");
         title.setFont(new Font(30));
@@ -69,6 +77,18 @@ public class ReviewerPane extends BasePane {
                 //Button view = new Button("View");
 
                 Button addComment = new Button("UPLOAD COMMENTS");
+
+                addComment.setOnAction(e -> {
+                    try {
+                        File entry = selectFile(ps);
+                        System.out.println("Saving. . .");
+                        saveFile(entry);
+                        System.out.println("Complete!");
+
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
+                });
 //                delete.setOnAction(event -> deleteJournal(j));
 
                 gp.add(journalName, 0, currentRow);
@@ -80,6 +100,52 @@ public class ReviewerPane extends BasePane {
         }
         pane.getChildren().add(gp);
     }
+    private void saveFile(File source) throws IOException {
+        File folder = new File("All Journals");
+        folder.mkdirs();
+
+        String sig = "_COMMENT_" + Auth.getCurrentUser().name;
+        File dest = new File("All Journals\\"+source.getName()+sig+".pdf");
+        DataStore db = new DataStore();
+        University u = db.load().university;
+        u.journals.add(new Journal(source.getName()+sig));
+        db.serialize();
+        //boolean b = dest.mkdirs();
+
+        InputStream is = null;
+        OutputStream os = null;
+
+
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
+    }
+
+    private File selectFile(Stage ps) {
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.pdf")
+        );
+
+        File f = fc.showOpenDialog(ps);
+        if (f != null) {
+            return f;
+        } else {
+            System.out.println("file not selected");
+            return null;
+        }
+    }
+
 
     public void initGUI() {
         BorderPane bp = new BorderPane();
