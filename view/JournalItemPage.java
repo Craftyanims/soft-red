@@ -99,8 +99,16 @@ public class JournalItemPage extends BasePane {
 	}
 	
 	private void buildJournalItemPage() {
+		
+		String editorName = "No editor assigned";
+		
+		if(journal.editor != null && journal.editor.name != null) {
+			editorName = journal.editor.name;
+		}
+		
+		
 		Label name = new Label("Name: " + journal.name);
-		Label editor = new Label("Editor: " + journal.editor.name);
+		Label editor = new Label("Editor: " + editorName);
 		
 		
 		VBox paperList = generatePaperList();
