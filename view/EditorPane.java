@@ -1,6 +1,7 @@
 package view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import model.*;
 import javafx.application.Application;
@@ -48,7 +49,7 @@ public class   EditorPane extends BasePane {
     	
         pane = new VBox();
         pane2 = new HBox();
-        pane3 = new HBox();
+        pane3 = new Pane();
         
 
         Label researcher_l = new Label("Editor");
@@ -196,29 +197,35 @@ public class   EditorPane extends BasePane {
 
     private void setDeadline(Stage ps) {
         TextField deadlineTF = new TextField("yyyy-mm-dd");
-        deadlineTF.setTranslateX(198);
+        deadlineTF.setTranslateX(275);
         deadlineTF.setTranslateY(330);
+        deadlineTF.setMinWidth(85);
+        deadlineTF.setMaxWidth(85);
 
         Label selectJournalL = new Label("Set journal deadline");
         selectJournalL.setTranslateX(138);
         selectJournalL.setTranslateY(300);
+        selectJournalL.setMinWidth(120);
+        selectJournalL.setMaxWidth(120);
 
-        Label deadlineErrorL = new Label("Must be a valid date int the format: yyyy-mm-dd");
+        Label deadlineErrorL = new Label("Must be a valid date in the format: yyyy-mm-dd");
         deadlineErrorL.setVisible(false);
         deadlineErrorL.setTextFill(Color.web("#FF7263"));
         deadlineErrorL.setTranslateX(0);
         deadlineErrorL.setTranslateY(0);
 
         ChoiceBox selectDeadlineCB = new ChoiceBox();
-        selectDeadlineCB.setTranslateX(-210);
+        selectDeadlineCB.setTranslateX(275);
         selectDeadlineCB.setTranslateY(360);
+        selectDeadlineCB.setMinWidth(95);
 
         DataStore db = DataStore.load();
         ArrayList<Journal> journalList = db.university.journals;
 
         ChoiceBox selectJournalCB = new ChoiceBox();
-        selectJournalCB.setTranslateX(80);
+        selectJournalCB.setTranslateX(275);
         selectJournalCB.setTranslateY(300);
+        selectJournalCB.setMinWidth(120);
         for (Journal journal : journalList) {
             selectJournalCB.getItems().add(journal.name);
         }
@@ -236,20 +243,23 @@ public class   EditorPane extends BasePane {
             }
         });
 
-        Button deadlineB = new Button("Add deadline");
-        deadlineB.setTranslateX(70);
+        Button deadlineB = new Button("Add");
+        deadlineB.setTranslateX(400);
         deadlineB.setTranslateY(330);
+        deadlineB.setMinWidth(40);
 
         deadlineB.setOnAction(e -> {
             deadlineErrorL.setVisible(false);
             if (isValidDate(deadlineTF.getText())) {
                 for (Journal journal : journalList) {
                     if (selectJournalCB.getValue() != null && journal.name == selectJournalCB.getValue()) {
+                        System.out.println("Adding " + deadlineTF.getText() + " to journal's deadlines");
                         journal.deadlines.add(deadlineTF.getText());
                         db.serialize();
 
                         //refresh deadlines choice box
                         selectDeadlineCB.getSelectionModel().clearSelection();
+                        selectDeadlineCB.getItems().clear();
                         for (String deadline : journal.deadlines) {
                             selectDeadlineCB.getItems().add(deadline);
                         }
@@ -260,18 +270,21 @@ public class   EditorPane extends BasePane {
             }
         });
 
-        Button deadlineDeleteB = new Button("Remove deadline");
-        deadlineDeleteB.setTranslateX(0);
+        Button deadlineDeleteB = new Button("Remove");
+        deadlineDeleteB.setTranslateX(400);
         deadlineDeleteB.setTranslateY(360);
+        deadlineDeleteB.setMinWidth(60);
 
         deadlineDeleteB.setOnAction(e -> {
             for (Journal journal : journalList) {
                 if (selectJournalCB.getValue() != null &&  journal.name == selectJournalCB.getValue()) {
                     if (selectDeadlineCB.getValue() != null) journal.deadlines.remove(selectDeadlineCB.getValue());
+                    System.out.println("Removing " + selectDeadlineCB.getValue() + " from journal's deadlines");
                     db.serialize();
 
                     //refresh deadlines choice box
                     selectDeadlineCB.getSelectionModel().clearSelection();
+                    selectDeadlineCB.getItems().clear();
                     for (String deadline : journal.deadlines) {
                         selectDeadlineCB.getItems().add(deadline);
                     }
@@ -281,8 +294,8 @@ public class   EditorPane extends BasePane {
 
         //TODO : sort deadlines by date before saving them to database
 
-        pane3.getChildren().addAll(selectJournalL, deadlineTF, selectJournalCB,
-                deadlineB, deadlineDeleteB, selectDeadlineCB, deadlineErrorL);
+        pane3.getChildren().addAll(selectJournalL, selectJournalCB, deadlineTF,
+                selectDeadlineCB, deadlineB, deadlineDeleteB, deadlineErrorL);
         addChild(pane3);
     }
 

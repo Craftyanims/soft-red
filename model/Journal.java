@@ -1,5 +1,7 @@
 package model;
 
+import javafx.collections.ObservableList;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,7 +18,6 @@ public class Journal  implements Serializable {
 	public University owningUniversity;
 
 	public List<String> deadlines = new ArrayList<String>();
-	
 	public Journal(String name) {
 		this.name = name;
 		
