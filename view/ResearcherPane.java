@@ -57,11 +57,9 @@ public class ResearcherPane extends BasePane {
     private ChoiceBox <Reviewer> reviewer3;
     private ChoiceBox <Journal> journalsBox;
     
-    private GridPane container;
 
     public ResearcherPane(Stage ps) {
         super(ps, "Researcher Pane");
-        container = new GridPane();
         center = new BorderPane();
         initGUI();
 
@@ -129,8 +127,8 @@ public class ResearcherPane extends BasePane {
             entry = selectFile(ps);
         });
         Button submitBtn = new Button("Submit");
-        submitBtn.setTranslateY(100);
-        submitBtn.setTranslateX(250);
+        submitBtn.setTranslateY(275);
+        submitBtn.setTranslateX(195);
 
 
         submitBtn.setOnAction(e -> {
@@ -147,13 +145,10 @@ public class ResearcherPane extends BasePane {
         pickR.setTranslateY(170);
         pickR.setTranslateX(-135);
 
-        Button assignBtn = new Button("Request");
-        assignBtn.setTranslateY(275);
-        assignBtn.setTranslateX(195);
-
+ 
         fileDir = new Label("Select a PDF File");
         fileDir.setTranslateY(105);
-        fileDir.setTranslateX(131);
+        fileDir.setTranslateX(72);
         
         pickJ = new Label("Select Journal");
         pickJ.setTranslateY(140);
@@ -165,7 +160,6 @@ public class ResearcherPane extends BasePane {
         pane2.getChildren().addAll(fileDir);
         pane2.getChildren().addAll(findBtn);
         pane2.getChildren().addAll(submitBtn);
-        pane2.getChildren().addAll(assignBtn);
         pane2.getChildren().addAll(pickR);
         pane2.getChildren().addAll(pickJ);
         addChild(pane2);
