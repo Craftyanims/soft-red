@@ -29,7 +29,14 @@ public class University implements Serializable {
 		this.researchers = new ArrayList<Researcher>();
 		this.editors = new ArrayList<Editor>();
 	}
-	
+
+	public Reviewer findReviewer(String name){
+		for(Reviewer r: reviewers){
+			if(r.name.equalsIgnoreCase(name)) return r;
+		}
+		return null;
+	}
+
 	public void addJournal(Journal journal) {
 		this.journals.add(journal);
 		
