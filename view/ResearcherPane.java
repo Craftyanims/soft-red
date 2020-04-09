@@ -14,8 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.DataStore;
-import model.Reviewer;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
 
@@ -27,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import global.Auth;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -53,7 +52,11 @@ public class ResearcherPane extends BasePane {
     private Label pickJ;
     private model.DataStore db;
 
-    private ComboBox<Reviewer> selectedReviewer;
+    private ChoiceBox <Reviewer> reviewer1;
+    private ChoiceBox <Reviewer> reviewer2;
+    private ChoiceBox <Reviewer> reviewer3;
+    private ChoiceBox <Journal> journalsBox;
+    
     private GridPane container;
 
     public ResearcherPane(Stage ps) {
@@ -77,32 +80,32 @@ public class ResearcherPane extends BasePane {
         ArrayList<Journal> journals = db.university.journals;
 
 
-        ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
+        reviewer1 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb1.setTranslateY(160);
-        cb1.setTranslateX(275);
-        ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
+        reviewer1.setTranslateY(160);
+        reviewer1.setTranslateX(275);
+        reviewer2 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb2.setTranslateY(180);
-        cb2.setTranslateX(275);
-        ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
+        reviewer2.setTranslateY(180);
+        reviewer2.setTranslateX(275);
+        reviewer3 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb3.setTranslateY(200);
-        cb3.setTranslateX(275);
+        reviewer3.setTranslateY(200);
+        reviewer3.setTranslateX(275);
         
-        ChoiceBox journalsBox = new ChoiceBox(FXCollections.observableArrayList(
+        journalsBox = new ChoiceBox(FXCollections.observableArrayList(
                journals)
         );
         journalsBox.setTranslateY(40);
         journalsBox.setTranslateX(275);
 
 
-        addChild(cb1);
-        addChild(cb2);
-        addChild(cb3);
+        addChild(reviewer1);
+        addChild(reviewer2);
+        addChild(reviewer3);
         addChild(journalsBox);
         center.setCenter(pane);
         this.setCenter(center);
@@ -197,14 +200,15 @@ public class ResearcherPane extends BasePane {
         OutputStream os = null;
         
         Paper p = new Paper(source.getName());
+        p.author = (Researcher) Auth.getCurrentUser(); 
         
-        Reviewer r1 = cb1.getValue();
+        Reviewer r1 = reviewer1.getValue();
         p.nominated.add(r1);
         
-        Reviewer r2 = cb2.getValue();
+        Reviewer r2 = reviewer2.getValue();
         p.nominated.add(r2);
         
-        Reviewer r3 = cb3.getValue();
+        Reviewer r3 = reviewer3.getValue();
         p.nominated.add(r3);
         
         Journal j = journalsBox.getValue();

@@ -25,7 +25,7 @@ public class Paper implements Serializable {
 		this.name = name;
 		this.reviewers = new ArrayList<Reviewer>();
 		this.reviews = new ArrayList<Review>();
-
+		this.nominated = new ArrayList<Reviewer>();
 		this.status = PaperStatus.SUBMITTED;
 	}
 
