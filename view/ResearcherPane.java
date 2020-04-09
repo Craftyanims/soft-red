@@ -80,24 +80,24 @@ public class ResearcherPane extends BasePane {
         ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb1.setTranslateY(140);
+        cb1.setTranslateY(160);
         cb1.setTranslateX(275);
         ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb2.setTranslateY(160);
+        cb2.setTranslateY(180);
         cb2.setTranslateX(275);
         ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        cb3.setTranslateY(180);
+        cb3.setTranslateY(200);
         cb3.setTranslateX(275);
         
         ChoiceBox journalsBox = new ChoiceBox(FXCollections.observableArrayList(
                journals)
         );
-        cb3.setTranslateY(120);
-        cb3.setTranslateX(275);
+        journalsBox.setTranslateY(40);
+        journalsBox.setTranslateX(275);
 
 
         addChild(cb1);
@@ -120,7 +120,7 @@ public class ResearcherPane extends BasePane {
     public void createSubmission(Stage ps) {
         Button findBtn = new Button("Open File");
         findBtn.setTranslateY(100);
-        findBtn.setTranslateX(200);
+        findBtn.setTranslateX(187);
         // TODO: set this to have logic based on the account given as input
         findBtn.setOnAction(e -> {
             entry = selectFile(ps);
@@ -142,19 +142,19 @@ public class ResearcherPane extends BasePane {
         });
         pickR = new Label("Select a Reviewer");
         pickR.setTranslateY(170);
-        pickR.setTranslateX(-126);
+        pickR.setTranslateX(-135);
 
         Button assignBtn = new Button("Request");
-        assignBtn.setTranslateY(236);
+        assignBtn.setTranslateY(275);
         assignBtn.setTranslateX(195);
 
         fileDir = new Label("Select a PDF File");
         fileDir.setTranslateY(105);
-        fileDir.setTranslateX(132);
+        fileDir.setTranslateX(131);
         
         pickJ = new Label("Select Journal");
-        pickJ.setTranslateY(150);
-        pickJ.setTranslateX(-126);
+        pickJ.setTranslateY(140);
+        pickJ.setTranslateX(-228);
         
         addChild(fileDir);
         addChild(findBtn);
