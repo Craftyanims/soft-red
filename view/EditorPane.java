@@ -343,9 +343,12 @@ public class EditorPane extends BasePane {
         try {
             //if not valid, it will throw ParseException
             Date date = sdf.parse(aDate);
-            return true;
+            if (aDate.length() == 10) {
+                return true;
+            }
         } catch (ParseException e) {
             //e.printStackTrace();
+            // ParseException expected if date does not follow intended format
         }
         return false;
     }
