@@ -191,13 +191,26 @@ public class ResearcherPane extends BasePane {
         DataStore db = new DataStore();
         University u = db.load().university;
         u.journals.add(new Journal(source.getName()));
-        db.serialize();
         //boolean b = dest.mkdirs();
 
         InputStream is = null;
         OutputStream os = null;
-
-
+        
+        Paper p = new Paper(source.getName());
+        
+        Reviewer r1 = cb1.getValue();
+        p.nominated.add(r1);
+        
+        Reviewer r2 = cb2.getValue();
+        p.nominated.add(r2);
+        
+        Reviewer r3 = cb3.getValue();
+        p.nominated.add(r3);
+        
+        Journal j = journalsBox.getValue();
+        j.papers.add(p);
+        db.serialize();
+        
         try {
             is = new FileInputStream(source);
             os = new FileOutputStream(dest);
