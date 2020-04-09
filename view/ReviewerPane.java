@@ -89,7 +89,7 @@ public class ReviewerPane extends BasePane {
                         String path = saveFile(entry);
                         String name = Auth.getCurrentUser().name;
                         Reviewer r = db.university.findReviewer(name);
-                        Review review = new Review(r,path);
+                        Review review = new Review(r, j, path);
                         j.addReview(review);
                         System.out.println("Complete!");
 

@@ -18,10 +18,14 @@ public class Paper implements Serializable {
 
 	public ArrayList<Review> reviews;
 	
+	public PaperStatus status;
+	
 	public Paper(String name) {
 		this.name = name;
 		this.reviewers = new ArrayList<Reviewer>();
 		this.reviews = new ArrayList<Review>();
+		
+		this.status = PaperStatus.SUBMITTED;
 	}
 
 	public void add(Reviewer re1) {

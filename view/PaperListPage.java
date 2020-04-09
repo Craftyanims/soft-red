@@ -17,12 +17,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Journal;
 import model.Paper;
+import model.PaperStatus;
 import model.Reviewer;
 import model.Researcher;
+import model.Review;
 import model.DataStore;
 public class PaperListPage extends BasePane {
-
-
 
 	private Paper paper;
 	private model.DataStore db;
@@ -35,6 +35,7 @@ public class PaperListPage extends BasePane {
 	
 	public PaperListPage(Stage stage, String title, Paper paper) {
 		super(stage, title);
+		this.title = title;
 		this.paper = paper;
 		
 		this.mainPane = new VBox();
@@ -62,8 +63,17 @@ public class PaperListPage extends BasePane {
 			title1.setFont(new Font(30));
 			this.add(title1, 0, currentRow, 4, 1);
 			currentRow++;
+			
+		// Display the paper's status
+		Label status = new Label("Staus: " + getFriendlyStatus(this.paper.status));
+		this.mainPane.getChildren().add(status);
 		
+		//Display the list of reviews for the paper
+		generateFakeReviews();
+		this.mainPane.getChildren().add(generateReviewsList());
 		
+		//Display the Editor's accept and reject buttons
+		this.mainPane.getChildren().add(generateAcceptRejectButtons());
 	}
 	
 	private void add(Label title2, int i, int currentRow2, int j, int k) {
@@ -122,12 +132,88 @@ public class PaperListPage extends BasePane {
 	}
 	
 	private void editReviewers() {
-		Navigation.navigate(EditorPane.class);
-
-
+		Navigation.navigate(EditorPane.class);	
+	}
 	
+	/**
+	 * A temporary function to see the reviews before the review creation code
+	 * has been finished
+	 */
+	private void generateFakeReviews() {
+		try {
+			Reviewer reviewer1 = new Reviewer("rev name", "");
+			Reviewer reviewer2 = new Reviewer("rev name2", "");
+			Reviewer reviewer3 = new Reviewer("rev name3", "");
+			Review r1 = new Review(reviewer1, this.paper, "C:/fakepath");
+			Review r2 = new Review(reviewer2, this.paper, "C:/fakepath2");
+			Review r3 = new Review(reviewer3, this.paper, "C:/fakepath3");
+			
+			this.paper.reviews.add(r1);
+			this.paper.reviews.add(r2);
+			this.paper.reviews.add(r3);
+		}
+		catch(Exception e) {
+			//TODO: deal with exceptions
+		}
+	}
 	
+	private VBox generateReviewsList() {
+		VBox container = new VBox(20);
+		
+		Label reviewTitle = new Label("Reviews:");
+		container.getChildren().add(reviewTitle);
+		
+		for(Review r : this.paper.reviews) {
+			Label reviewerName = new Label("Reviewer: " + r.reviewer.name);
+			Label score = new Label("Score: " + r.score);
+			Label commentsFilePath = new Label("Comments File: " + r.commentsFilePath);
+			
+			VBox reviewItem = new VBox(reviewerName, score, commentsFilePath);
+			container.getChildren().add(reviewItem);
+		}
+		
+		if(this.paper.reviews.size() <= 0) {
+			Label noReviews = new Label("No reviews have been created");
+			container.getChildren().add(noReviews);
+		}
+		
+		return container;
+	}
+	
+	private HBox generateAcceptRejectButtons() {
+		Button accept = new Button("Accept Paper");
+		Button reject = new Button("Reject Paper");
 
+		accept.setOnAction(event -> acceptPaper());
+		reject.setOnAction(event -> rejectpaper());
+		
+		
+		HBox container = new HBox(20);
+		container.getChildren().addAll(accept, reject);
+		return container;
+	}
 	
+	private void acceptPaper() {
+		this.paper.status = PaperStatus.ACCEPTED;
+		PaperListPage plp = new PaperListPage(this.primaryStage, this.title, this.paper);
+		Navigation.navigate(plp);
+	}
+	
+	private void rejectpaper() {
+		this.paper.status = PaperStatus.REJECTED;
+		PaperListPage plp = new PaperListPage(this.primaryStage, this.title, this.paper);
+		Navigation.navigate(plp);
+	}
+	
+	private String getFriendlyStatus(PaperStatus ps) {
+		if(ps == PaperStatus.SUBMITTED) {
+			return "Submitted";
+		}
+		if(ps == PaperStatus.ACCEPTED) {
+			return "Accepted";
+		}
+		else {
+			return "Rejected";
+		}
 	}
 }

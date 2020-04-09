@@ -9,8 +9,9 @@ public class Review implements Serializable {
 	public Reviewer reviewer;
 	public String commentsFilePath;
 	public int score;
-	public Review(Reviewer r, String path){
+	public Review(Reviewer r, Paper p, String path) {
 		reviewer = r;
+		paper = p;
 		commentsFilePath = path;
 	}
 	
