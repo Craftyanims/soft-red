@@ -288,7 +288,7 @@ public class EditorPane extends BasePane {
                 for (Journal journal : journalList) {
                     if (selectJournalCB.getValue() != null && journal.name == selectJournalCB.getValue()) {
                         System.out.println("Adding " + deadlineTF.getText() + " to journal's deadlines");
-                        journal.deadlines.add(deadlineTF.getText());
+                        insertDeadline(journal.deadlines, deadlineTF.getText());
                         db.serialize();
 
                         //refresh deadlines choice box
@@ -351,6 +351,28 @@ public class EditorPane extends BasePane {
             // ParseException expected if date does not follow intended format
         }
         return false;
+    }
+
+    private void insertDeadline(List<String> deadlines, String insert) {
+        // Simple linear insertion to place the new deadline in the correct database position
+        int i;
+        for (i = 0; i < deadlines.size(); i++) {
+            String current = deadlines.get(i);
+            int currentYear = Integer.parseInt(current.substring(0, 4));
+            int currentMonth = Integer.parseInt(current.substring(5, 7));
+            int currentDay = Integer.parseInt(current.substring(8, 10));
+
+            int insertYear = Integer.parseInt(insert.substring(0, 4));
+            int insertMonth = Integer.parseInt(insert.substring(5, 7));
+            int insertDay = Integer.parseInt(insert.substring(8, 10));
+
+            if (currentYear > insertYear ||
+                currentYear == insertYear && currentMonth > insertMonth ||
+                currentYear == insertYear && currentMonth == insertMonth && currentDay > insertDay) {
+                break;
+            }
+        }
+        deadlines.add(i, insert);
     }
 
 
