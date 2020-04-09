@@ -267,7 +267,7 @@ public class EditorPane extends BasePane {
         selectJournalCB.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue ov, Number value, Number new_value) {
                 // Checks if the selected journal has been changed
-                System.out.println("Loading deadlines for selected journal");
+                //System.out.println("Loading deadlines for selected journal");
                 // populate ChoiceBox with journal's deadlines
                 selectDeadlineCB.getSelectionModel().clearSelection();
                 Journal selectedJournal = journalList.get(new_value.intValue());
@@ -287,7 +287,7 @@ public class EditorPane extends BasePane {
             if (isValidDate(deadlineTF.getText())) {
                 for (Journal journal : journalList) {
                     if (selectJournalCB.getValue() != null && journal.name == selectJournalCB.getValue()) {
-                        System.out.println("Adding " + deadlineTF.getText() + " to journal's deadlines");
+                        //System.out.println("Adding " + deadlineTF.getText() + " to journal's deadlines");
                         insertDeadline(journal.deadlines, deadlineTF.getText());
                         db.serialize();
 
@@ -313,7 +313,7 @@ public class EditorPane extends BasePane {
             for (Journal journal : journalList) {
                 if (selectJournalCB.getValue() != null &&  journal.name == selectJournalCB.getValue()) {
                     if (selectDeadlineCB.getValue() != null) journal.deadlines.remove(selectDeadlineCB.getValue());
-                    System.out.println("Removing " + selectDeadlineCB.getValue() + " from journal's deadlines");
+                    //System.out.println("Removing " + selectDeadlineCB.getValue() + " from journal's deadlines");
                     db.serialize();
 
                     //refresh deadlines choice box
@@ -325,8 +325,6 @@ public class EditorPane extends BasePane {
                 }
             }
         });
-
-        //TODO : sort deadlines by date before saving them to database
 
         pane3.getChildren().addAll(selectJournalL, selectJournalCB, deadlineTF,
                 selectDeadlineCB, deadlineB, deadlineDeleteB, deadlineErrorL);
@@ -352,6 +350,7 @@ public class EditorPane extends BasePane {
         }
         return false;
     }
+
 
     private void insertDeadline(List<String> deadlines, String insert) {
         // Simple linear insertion to place the new deadline in the correct database position
