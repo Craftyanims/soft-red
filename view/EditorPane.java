@@ -57,6 +57,10 @@ public class EditorPane extends BasePane {
     private File entry;
     private Label fileDir;
     private Label pickR;
+    
+    private ChoiceBox <Reviewer> reviewer1;
+    private ChoiceBox <Reviewer> reviewer2;
+    private ChoiceBox <Reviewer> reviewer3;
 
     public EditorPane(Stage ps) {
         super(ps, "Editor Pane");
@@ -78,39 +82,22 @@ public class EditorPane extends BasePane {
         DataStore db = DataStore.load();  
       
         ArrayList<Reviewer> reviewers = db.university.reviewers;
-        //ArrayList<String> names = new ArrayList<String>();
+        
 
-
-        // ChoiceBox cb = new ChoiceBox();
-        // for(Reviewer r : reviewers) {
-        //      cb.getItems().add(r.name);
-        //}
-
-
-        ChoiceBox cb1 = new ChoiceBox(FXCollections.observableArrayList(
-
-
-
-
-        	    reviewers)
-        	);
+        reviewer1 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
         cb1.setTranslateY(120);
         cb1.setTranslateX(195);
         
-       ChoiceBox cb2 = new ChoiceBox(FXCollections.observableArrayList(
-        	    reviewers)
-        	);
-       cb2.setTranslateY(140);
-       cb2.setTranslateX(195);
-       ChoiceBox cb3 = new ChoiceBox(FXCollections.observableArrayList(
-       	        reviewers)
-       	);
-       cb3.setTranslateY(160);
-       cb3.setTranslateX(195);
+        reviewer2 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
+        cb2.setTranslateY(140);
+        cb2.setTranslateX(195);
+        reviewer3 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
+        cb3.setTranslateY(160);
+        cb3.setTranslateX(195);
        
-        addChild(cb1);
-        addChild(cb2);
-        addChild(cb3);
+        addChild(reviewer1);
+        addChild(reviewer2);
+        addChild(reviewer3);
 
         center.setCenter(pane);
         this.setCenter(center);
@@ -145,28 +132,28 @@ public class EditorPane extends BasePane {
 //        findBtn.setOnAction(e -> {
 //            entry = selectFile(ps);
 //        });
-      //  Button submitBtn = new Button("Submit");
-      //  submitBtn.setTranslateY(100);
-      //  submitBtn.setTranslateX(250);
+        Button submitBtn = new Button("Submit");
+        submitBtn.setTranslateY(236);
+        submitBtn.setTranslateX(275);
 
-     //   submitBtn.setOnAction(e -> {
-     //       System.out.println("Saving. . .");
-     //       try{
-     //           saveFile(entry);
-     //           System.out.println("Complete!");
+        submitBtn.setOnAction(e -> {
+        System.out.println("Saving. . .");
+        try{
+            saveFile(entry);
+            System.out.println("Complete!");
 
-     //       }catch (IOException error){
-     //           error.printStackTrace();
-     //       }
-     //   });
+        }catch (IOException error){
+            error.printStackTrace();
+        }
+        });
 
         pickR = new Label("Select a Reviewer");
         pickR.setTranslateY(150);
         pickR.setTranslateX(40);
 
-        Button assignBtn = new Button("Assign");
-        assignBtn.setTranslateY(236);
-        assignBtn.setTranslateX(275);
+    //    Button assignBtn = new Button("Assign");
+   //     assignBtn.setTranslateY(236);
+   //     assignBtn.setTranslateX(275);
 
 //        fileDir = new Label("Select a PDF File");
 //        fileDir.setTranslateY(105);
@@ -175,8 +162,8 @@ public class EditorPane extends BasePane {
 
 //        pane2.getChildren().addAll(fileDir);
 //        pane2.getChildren().addAll(findBtn);
-   //     pane2.getChildren().addAll(submitBtn);
-        pane2.getChildren().addAll(assignBtn);
+        pane2.getChildren().addAll(submitBtn);
+  //      pane2.getChildren().addAll(assignBtn);
         pane2.getChildren().addAll(pickR);
         addChild(pane2);
     }
@@ -189,12 +176,25 @@ public class EditorPane extends BasePane {
         DataStore db = new DataStore();
         University u = db.load().university;
         u.journals.add(new Journal(source.getName()));
-        db.serialize();
 
 
         InputStream is = null;
         OutputStream os = null;
-
+    
+        Paper p = new Paper(source.getName());
+        p.author = (Researcher) Auth.getCurrentUser(); 
+        
+        Reviewer r1 = reviewer1.getValue();
+        p.reviewers.add(r1);
+        
+        Reviewer r2 = reviewer2.getValue();
+        p.reviewers.add(r2);
+        
+        Reviewer r3 = reviewer3.getValue();
+        p.reviewers.add(r3);
+        
+        
+        db.serialize();
 
         try {
             is = new FileInputStream(source);
