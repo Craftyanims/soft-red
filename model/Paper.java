@@ -8,7 +8,7 @@ public class Paper implements Serializable {
 
 	public String name;
 
-	public Researcher author;
+	public User author;
 	public Reviewer reviewer;
 
 	public List<Reviewer> reviewers;

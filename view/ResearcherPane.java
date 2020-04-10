@@ -195,7 +195,7 @@ public class ResearcherPane extends BasePane {
         
         Paper p = new Paper(source.getName());
      //   u.journals.get(0).papers.add(p);
-        p.author = (Researcher) Auth.getCurrentUser(); 
+        p.author = Auth.getCurrentUser();
         
         Reviewer r1 = reviewer1.getValue();
         p.nominated.add(r1);
