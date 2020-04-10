@@ -126,7 +126,7 @@ public class EditorPane extends BasePane {
 
         submitBtn.setOnAction(e -> {
         	setReviewers();
-    //        submitToPaperPage();
+            submitToPaperPage(paper);
         
         });
         
@@ -207,9 +207,10 @@ public class EditorPane extends BasePane {
         db.serialize();
     }
     
- //   private void submitToPaperPage() {
-//		Navigation.navigate(PaperItemPage.class);
-//	}
+    private void submitToPaperPage(paper) {
+        PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", paper);
+		Navigation.navigate(pip);
+	}
     
     private File selectFile(Stage ps) {
         FileChooser fc = new FileChooser();
