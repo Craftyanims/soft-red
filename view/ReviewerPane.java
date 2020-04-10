@@ -1,7 +1,10 @@
 package view;
 
 import global.Navigation;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -10,11 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,13 +40,17 @@ import global.Auth;
 public class ReviewerPane extends BasePane {
     private BorderPane center;
     private StackPane pane;
+    private VBox pane2;
 
     public ReviewerPane(Stage ps) {
         super(ps, "Reviewer Pane");
 //        this.setCenter(pane);
         pane = new StackPane();
+        pane2 = new VBox();
         initGUI();
         initJournalList(ps);
+        initDeadlineList(ps);
+        pane.getChildren().add(pane2);
         this.setCenter(pane);
         FrontPane frontPane = new FrontPane(ps, "Front Page");
 
@@ -56,7 +59,7 @@ public class ReviewerPane extends BasePane {
 
     private void initJournalList(Stage ps) {
         GridPane gp = new GridPane();
-            Label title = new Label("Journals");
+        Label title = new Label("Journals");
         title.setFont(new Font(30));
         int currentRow = 0;
         gp.add(title, 0, currentRow, 4, 1);
@@ -106,7 +109,7 @@ public class ReviewerPane extends BasePane {
                 currentRow++;
             }
         }
-        pane.getChildren().add(gp);
+        pane2.getChildren().add(gp);
     }
     private String saveFile(File source) throws IOException {
         File folder = new File("Journal_Comments");
@@ -169,6 +172,71 @@ public class ReviewerPane extends BasePane {
         bg.getChildren().add(iv);
         bp.setBottom(bg);
         pane.getChildren().add(bp);
+    }
+
+    private void initDeadlineList(Stage ps) {
+        DataStore db = DataStore.load();
+        List<Journal> journals = db.university.journals;
+        List<String> deadlines;
+
+        GridPane gp = new GridPane();
+
+        int rowCounter = 0;
+
+        Label title = new Label("Upcoming Deadlines");
+        title.setFont(new Font(30));
+        gp.add(title, 0, rowCounter, 4, 1);
+        rowCounter++;
+
+        Label emptyJournalsL = new Label("There are no upcoming deadlines");
+        emptyJournalsL.setVisible(false);
+
+        for (int i = 0; i < journals.size(); i++) {
+            if (journals.get(i).deadlines.size() > 0 && findNextDeadline(journals.get(i).deadlines) >= 0) {
+                deadlines = journals.get(i).deadlines;
+                Label newDeadlineL = new Label(journals.get(i).name +
+                        ": next deadline is " + deadlines.get(findNextDeadline(deadlines)));
+                gp.add(newDeadlineL, 0, rowCounter);
+                rowCounter++;
+            }
+        }
+
+        if (rowCounter == 1) {
+            emptyJournalsL.setVisible(true);
+            gp.add(emptyJournalsL, 0, rowCounter, 3, 1);
+        }
+
+        pane2.getChildren().add(gp);
+    }
+
+    private int findNextDeadline(List<String> deadlines) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        String currentDate = sdf.format(date);
+
+        if (deadlines.size() == 0) return -1;
+
+        int deadlineNumber = 0;
+
+        for (String deadline : deadlines) {
+            int currentYear = Integer.parseInt(currentDate.substring(0, 4));
+            int currentMonth = Integer.parseInt(currentDate.substring(5, 7));
+            int currentDay = Integer.parseInt(currentDate.substring(8, 10));
+
+            int deadlineYear = Integer.parseInt(deadline.substring(0, 4));
+            int deadlineMonth = Integer.parseInt(deadline.substring(5, 7));
+            int deadlineDay = Integer.parseInt(deadline.substring(8, 10));
+
+            if (deadlineYear > currentYear ||
+                    deadlineYear == currentYear && deadlineMonth > currentMonth ||
+                    deadlineYear == currentYear && deadlineMonth == currentMonth && deadlineDay > currentDay) {
+                break;
+            }
+            deadlineNumber++;
+        }
+
+        if (deadlineNumber >= deadlines.size()) return -1;
+        return deadlineNumber;
     }
 
     public StackPane getPane() {

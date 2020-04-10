@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.text.Font;
 import model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,7 +24,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import global.Auth;
 import javafx.scene.layout.BorderPane;
@@ -46,6 +50,7 @@ public class ResearcherPane extends BasePane {
 
     private Pane pane;
     private Pane pane2;
+    private Pane pane3;
     private File entry;
     private Label fileDir;
     private Label pickR;
@@ -66,12 +71,14 @@ public class ResearcherPane extends BasePane {
         this.db = DataStore.load();
         pane = new VBox();
         pane2 = new HBox();
+        pane3 = new VBox();
 
 
         Label researcher_l = new Label("Researcher");
         researcher_l.setTranslateY(-300);
 
         createSubmission(ps);
+        initDeadlineList(ps);
 
         DataStore db = DataStore.load();
         ArrayList<Reviewer> reviewers = db.university.reviewers;
@@ -116,7 +123,6 @@ public class ResearcherPane extends BasePane {
 
     }
 
-    ;
 
     public void createSubmission(Stage ps) {
         Button findBtn = new Button("Open File");
@@ -241,6 +247,74 @@ public class ResearcherPane extends BasePane {
             return null;
         }
     }
+
+
+    private void initDeadlineList(Stage ps) {
+        DataStore db = DataStore.load();
+        List<Journal> journals = db.university.journals;
+        List<String> deadlines;
+
+        GridPane gp = new GridPane();
+
+        int rowCounter = 0;
+
+        Label title = new Label("Upcoming Deadlines");
+        title.setFont(new Font(30));
+        gp.add(title, 0, rowCounter, 4, 1);
+        rowCounter++;
+
+        Label emptyJournalsL = new Label("There are no upcoming deadlines");
+        emptyJournalsL.setVisible(false);
+
+        for (int i = 0; i < journals.size(); i++) {
+            if (journals.get(i).deadlines.size() > 0 && findNextDeadline(journals.get(i).deadlines) >= 0) {
+                deadlines = journals.get(i).deadlines;
+                Label newDeadlineL = new Label(journals.get(i).name +
+                        ": Next deadline is " + deadlines.get(findNextDeadline(deadlines)));
+                gp.add(newDeadlineL, 0, rowCounter);
+                rowCounter++;
+            }
+        }
+
+        if (rowCounter == 1) {
+            emptyJournalsL.setVisible(true);
+            gp.add(emptyJournalsL, 0, rowCounter, 3, 1);
+        }
+
+        pane3.getChildren().add(gp);
+        addChild(pane3);
+    }
+
+    private int findNextDeadline(List<String> deadlines) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        String currentDate = sdf.format(date);
+
+        if (deadlines.size() == 0) return -1;
+
+        int deadlineNumber = 0;
+
+        for (String deadline : deadlines) {
+            int currentYear = Integer.parseInt(currentDate.substring(0, 4));
+            int currentMonth = Integer.parseInt(currentDate.substring(5, 7));
+            int currentDay = Integer.parseInt(currentDate.substring(8, 10));
+
+            int deadlineYear = Integer.parseInt(deadline.substring(0, 4));
+            int deadlineMonth = Integer.parseInt(deadline.substring(5, 7));
+            int deadlineDay = Integer.parseInt(deadline.substring(8, 10));
+
+            if (deadlineYear > currentYear ||
+                    deadlineYear == currentYear && deadlineMonth > currentMonth ||
+                    deadlineYear == currentYear && deadlineMonth == currentMonth && deadlineDay > currentDay) {
+                break;
+            }
+            deadlineNumber++;
+        }
+
+        if (deadlineNumber >= deadlines.size()) return -1;
+        return deadlineNumber;
+    }
+
 
     public Pane getPane() {
         return pane;
