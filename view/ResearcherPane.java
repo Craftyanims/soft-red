@@ -187,13 +187,14 @@ public class ResearcherPane extends BasePane {
         File dest = new File("All Journals\\NAME_" + source.getName());
         DataStore db = new DataStore();
         University u = db.load().university;
-        u.journals.add(new Journal(source.getName()));
+        
         //boolean b = dest.mkdirs();
 
         InputStream is = null;
         OutputStream os = null;
         
         Paper p = new Paper(source.getName());
+     //   u.journals.get(0).papers.add(p);
         p.author = (Researcher) Auth.getCurrentUser(); 
         
         Reviewer r1 = reviewer1.getValue();
@@ -204,7 +205,7 @@ public class ResearcherPane extends BasePane {
         
         Reviewer r3 = reviewer3.getValue();
         p.nominated.add(r3);
-        
+       
         Journal j = journalsBox.getValue();
         j.papers.add(p);
         db.serialize();

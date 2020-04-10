@@ -41,7 +41,7 @@ public class PaperListPage extends BasePane {
 		this.mainPane = new VBox();
 		buildPaperListPage();
 
-		addFakeReviewers();
+	//	addFakeReviewers();
 
 
 
@@ -58,7 +58,7 @@ public class PaperListPage extends BasePane {
 		|
 		-------------------------------------------------*/
 
-		buildPaperListPage();
+
 			Label title1 = new Label(this.title);
 			title1.setFont(new Font(30));
 			this.add(title1, 0, currentRow, 4, 1);
@@ -69,7 +69,7 @@ public class PaperListPage extends BasePane {
 		this.mainPane.getChildren().add(status);
 
 		//Display the list of reviews for the paper
-		generateFakeReviews();
+	//	generateFakeReviews();
 		this.mainPane.getChildren().add(generateReviewsList());
 
 		//Display the Editor's accept and reject buttons
@@ -119,15 +119,16 @@ public class PaperListPage extends BasePane {
 	private VBox generateReviewerList() {
 		VBox reviewerList = new VBox(20);
 
+		System.out.println(paper.reviewers.size());
 		for(Reviewer r : paper.reviewers) {
 			VBox itemBox = new VBox(10);
+			System.out.println(r.name);
+			Label reviewerName1 = new Label("Reviewer: " + r.name);
+	//		Label reviewerName2 = new Label("Reviewer 2: " + r.reviewer.name);
+	//		Label reviewerName3 = new Label("Reviewer 3: " + r.reviewer.name);
+	//		Button editReviewerButton = new Button("Edit Reviewers");
 
-			Label reviewerName1 = new Label("Reviewer 1: " + r.reviewer.name);
-			Label reviewerName2 = new Label("Reviewer 2: " + r.reviewer.name);
-			Label reviewerName3 = new Label("Reviewer 3: " + r.reviewer.name);
-			Button editReviewerButton = new Button("Edit Reviewers");
-
-			itemBox.getChildren().addAll(reviewerName1, reviewerName2, reviewerName3, editReviewerButton);
+			itemBox.getChildren().addAll(reviewerName1);
 			reviewerList.getChildren().add(itemBox);
 		}
 
@@ -135,6 +136,7 @@ public class PaperListPage extends BasePane {
 	}
 
 	private void editReviewers() {
+		EditorPane.paper = paper;
 		Navigation.navigate(EditorPane.class);
 	}
 

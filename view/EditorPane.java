@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import global.Auth;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 
@@ -50,7 +51,7 @@ import javafx.geometry.Insets;
 
 public class EditorPane extends BasePane {
     private BorderPane center;
-
+    public static Paper paper;
     private Pane pane;
     private Pane pane2;
     private Pane pane3;
@@ -85,19 +86,30 @@ public class EditorPane extends BasePane {
         
 
         reviewer1 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        cb1.setTranslateY(120);
-        cb1.setTranslateX(195);
+        reviewer1.setTranslateY(-35);
+        reviewer1.setTranslateX(195);
         
         reviewer2 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        cb2.setTranslateY(140);
-        cb2.setTranslateX(195);
+        reviewer2.setTranslateY(-15);
+        reviewer2.setTranslateX(195);
         reviewer3 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        cb3.setTranslateY(160);
-        cb3.setTranslateX(195);
+        reviewer3.setTranslateY(5);
+        reviewer3.setTranslateX(195);
        
+        Button submitBtn = new Button("Submit");
+        submitBtn.setTranslateY(-20);
+        submitBtn.setTranslateX(275);
+
+        submitBtn.setOnAction(e -> {
+        System.out.println("anything");
+        	setReviewers();
+        
+        });
+
         addChild(reviewer1);
         addChild(reviewer2);
         addChild(reviewer3);
+        addChild(submitBtn);
 
         center.setCenter(pane);
         this.setCenter(center);
@@ -132,24 +144,10 @@ public class EditorPane extends BasePane {
 //        findBtn.setOnAction(e -> {
 //            entry = selectFile(ps);
 //        });
-        Button submitBtn = new Button("Submit");
-        submitBtn.setTranslateY(236);
-        submitBtn.setTranslateX(275);
-
-        submitBtn.setOnAction(e -> {
-        System.out.println("Saving. . .");
-        try{
-            saveFile(entry);
-            System.out.println("Complete!");
-
-        }catch (IOException error){
-            error.printStackTrace();
-        }
-        });
-
+       
         pickR = new Label("Select a Reviewer");
-        pickR.setTranslateY(150);
-        pickR.setTranslateX(40);
+        pickR.setTranslateY(10);
+        pickR.setTranslateX(60);
 
     //    Button assignBtn = new Button("Assign");
    //     assignBtn.setTranslateY(236);
@@ -162,53 +160,22 @@ public class EditorPane extends BasePane {
 
 //        pane2.getChildren().addAll(fileDir);
 //        pane2.getChildren().addAll(findBtn);
-        pane2.getChildren().addAll(submitBtn);
+       // pane.getChildren().addAll(submitBtn);
   //      pane2.getChildren().addAll(assignBtn);
         pane2.getChildren().addAll(pickR);
         addChild(pane2);
     }
 
-    private void saveFile(File source) throws IOException {
-        File folder = new File("All Journals");
-        folder.mkdirs();
-
-        File dest = new File("All Journals\\NAME_" + source.getName());
-        DataStore db = new DataStore();
-        University u = db.load().university;
-        u.journals.add(new Journal(source.getName()));
-
-
-        InputStream is = null;
-        OutputStream os = null;
-    
-        Paper p = new Paper(source.getName());
-        p.author = (Researcher) Auth.getCurrentUser(); 
-        
+    private void setReviewers(){
         Reviewer r1 = reviewer1.getValue();
-        p.reviewers.add(r1);
+        paper.reviewers.add(r1);
         
         Reviewer r2 = reviewer2.getValue();
-        p.reviewers.add(r2);
+        paper.reviewers.add(r2);
         
         Reviewer r3 = reviewer3.getValue();
-        p.reviewers.add(r3);
+        paper.reviewers.add(r3);
         
-        
-        db.serialize();
-
-        try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
-            int length;
-
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
-            }
-        } finally {
-            is.close();
-            os.close();
-        }
     }
 
     private File selectFile(Stage ps) {
