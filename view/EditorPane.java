@@ -62,7 +62,9 @@ public class EditorPane extends BasePane {
     private ChoiceBox <Reviewer> reviewer1;
     private ChoiceBox <Reviewer> reviewer2;
     private ChoiceBox <Reviewer> reviewer3;
-
+    private ChoiceBox <Paper> paperBox;
+    private ChoiceBox <Journal> journalBox;
+    
     public EditorPane(Stage ps) {
         super(ps, "Editor Pane");
 
@@ -83,17 +85,39 @@ public class EditorPane extends BasePane {
         DataStore db = DataStore.load();  
       
         ArrayList<Reviewer> reviewers = db.university.reviewers;
+        //ArrayList<Paper> papers = db.univ
+        ArrayList <Journal> journals = db.university.journals;
         
-
+        journalBox = new ChoiceBox(FXCollections.observableArrayList(journals));
+        journalBox.setTraslateY(-45);
+        journalBox.setTranslateX(195);
+        
+        Button getPaperBtn = new Button("Get Papers");
+        getPaperBtn.setTraslateY(-65);
+        getPaperBtn.setTraslateX(275);
+        
+        getPaperBtn.setOnAction(e -> {
+            Journal j = journalBox.getValue();
+            paperBox = new ChoiceBox(FXCollections.observableArrayList(j.papers));
+            paperBox.setVisible(true);
+            paperBox.setTranslateY(-35);
+            paperBox.setTranslateX(195);
+        });
+            
+        paperBox = new ChoiceBox();
+        paperBox.setVisible(false);
+        paperBox.setTranslateY(-35);
+        paperBox.setTranslateX(195);
+        
         reviewer1 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer1.setTranslateY(-35);
+        reviewer1.setTranslateY(-15);
         reviewer1.setTranslateX(195);
         
         reviewer2 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer2.setTranslateY(-15);
+        reviewer2.setTranslateY(5);
         reviewer2.setTranslateX(195);
         reviewer3 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer3.setTranslateY(5);
+        reviewer3.setTranslateY(25);
         reviewer3.setTranslateX(195);
        
         Button submitBtn = new Button("Submit");
@@ -105,11 +129,14 @@ public class EditorPane extends BasePane {
         	setReviewers();
         
         });
-
+        
+        addChild(journalBox);
+        addChild(paperBox);
         addChild(reviewer1);
         addChild(reviewer2);
         addChild(reviewer3);
         addChild(submitBtn);
+        addChild(getPaperBtn);
 
         center.setCenter(pane);
         this.setCenter(center);
@@ -167,6 +194,7 @@ public class EditorPane extends BasePane {
     }
 
     private void setReviewers(){
+        paper = paperBox.getValue();
     	DataStore db = new DataStore();
         Reviewer r1 = reviewer1.getValue();
         paper.reviewers.add(r1);
