@@ -42,7 +42,7 @@ public class JournalItemPage extends BasePane {
 //		this.setPadding(new Insets(25, 25, 25, 25));
 		
 		
-		addFakePapers();
+	//	addFakePapers();
 		
 		
 		
@@ -63,7 +63,7 @@ public class JournalItemPage extends BasePane {
 		|
 		-------------------------------------------------*/
 		
-		buildJournalItemPage();
+
 			Label title1 = new Label(this.title);
 			title1.setFont(new Font(30));
 			this.add(title1, 0, currentRow, 4, 1);
@@ -99,8 +99,16 @@ public class JournalItemPage extends BasePane {
 	}
 	
 	private void buildJournalItemPage() {
+		
+		String editorName = "No editor assigned";
+		
+		if(journal.editor != null && journal.editor.name != null) {
+			editorName = journal.editor.name;
+		}
+		
+		
 		Label name = new Label("Name: " + journal.name);
-		Label editor = new Label("Editor: " + journal.editor.name);
+		Label editor = new Label("Editor: " + editorName);
 		
 		
 		VBox paperList = generatePaperList();
@@ -117,7 +125,10 @@ public class JournalItemPage extends BasePane {
 			VBox itemBox = new VBox(10);
 			
 			Label paperName = new Label("Paper Name: " + p.name);
-			Label authorName = new Label("Author Name: " + p.author.name);
+			Label authorName = null;
+			try {
+			authorName = new Label("Author Name: " + p.author.name);
+			} catch(Exception e) {}
 			Button viewPaperButton = new Button("View Paper");
 			viewPaperButton.setOnAction(event -> viewPaper(p));
 			
@@ -135,7 +146,7 @@ public class JournalItemPage extends BasePane {
 	
 	
 	private void viewPaper(Paper p) {
-		Pane viewItem = new PaperListPage(Navigation.primaryStage, "Paper List Page", p);
+		Pane viewItem = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
 		
 		Navigation.navigate(viewItem);
 	}
