@@ -26,6 +26,11 @@ public class Journal  implements Serializable {
 		
 		this.papers = new ArrayList<Paper>();
 	}
+
+        
 	
+	public String toString() {		
+                return this.name;	
+        }
 	
 }
