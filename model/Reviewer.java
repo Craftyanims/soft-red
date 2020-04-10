@@ -1,8 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Reviewer extends User implements Serializable {
+
+
 
 	public Object re1;
 	public Object re2;
@@ -13,6 +16,7 @@ public class Reviewer extends User implements Serializable {
 	public Reviewer(String name, String password) throws Exception {
 		super(name, password);
 		
+
 	}
 	
 }
