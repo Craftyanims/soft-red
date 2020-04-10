@@ -39,4 +39,8 @@ public class Paper implements Serializable {
 		review.paper = this;
 	}
 
+	public String toString() {
+		return this.name;
+	}
+
 }

@@ -89,18 +89,19 @@ public class EditorPane extends BasePane {
         ArrayList <Journal> journals = db.university.journals;
         
         journalBox = new ChoiceBox(FXCollections.observableArrayList(journals));
-        journalBox.setTraslateY(-45);
+        journalBox.setTranslateY(-45);
         journalBox.setTranslateX(195);
         
         Button getPaperBtn = new Button("Get Papers");
-        getPaperBtn.setTraslateY(-65);
-        getPaperBtn.setTraslateX(275);
+        getPaperBtn.setTranslateY(-65);
+        getPaperBtn.setTranslateX(275);
         
         getPaperBtn.setOnAction(e -> {
+        	System.out.println("anything");
             Journal j = journalBox.getValue();
-            paperBox = new ChoiceBox(FXCollections.observableArrayList(j.papers));
+            paperBox.setItems(FXCollections.observableArrayList(j.papers));
             paperBox.setVisible(true);
-            paperBox.setTranslateY(-35);
+            paperBox.setTranslateY(-45);
             paperBox.setTranslateX(195);
         });
             
@@ -195,6 +196,7 @@ public class EditorPane extends BasePane {
 
     private void setReviewers(){
         paper = paperBox.getValue();
+        paper.reviewers = new ArrayList<Reviewer>();
     	DataStore db = new DataStore();
         Reviewer r1 = reviewer1.getValue();
         paper.reviewers.add(r1);

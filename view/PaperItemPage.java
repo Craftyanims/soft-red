@@ -2,6 +2,7 @@ package view;
 
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.List;
 
 import global.Navigation;
 import javafx.geometry.Insets;
@@ -22,7 +23,7 @@ import model.Reviewer;
 import model.Researcher;
 import model.Review;
 import model.DataStore;
-public class PaperListPage extends BasePane {
+public class PaperItemPage extends BasePane {
 
 	private Paper paper;
 	private model.DataStore db;
@@ -33,7 +34,7 @@ public class PaperListPage extends BasePane {
 //	private ArrayList<Reviewer> reviewers;
 
 
-	public PaperListPage(Stage stage, String title, Paper paper) {
+	public PaperItemPage(Stage stage, String title, Paper paper) {
 		super(stage, title);
 		this.title = title;
 		this.paper = paper;
@@ -65,7 +66,7 @@ public class PaperListPage extends BasePane {
 			currentRow++;
 
 		// Display the paper's status
-		Label status = new Label("Staus: " + getFriendlyStatus(this.paper.status));
+		Label status = new Label("Status: " + getFriendlyStatus(this.paper.status));
 		this.mainPane.getChildren().add(status);
 
 		//Display the list of reviews for the paper
@@ -118,12 +119,21 @@ public class PaperListPage extends BasePane {
 	}
 	private VBox generateReviewerList() {
 		VBox reviewerList = new VBox(20);
-
+		Boolean isNominatedList = false;  
+		List<Reviewer> list = paper.reviewers;
+			if(list.size() == 0) {
+				System.out.println("list is null" + paper.nominated.size());
+				list = paper.nominated;
+				isNominatedList = true;
+			}
 		System.out.println(paper.reviewers.size());
-		for(Reviewer r : paper.reviewers) {
+		for(Reviewer r : list) {
 			VBox itemBox = new VBox(10);
 			System.out.println(r.name);
 			Label reviewerName1 = new Label("Reviewer: " + r.name);
+			if(isNominatedList == true) {
+				reviewerName1.setText("Reviewer: " + r.name + "(Researcher Request)");
+			}
 	//		Label reviewerName2 = new Label("Reviewer 2: " + r.reviewer.name);
 	//		Label reviewerName3 = new Label("Reviewer 3: " + r.reviewer.name);
 	//		Button editReviewerButton = new Button("Edit Reviewers");
@@ -200,13 +210,13 @@ public class PaperListPage extends BasePane {
 
 	private void acceptPaper() {
 		this.paper.status = PaperStatus.ACCEPTED;
-		PaperListPage plp = new PaperListPage(this.primaryStage, this.title, this.paper);
+		PaperItemPage plp = new PaperItemPage(this.primaryStage, this.title, this.paper);
 		Navigation.navigate(plp);
 	}
 
 	private void rejectpaper() {
 		this.paper.status = PaperStatus.REJECTED;
-		PaperListPage plp = new PaperListPage(this.primaryStage, this.title, this.paper);
+		PaperItemPage plp = new PaperItemPage(this.primaryStage, this.title, this.paper);
 		Navigation.navigate(plp);
 	}
 

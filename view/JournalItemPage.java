@@ -146,7 +146,7 @@ public class JournalItemPage extends BasePane {
 	
 	
 	private void viewPaper(Paper p) {
-		Pane viewItem = new PaperListPage(Navigation.primaryStage, "Paper List Page", p);
+		Pane viewItem = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
 		
 		Navigation.navigate(viewItem);
 	}

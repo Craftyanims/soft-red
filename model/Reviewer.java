@@ -10,10 +10,6 @@ public class Reviewer extends User implements Serializable {
 	public Reviewer reviewer;
 	
 
-//	public Reviewer(String name, String password) throws Exception{
-//		this.name = name;
-//		this.password = password;
-//	}
 	public Reviewer(String name, String password) throws Exception {
 		super(name, password);
 		
