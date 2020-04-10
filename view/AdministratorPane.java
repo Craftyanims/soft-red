@@ -41,6 +41,7 @@ public class AdministratorPane extends BasePane {
 		
 	}
 	
+	//displays reviewers, researchers and editors on the administrator pane
 	private void displayReviewers() {
 		// Re-load db because a new user could have been created since.
 		this.db = DataStore.load();
