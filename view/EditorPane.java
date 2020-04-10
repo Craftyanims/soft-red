@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import global.Auth;
+import global.Navigation;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 
@@ -125,7 +126,7 @@ public class EditorPane extends BasePane {
 
         submitBtn.setOnAction(e -> {
         	setReviewers();
-            submitToPaperPage();
+    //        submitToPaperPage();
         
         });
         
@@ -206,9 +207,9 @@ public class EditorPane extends BasePane {
         db.serialize();
     }
     
-    private void submitToPaperPage() {
-		Navigation.navigate(PaperItemPage.class);
-	}
+ //   private void submitToPaperPage() {
+//		Navigation.navigate(PaperItemPage.class);
+//	}
     
     private File selectFile(Stage ps) {
         FileChooser fc = new FileChooser();

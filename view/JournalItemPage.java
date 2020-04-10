@@ -42,7 +42,7 @@ public class JournalItemPage extends BasePane {
 //		this.setPadding(new Insets(25, 25, 25, 25));
 		
 		
-		addFakePapers();
+	//	addFakePapers();
 		
 		
 		
