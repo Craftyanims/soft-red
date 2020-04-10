@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +23,9 @@ import javafx.geometry.Insets;
 
 import java.io.File;
 import java.io.IOException;
+
 import javafx.stage.FileChooser;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -66,16 +69,10 @@ public class ReviewerPane extends BasePane {
         currentRow++;
 
         DataStore db = DataStore.load();
-        List<Paper> papers = db.university.journals.get(0).papers;
 
 
-        if (papers.size() <= 0) {
-            Label message = new Label("There are no papers");
-            gp.add(message, 0, currentRow, 3, 1);
-            currentRow++;
-        } else {
-
-            for (Paper j : papers) {
+        for (Journal jo : db.university.journals) {
+            for (Paper j : jo.papers) {
                 Label journalName = new Label(j.name);
 
                 Button view = new Button("VIEW");
@@ -84,42 +81,50 @@ public class ReviewerPane extends BasePane {
                 //Button view = new Button("View");
 
                 Button addComment = new Button("UPLOAD COMMENTS");
+                Reviewer r = db.university.findReviewer(name);
 
-                addComment.setOnAction(e -> {
-                    try {
-                        File entry = selectFile(ps);
-                        System.out.println("Saving. . .");
-                        String path = saveFile(entry);
-                        String name = Auth.getCurrentUser().name;
-                        Reviewer r = db.university.findReviewer(name);
-                        Review review = new Review(r, j, path);
-                        j.addReview(review);
-                        System.out.println("Complete!");
+                if (j.reviewers.contains(r)) {
+                    addComment.setOnAction(e -> {
+                        try {
+                            Reviewer r = db.university.findReviewer(name);
+                            File entry = selectFile(ps);
+                            System.out.println("Saving. . .");
+                            String path = saveFile(entry);
+                            String name = Auth.getCurrentUser().name;
+                            Review review = new Review(r, j, path);
+                            j.addReview(review);
+                            System.out.println("Complete!");
 
-                    } catch (IOException error) {
-                        error.printStackTrace();
-                    }
-                });
+                        } catch (IOException error) {
+                            error.printStackTrace();
+                        }
+                    });
 //                delete.setOnAction(event -> deleteJournal(j));
 
-                gp.add(journalName, 0, currentRow);
-                gp.add(view, 1, currentRow);
-                //this.add(view, 2, currentRow);
-                gp.add(addComment, 2, currentRow);
-                currentRow++;
+                    gp.add(journalName, 0, currentRow);
+                    gp.add(view, 1, currentRow);
+                    //this.add(view, 2, currentRow);
+                    gp.add(addComment, 2, currentRow);
+                    currentRow++;
+                }
             }
+
         }
-        pane2.getChildren().add(gp);
+        pane2.getChildren().
+
+                add(gp);
+
     }
+
     private String saveFile(File source) throws IOException {
         File folder = new File("Journal_Comments");
         folder.mkdirs();
         String sig = "_COMMENT_" + Auth.getCurrentUser().name;
-        String path = "Journal_Comments\\"+source.getName()+sig+".pdf";
+        String path = "Journal_Comments\\" + source.getName() + sig + ".pdf";
         File dest = new File(path);
         DataStore db = new DataStore();
         University u = db.load().university;
-        u.journals.add(new Journal(source.getName()+sig));
+        u.journals.add(new Journal(source.getName() + sig));
         db.serialize();
         //boolean b = dest.mkdirs();
 

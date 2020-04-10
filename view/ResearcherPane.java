@@ -60,6 +60,8 @@ public class ResearcherPane extends BasePane {
         super(ps, "Researcher Pane");
         container = new GridPane();
         center = new BorderPane();
+
+        center.setPadding(new Insets(20));
         initGUI();
 
         this.db = DataStore.load();
