@@ -85,7 +85,6 @@ public class EditorPane extends BasePane {
         DataStore db = DataStore.load();  
       
         ArrayList<Reviewer> reviewers = db.university.reviewers;
-        //ArrayList<Paper> papers = db.univ
         ArrayList <Journal> journals = db.university.journals;
         
         journalBox = new ChoiceBox(FXCollections.observableArrayList(journals));
@@ -93,15 +92,14 @@ public class EditorPane extends BasePane {
         journalBox.setTranslateX(195);
         
         Button getPaperBtn = new Button("Get Papers");
-        getPaperBtn.setTranslateY(-65);
+        getPaperBtn.setTranslateY(-125);
         getPaperBtn.setTranslateX(275);
         
         getPaperBtn.setOnAction(e -> {
-        	System.out.println("anything");
             Journal j = journalBox.getValue();
             paperBox.setItems(FXCollections.observableArrayList(j.papers));
             paperBox.setVisible(true);
-            paperBox.setTranslateY(-45);
+            paperBox.setTranslateY(-25);
             paperBox.setTranslateX(195);
         });
             
@@ -126,8 +124,8 @@ public class EditorPane extends BasePane {
         submitBtn.setTranslateX(275);
 
         submitBtn.setOnAction(e -> {
-        System.out.println("anything");
         	setReviewers();
+            submitToPaperPage();
         
         });
         
@@ -188,7 +186,6 @@ public class EditorPane extends BasePane {
 
 //        pane2.getChildren().addAll(fileDir);
 //        pane2.getChildren().addAll(findBtn);
-       // pane.getChildren().addAll(submitBtn);
   //      pane2.getChildren().addAll(assignBtn);
         pane2.getChildren().addAll(pickR);
         addChild(pane2);
@@ -208,7 +205,11 @@ public class EditorPane extends BasePane {
         paper.reviewers.add(r3);
         db.serialize();
     }
-
+    
+    private void submitToPaperPage() {
+		Navigation.navigate(PaperItemPage.class);
+	}
+    
     private File selectFile(Stage ps) {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
