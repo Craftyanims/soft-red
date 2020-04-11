@@ -270,6 +270,7 @@ public class EditorPane extends BasePane {
                 //System.out.println("Loading deadlines for selected journal");
                 // populate ChoiceBox with journal's deadlines
                 selectDeadlineCB.getSelectionModel().clearSelection();
+                selectDeadlineCB.getItems().clear();
                 Journal selectedJournal = journalList.get(new_value.intValue());
                 for (String deadline : selectedJournal.deadlines) {
                     selectDeadlineCB.getItems().add(deadline);
