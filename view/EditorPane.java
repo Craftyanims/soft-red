@@ -116,6 +116,7 @@ public class EditorPane extends BasePane {
         reviewer2 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
         reviewer2.setTranslateY(5);
         reviewer2.setTranslateX(195);
+	    
         reviewer3 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
         reviewer3.setTranslateY(25);
         reviewer3.setTranslateX(195);
@@ -129,6 +130,14 @@ public class EditorPane extends BasePane {
             submitToPaperPage(paper);
         
         });
+	    
+	pickR = new Label("Select a Reviewer");
+        pickR.setTranslateY(-10);
+        pickR.setTranslateX(120);
+	    
+	selctJ = new Label("Select Journal");
+	selctJ.setTranslateY(-30);
+	selctJ.setTranslateX(120);
         
         addChild(journalBox);
         addChild(paperBox);
@@ -137,6 +146,8 @@ public class EditorPane extends BasePane {
         addChild(reviewer3);
         addChild(submitBtn);
         addChild(getPaperBtn);
+	addChild(pickR);
+	addChild(selctJ);
 
         center.setCenter(pane);
         this.setCenter(center);
@@ -157,41 +168,25 @@ public class EditorPane extends BasePane {
         bp.setRight(iv);
         center.setBottom(bp);
     }
-
+	
     private void addChild(Node child) {
         pane.getChildren().addAll(child);
 
     }
-
-    public void createSubmission(Stage ps) {
-//        Button findBtn = new Button("Open File");
-//        findBtn.setTranslateY(100);
-//        findBtn.setTranslateX(200);
-        // TODO: set this to have logic based on the account given as input
-//        findBtn.setOnAction(e -> {
-//            entry = selectFile(ps);
-//        });
+	
+	//creates a lable for select reviewer
+ //   public void createSubmission(Stage ps) {
        
-        pickR = new Label("Select a Reviewer");
-        pickR.setTranslateY(10);
-        pickR.setTranslateX(60);
+//        pickR = new Label("Select a Reviewer");
+//        pickR.setTranslateY(10);
+ //       pickR.setTranslateX(60);
 
-    //    Button assignBtn = new Button("Assign");
-   //     assignBtn.setTranslateY(236);
-   //     assignBtn.setTranslateX(275);
+ //       pane2.getChildren().addAll(pickR);
+  //      addChild(pane2);
+ //  }
 
-//        fileDir = new Label("Select a PDF File");
-//        fileDir.setTranslateY(105);
-//        fileDir.setTranslateX(132);
-
-
-//        pane2.getChildren().addAll(fileDir);
-//        pane2.getChildren().addAll(findBtn);
-  //      pane2.getChildren().addAll(assignBtn);
-        pane2.getChildren().addAll(pickR);
-        addChild(pane2);
-    }
-
+	
+    //allows editors to assign reviewers to a paper and stores the information into an array list.
     private void setReviewers(){
         paper = paperBox.getValue();
         paper.reviewers = new ArrayList<Reviewer>();
@@ -207,27 +202,11 @@ public class EditorPane extends BasePane {
         db.serialize();
     }
     
+    //function that allows the submit button to navigate to the paper item page when clicked.	
     private void submitToPaperPage(paper) {
         PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", paper);
 		Navigation.navigate(pip);
 	}
-    
-    private File selectFile(Stage ps) {
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.pdf")
-        );
-
-        File f = fc.showOpenDialog(ps);
-        if (f != null) {
-            fileDir.setText(f.getName());
-
-            return f;
-        } else {
-            System.out.println("file not selected");
-            return null;
-        }
-    }
 
   
     private void setDeadline(Stage ps) {
