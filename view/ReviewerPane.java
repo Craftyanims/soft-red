@@ -66,7 +66,7 @@ public class ReviewerPane extends BasePane {
         GridPane gp = new GridPane();
         Label title = new Label("Assigned Paper");
         title.setFont(new Font(30));
-        int currentRow = 0;e
+        int currentRow = 0;
         gp.add(title, 0, currentRow, 4, 1);
         currentRow++;
 
