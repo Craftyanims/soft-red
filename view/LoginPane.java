@@ -25,24 +25,9 @@ public class LoginPane extends BasePane {
 	private PasswordField passwordField;
 	
 	public LoginPane(Stage primaryStage) {
-		super(primaryStage, "Login Page");
-
-
-//        TextField login_tf = new TextField();
-//
-//        BorderPane container = new BorderPane();
-//        
-//        Button login_b = new Button("Press Me");
-//        // TODO: set this to have logic based on the account given as input
-//        login_b.setOnAction(e -> {
-//            //primaryStage.setScene(researcher_scene);
-//        });
-//
-//        container.setTop(login_b);
-//        container.setCenter(login_tf);
-		
+		super(primaryStage, "Login Page");		
 		generateLoginForm();
-        this.setCenter(container);
+        	this.setCenter(container);
         
 	}
 	
@@ -66,10 +51,6 @@ public class LoginPane extends BasePane {
 		
 		passwordField = new PasswordField();
 		container.add(passwordField, 1, 2);
-		
-		//selectedEditor = new ComboBox<Editor>();
-		//selectedEditor.getItems().addAll(this.db.university.editors);
-		//container.add(selectedEditor, 1, 2);
 	
 		Button login = new Button("Login");
 		login.setOnAction(event -> login());

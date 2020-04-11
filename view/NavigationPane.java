@@ -52,7 +52,6 @@ public class NavigationPane extends VBox {
         VBox logoLayout = initLogo();
         getChildren().addAll(buttonLayout,logoLayout);
         setSpacing(30);
-        //setAlignment(Pos.BASELINE_CENTER);
         setStyle("-fx-background-color:#D0D0D0");
     }
 

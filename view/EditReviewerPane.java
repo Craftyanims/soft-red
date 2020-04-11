@@ -69,7 +69,6 @@ public class EditReviewerPane extends BasePane {
 			this.reviewer.name = name;
 			this.reviewer.setPassword(password);
 		
-			//this.db.university.reviewers.add(reviewer);
 			this.db.serialize();
 			
 			Navigation.navigate(AdministratorPane.class);

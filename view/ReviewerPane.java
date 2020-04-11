@@ -47,7 +47,6 @@ public class ReviewerPane extends BasePane {
 
     public ReviewerPane(Stage ps) {
         super(ps, "Reviewer Pane");
-//        this.setCenter(pane);
         pane = new StackPane();
 
         pane.setPadding(new Insets(20));
@@ -66,7 +65,7 @@ public class ReviewerPane extends BasePane {
         GridPane gp = new GridPane();
         Label title = new Label("Assigned Paper");
         title.setFont(new Font(30));
-        int currentRow = 0;e
+        int currentRow = 0;
         gp.add(title, 0, currentRow, 4, 1);
         currentRow++;
 
@@ -78,9 +77,8 @@ public class ReviewerPane extends BasePane {
                 Label journalName = new Label(j.name);
 
                 Button view = new Button("VIEW");
-//                edit.setOnAction(event -> editJournal(j));
+                view.setOnAction(event -> viewJournal(j));
 
-                //Button view = new Button("View");
 
                 Button addComment = new Button("UPLOAD COMMENTS");
                 String name = Auth.getCurrentUser().name;
@@ -100,11 +98,9 @@ public class ReviewerPane extends BasePane {
                             error.printStackTrace();
                         }
                     });
-//                delete.setOnAction(event -> deleteJournal(j));
 
                     gp.add(journalName, 0, currentRow);
                     gp.add(view, 1, currentRow);
-                    //this.add(view, 2, currentRow);
                     gp.add(addComment, 2, currentRow);
                     currentRow++;
                 }
@@ -116,6 +112,11 @@ public class ReviewerPane extends BasePane {
                 add(gp);
 
     }
+    
+    private void viewJournal(Paper p){
+        PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
+		Navigation.navigate(pip);
+    }
 
     private String saveFile(File source) throws IOException {
         File folder = new File("Journal_Comments");
@@ -123,7 +124,6 @@ public class ReviewerPane extends BasePane {
         String sig = "_COMMENT_" + Auth.getCurrentUser().name;
         String path = "Journal_Comments\\" + source.getName() + sig + ".pdf";
         File dest = new File(path);
-        //boolean b = dest.mkdirs();
 
         InputStream is = null;
         OutputStream os = null;

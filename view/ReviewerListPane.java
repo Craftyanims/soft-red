@@ -29,10 +29,6 @@ public class ReviewerListPane extends GridPane {
 		this.reviewers = reviewers;
 		this.title = title;
 		
-		
-		// For debugging only
-		//this.setGridLinesVisible(true);
-		
 		// Style this grid
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
@@ -63,14 +59,11 @@ public class ReviewerListPane extends GridPane {
 				Button edit = new Button("Edit");
 				edit.setOnAction(event -> editReviewer(r));
 				
-				//Button view = new Button("View");
-				
 				Button delete = new Button("Delete");
 				delete.setOnAction(event -> deleteReviewer(r));
 				
 				this.add(reviewerName, 0, currentRow);
 				this.add(edit, 1, currentRow);
-				//this.add(view, 2, currentRow);
 				this.add(delete, 2, currentRow);
 				currentRow++;
 			}

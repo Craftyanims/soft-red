@@ -90,24 +90,24 @@ public class ResearcherPane extends BasePane {
         reviewer1 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        reviewer1.setTranslateY(160);
-        reviewer1.setTranslateX(275);
+        reviewer1.setTranslateY(85);
+        reviewer1.setTranslateX(230);
         reviewer2 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        reviewer2.setTranslateY(180);
-        reviewer2.setTranslateX(275);
+        reviewer2.setTranslateY(105);
+        reviewer2.setTranslateX(230);
         reviewer3 = new ChoiceBox(FXCollections.observableArrayList(
                 reviewers)
         );
-        reviewer3.setTranslateY(200);
-        reviewer3.setTranslateX(275);
+        reviewer3.setTranslateY(125);
+        reviewer3.setTranslateX(230);
         
         journalsBox = new ChoiceBox(FXCollections.observableArrayList(
                journals)
         );
-        journalsBox.setTranslateY(40);
-        journalsBox.setTranslateX(275);
+        journalsBox.setTranslateY(-25);
+        journalsBox.setTranslateX(230);
 
 
         addChild(reviewer1);
@@ -129,14 +129,14 @@ public class ResearcherPane extends BasePane {
     public void createSubmission(Stage ps) {
         Button findBtn = new Button("Open File");
         findBtn.setTranslateY(100);
-        findBtn.setTranslateX(187);
+        findBtn.setTranslateX(142);
         // TODO: set this to have logic based on the account given as input
         findBtn.setOnAction(e -> {
             entry = selectFile(ps);
         });
         Button submitBtn = new Button("Submit");
-        submitBtn.setTranslateY(275);
-        submitBtn.setTranslateX(195);
+        submitBtn.setTranslateY(263);
+        submitBtn.setTranslateX(150);
 
 
         submitBtn.setOnAction(e -> {
@@ -149,8 +149,9 @@ public class ResearcherPane extends BasePane {
                 error.printStackTrace();
             }
         });
+        
         pickR = new Label("Select a Reviewer");
-        pickR.setTranslateY(170);
+        pickR.setTranslateY(175);
         pickR.setTranslateX(-135);
 
  
@@ -196,13 +197,12 @@ public class ResearcherPane extends BasePane {
         DataStore db = new DataStore();
         University u = db.load().university;
         
-        //boolean b = dest.mkdirs();
 
         InputStream is = null;
         OutputStream os = null;
         
         Paper p = new Paper(source.getName());
-     //   u.journals.get(0).papers.add(p);
+
         p.author = Auth.getCurrentUser();
         
         Reviewer r1 = reviewer1.getValue();
@@ -317,11 +317,9 @@ public class ResearcherPane extends BasePane {
         return deadlineNumber;
     }
 
-
     public Pane getPane() {
         return pane;
 
     }
-
 
 }

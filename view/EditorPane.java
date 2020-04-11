@@ -59,13 +59,14 @@ public class EditorPane extends BasePane {
     private File entry;
     private Label fileDir;
     private Label pickR;
-    
+    private Label selctJ;
+
     private ChoiceBox <Reviewer> reviewer1;
     private ChoiceBox <Reviewer> reviewer2;
     private ChoiceBox <Reviewer> reviewer3;
     private ChoiceBox <Paper> paperBox;
     private ChoiceBox <Journal> journalBox;
-    
+
     public EditorPane(Stage ps) {
         super(ps, "Editor Pane");
 
@@ -76,60 +77,68 @@ public class EditorPane extends BasePane {
 
         center.setPadding(new Insets(20));
         initGUI();
-      
+
         Label researcher_l = new Label("Editor");
         researcher_l.setTranslateY(-300);
 
-        createSubmission(ps);
         setDeadline(ps);
-        
-        DataStore db = DataStore.load();  
-      
+
+        DataStore db = DataStore.load();
+
         ArrayList<Reviewer> reviewers = db.university.reviewers;
         ArrayList <Journal> journals = db.university.journals;
-        
+
         journalBox = new ChoiceBox(FXCollections.observableArrayList(journals));
-        journalBox.setTranslateY(-45);
+        journalBox.setTranslateY(-35);
         journalBox.setTranslateX(195);
-        
+
         Button getPaperBtn = new Button("Get Papers");
-        getPaperBtn.setTranslateY(-125);
-        getPaperBtn.setTranslateX(275);
-        
+        getPaperBtn.setTranslateY(-185);
+        getPaperBtn.setTranslateX(390);
+
         getPaperBtn.setOnAction(e -> {
             Journal j = journalBox.getValue();
             paperBox.setItems(FXCollections.observableArrayList(j.papers));
             paperBox.setVisible(true);
-            paperBox.setTranslateY(-25);
+            paperBox.setTranslateY(-23);
             paperBox.setTranslateX(195);
         });
-            
+
         paperBox = new ChoiceBox();
         paperBox.setVisible(false);
-        paperBox.setTranslateY(-35);
+        paperBox.setTranslateY(-23);
         paperBox.setTranslateX(195);
-        
+
         reviewer1 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer1.setTranslateY(-15);
+        reviewer1.setTranslateY(-11);
         reviewer1.setTranslateX(195);
-        
+
         reviewer2 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer2.setTranslateY(5);
+        reviewer2.setTranslateY(1);
         reviewer2.setTranslateX(195);
+
         reviewer3 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer3.setTranslateY(25);
+        reviewer3.setTranslateY(13);
         reviewer3.setTranslateX(195);
-       
+
         Button submitBtn = new Button("Submit");
-        submitBtn.setTranslateY(-20);
+        submitBtn.setTranslateY(-12);
         submitBtn.setTranslateX(275);
 
         submitBtn.setOnAction(e -> {
         	setReviewers();
-    //        submitToPaperPage();
-        
+            submitToPaperPage(paper);
+
         });
-        
+
+	pickR = new Label("Select a Reviewer");
+        pickR.setTranslateY(-133);
+        pickR.setTranslateX(59);
+
+	selctJ = new Label("Select Journal");
+	selctJ.setTranslateY(-225);
+	selctJ.setTranslateX(59);
+
         addChild(journalBox);
         addChild(paperBox);
         addChild(reviewer1);
@@ -137,6 +146,8 @@ public class EditorPane extends BasePane {
         addChild(reviewer3);
         addChild(submitBtn);
         addChild(getPaperBtn);
+	addChild(pickR);
+	addChild(selctJ);
 
         center.setCenter(pane);
         this.setCenter(center);
@@ -163,82 +174,40 @@ public class EditorPane extends BasePane {
 
     }
 
-    public void createSubmission(Stage ps) {
-//        Button findBtn = new Button("Open File");
-//        findBtn.setTranslateY(100);
-//        findBtn.setTranslateX(200);
-        // TODO: set this to have logic based on the account given as input
-//        findBtn.setOnAction(e -> {
-//            entry = selectFile(ps);
-//        });
-       
-        pickR = new Label("Select a Reviewer");
-        pickR.setTranslateY(10);
-        pickR.setTranslateX(60);
-
-    //    Button assignBtn = new Button("Assign");
-   //     assignBtn.setTranslateY(236);
-   //     assignBtn.setTranslateX(275);
-
-//        fileDir = new Label("Select a PDF File");
-//        fileDir.setTranslateY(105);
-//        fileDir.setTranslateX(132);
 
 
-//        pane2.getChildren().addAll(fileDir);
-//        pane2.getChildren().addAll(findBtn);
-  //      pane2.getChildren().addAll(assignBtn);
-        pane2.getChildren().addAll(pickR);
-        addChild(pane2);
-    }
-
+    //allows editors to assign reviewers to a paper and stores the information into an array list.
     private void setReviewers(){
         paper = paperBox.getValue();
         paper.reviewers = new ArrayList<Reviewer>();
     	DataStore db = new DataStore();
         Reviewer r1 = reviewer1.getValue();
         paper.reviewers.add(r1);
-        
+
         Reviewer r2 = reviewer2.getValue();
         paper.reviewers.add(r2);
-        
+
         Reviewer r3 = reviewer3.getValue();
         paper.reviewers.add(r3);
         db.serialize();
     }
-    
- //   private void submitToPaperPage() {
-//		Navigation.navigate(PaperItemPage.class);
-//	}
-    
-    private File selectFile(Stage ps) {
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.pdf")
-        );
 
-        File f = fc.showOpenDialog(ps);
-        if (f != null) {
-            fileDir.setText(f.getName());
+    private void submitToPaperPage(Paper p) {
+        PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
+		Navigation.navigate(pip);
+	}
 
-            return f;
-        } else {
-            System.out.println("file not selected");
-            return null;
-        }
-    }
 
-  
     private void setDeadline(Stage ps) {
         TextField deadlineTF = new TextField("yyyy-mm-dd");
         deadlineTF.setTranslateX(195);
-        deadlineTF.setTranslateY(180);
+        deadlineTF.setTranslateY(210);
         deadlineTF.setMinWidth(85);
         deadlineTF.setMaxWidth(85);
 
         Label selectJournalL = new Label("Set journal deadline");
         selectJournalL.setTranslateX(60);
-        selectJournalL.setTranslateY(150);
+        selectJournalL.setTranslateY(182);
         selectJournalL.setMinWidth(120);
         selectJournalL.setMaxWidth(120);
 
@@ -250,7 +219,7 @@ public class EditorPane extends BasePane {
 
         ChoiceBox selectDeadlineCB = new ChoiceBox();
         selectDeadlineCB.setTranslateX(195);
-        selectDeadlineCB.setTranslateY(210);
+        selectDeadlineCB.setTranslateY(240);
         selectDeadlineCB.setMinWidth(95);
 
         DataStore db = DataStore.load();
@@ -258,7 +227,7 @@ public class EditorPane extends BasePane {
 
         ChoiceBox selectJournalCB = new ChoiceBox();
         selectJournalCB.setTranslateX(195);
-        selectJournalCB.setTranslateY(150);
+        selectJournalCB.setTranslateY(180);
         selectJournalCB.setMinWidth(120);
         for (Journal journal : journalList) {
             selectJournalCB.getItems().add(journal.name);
@@ -280,7 +249,7 @@ public class EditorPane extends BasePane {
 
         Button deadlineB = new Button("Add");
         deadlineB.setTranslateX(320);
-        deadlineB.setTranslateY(180);
+        deadlineB.setTranslateY(210);
         deadlineB.setMinWidth(40);
 
         deadlineB.setOnAction(e -> {
@@ -307,7 +276,7 @@ public class EditorPane extends BasePane {
 
         Button deadlineDeleteB = new Button("Remove");
         deadlineDeleteB.setTranslateX(320);
-        deadlineDeleteB.setTranslateY(210);
+        deadlineDeleteB.setTranslateY(240);
         deadlineDeleteB.setMinWidth(60);
 
         deadlineDeleteB.setOnAction(e -> {

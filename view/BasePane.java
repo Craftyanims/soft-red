@@ -36,8 +36,7 @@ public class BasePane extends BorderPane {
 		else {
 			
 		}
-		
-		//headerPane.getChildren().addAll(titleLabel);
+
 
         titleLabel.setStyle("-fx-text-fill: white");
         headerPane.setStyle("-fx-background-color: #737373");
