@@ -32,7 +32,7 @@ public class EditorListPane extends GridPane {
 		this.title = title;
 		
 		// Style this grid
-		this.setAlignment(Pos.CENTER);
+//		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
 		this.setVgap(10);
 		this.setPadding(new Insets(25, 25, 25, 25));

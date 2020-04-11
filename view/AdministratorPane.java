@@ -47,11 +47,10 @@ public class AdministratorPane extends BasePane {
 		this.db = DataStore.load();
 		
 		ReviewerListPane reviewerListpane = new ReviewerListPane(db.university.reviewers, "Reviewer List");
-		
 		ResearcherListPane researcherListPane = new ResearcherListPane(db.university.researchers, "Researcher List");
-		
 		EditorListPane editorListPane = new EditorListPane(db.university.editors, "Editor List");
-		
+
+		mainPane.setPadding(new Insets(0,0,0,150));
 		mainPane.getChildren().add(reviewerListpane);
 		mainPane.getChildren().add(researcherListPane);
 		mainPane.getChildren().add(editorListPane);
