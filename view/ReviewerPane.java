@@ -78,7 +78,7 @@ public class ReviewerPane extends BasePane {
                 Label journalName = new Label(j.name);
 
                 Button view = new Button("VIEW");
-                edit.setOnAction(event -> editJournal(j));
+                view.setOnAction(event -> viewJournal(j));
 
 
                 Button addComment = new Button("UPLOAD COMMENTS");
@@ -116,7 +116,7 @@ public class ReviewerPane extends BasePane {
 
     }
     
-    private void editJournal(Paper p){
+    private void viewJournal(Paper p){
         PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
 		Navigation.navigate(pip);
     }

@@ -42,24 +42,6 @@ public class PaperItemPage extends BasePane {
 		this.mainPane = new VBox();
 		buildPaperListPage();
 
-	//	addFakeReviewers();
-
-
-
-		/*-----------------------------------------------
-		|
-		|	Name: <Paper NAME>
-		|	Editor: <Researcher NAME>
-		|
-		|	1. reviewer
-		|	2. rerviwer
-		|	3. reviewer
-		|		Button: Edit reviewers
-		|  		|
-		|
-		-------------------------------------------------*/
-
-
 			Label title1 = new Label(this.title);
 			title1.setFont(new Font(30));
 			this.add(title1, 0, currentRow, 4, 1);
@@ -114,25 +96,22 @@ public class PaperItemPage extends BasePane {
 		this.setCenter(mainPane);
 	}
 
-	private void nominatedReviewers() {
+//	private void nominatedReviewers() {
 
-	}
+//	}
 	private VBox generateReviewerList() {
 		VBox reviewerList = new VBox(20);
 		Boolean isNominatedList = false;  
 		List<Reviewer> list = paper.reviewers;
 			if(list.size() == 0) {
-				System.out.println("list is null" + paper.nominated.size());
 				list = paper.nominated;
 				isNominatedList = true;
 			}
-		System.out.println(paper.reviewers.size());
 		for(Reviewer r : list) {
 			VBox itemBox = new VBox(10);
-			System.out.println(r.name);
 			Label reviewerName1 = new Label("Reviewer: " + r.name);
 			if(isNominatedList == true) {
-				reviewerName1.setText("Reviewer: " + r.name + "(Researcher Request)");
+				reviewerName1.setText("Reviewer: " + r.name + " (Researcher Request)");
 			}
 	//		Label reviewerName2 = new Label("Reviewer 2: " + r.reviewer.name);
 	//		Label reviewerName3 = new Label("Reviewer 3: " + r.reviewer.name);
@@ -177,7 +156,6 @@ public class PaperItemPage extends BasePane {
 
 		Label reviewTitle = new Label("Reviews:");
 		container.getChildren().add(reviewTitle);
-		System.out.println(this.paper.reviews);
 		for(Review r : this.paper.reviews) {
 			Label reviewerName = new Label("Reviewer: " + r.reviewer.name);
 			Label score = new Label("Score: " + r.score);
