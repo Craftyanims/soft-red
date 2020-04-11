@@ -72,8 +72,7 @@ public class EditJournalPane extends BasePane {
 			
 			Editor editor = selectedEditor.getValue();
 			this.journal.editor = editor;
-			
-			//this.db.university.Journals.add(Journal);
+
 			this.db.serialize();
 			
 			Navigation.navigate(JournalListPane.class);
