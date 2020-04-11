@@ -149,6 +149,7 @@ public class ResearcherPane extends BasePane {
                 error.printStackTrace();
             }
         });
+        
         pickR = new Label("Select a Reviewer");
         pickR.setTranslateY(175);
         pickR.setTranslateX(-135);
@@ -196,13 +197,12 @@ public class ResearcherPane extends BasePane {
         DataStore db = new DataStore();
         University u = db.load().university;
         
-        //boolean b = dest.mkdirs();
 
         InputStream is = null;
         OutputStream os = null;
         
         Paper p = new Paper(source.getName());
-     //   u.journals.get(0).papers.add(p);
+
         p.author = Auth.getCurrentUser();
         
         Reviewer r1 = reviewer1.getValue();
@@ -317,11 +317,9 @@ public class ResearcherPane extends BasePane {
         return deadlineNumber;
     }
 
-
     public Pane getPane() {
         return pane;
 
     }
-
 
 }
