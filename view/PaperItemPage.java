@@ -177,7 +177,7 @@ public class PaperItemPage extends BasePane {
 
 		Label reviewTitle = new Label("Reviews:");
 		container.getChildren().add(reviewTitle);
-
+		System.out.println(this.paper.reviews);
 		for(Review r : this.paper.reviews) {
 			Label reviewerName = new Label("Reviewer: " + r.reviewer.name);
 			Label score = new Label("Score: " + r.score);

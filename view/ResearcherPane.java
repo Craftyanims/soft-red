@@ -66,6 +66,8 @@ public class ResearcherPane extends BasePane {
     public ResearcherPane(Stage ps) {
         super(ps, "Researcher Pane");
         center = new BorderPane();
+
+        center.setPadding(new Insets(20));
         initGUI();
 
         this.db = DataStore.load();
