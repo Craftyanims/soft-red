@@ -40,10 +40,10 @@ public class PaperItemPage extends BasePane {
 		this.mainPane = new VBox();
 		buildPaperListPage();
 
-			Label title1 = new Label(this.title);
-			title1.setFont(new Font(30));
-			this.add(title1, 0, currentRow, 4, 1);
-			currentRow++;
+		Label title1 = new Label(this.title);
+		title1.setFont(new Font(30));
+		this.add(title1, 0, currentRow, 4, 1);
+		currentRow++;
 
 		// Display the paper's status
 		Label status = new Label("Status: " + getFriendlyStatus(this.paper.status));
