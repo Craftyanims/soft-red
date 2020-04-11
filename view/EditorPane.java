@@ -207,8 +207,8 @@ public class EditorPane extends BasePane {
         db.serialize();
     }
     
-    private void submitToPaperPage(paper) {
-        PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", paper);
+    private void submitToPaperPage(Paper p) {
+        PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
 		Navigation.navigate(pip);
 	}
     
