@@ -29,10 +29,6 @@ public class JournalListPane extends GridPane {
 		this.journals = journals;
 		this.title = title;
 		
-		
-		// For debugging only
-		//this.setGridLinesVisible(true);
-		
 		// Style this grid
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
@@ -89,39 +85,6 @@ public class JournalListPane extends GridPane {
 		currentRow++;
 	}
 
-  //  public JournalListPane(Stage stage) {
-    //    super(stage, "Journal List Page");
-      //  System.out.println("Journal List Pane");
-        //this.stage = stage;
-
-        //DataStore db = DataStore.load();
-        
-     //   VBox contentPane = createPane(db.university.journals);
-      //  this.setCenter(contentPane);
-
-    //}
-
-    //public VBox createPane(ArrayList<model.Journal> journals){
-      //  VBox contentPane = new VBox();
-        //if(journals == null){
-          //  journals = createFakeJournals();
-        //}
-        //for (int i = 0; i < journals.size(); i++) {
-          //  Pane journalBox = generateJournalListItem(journals.get(i));
-            //journalBox.setStyle("-fx-background-color: pink; -fx-padding: 10px;");
-            //contentPane.getChildren().addAll(journalBox);
-       // }
-        
-        
-        // Insert the "add new journal" button
-       // Button newJournal = new Button("New Journal");
-        //newJournal.setOnAction(event -> Navigation.navigate(NewJournalPane.class));
-        
-        //contentPane.getChildren().add(newJournal);
-        
-        //return contentPane;
-    //}
-	
 
 	private void displayNewJournal() {
 		Navigation.navigate(NewJournalPane.class);
@@ -162,28 +125,6 @@ public class JournalListPane extends GridPane {
         	
         });
         
-        
-//        viewButton.setOnAction(e -> {
-//            FileChooser fileChooser = new FileChooser();
-//            fileChooser.setTitle("Save Journal");
-//            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.pdf"));
-//            fileChooser.setInitialFileName(journal.name);
-//            File file = new File("All Journals\\" + journal.name + ".pdf");
-//
-//            if (file != null) {
-//                File dest = fileChooser.showSaveDialog(stage);
-//                if (dest != null) {
-//                    try {
-//                        Files.copy(file.toPath(), dest.toPath());
-//                    } catch (IOException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                }
-//            } else {
-//                System.out.println("file not found");
-//            }
-//        });
-
         container.getChildren().addAll(titleLabel, viewButton);
 
         return container;
