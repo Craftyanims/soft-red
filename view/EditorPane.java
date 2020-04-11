@@ -59,6 +59,7 @@ public class EditorPane extends BasePane {
     private File entry;
     private Label fileDir;
     private Label pickR;
+    private Label selctJ;
 
     private ChoiceBox <Reviewer> reviewer1;
     private ChoiceBox <Reviewer> reviewer2;
@@ -80,7 +81,7 @@ public class EditorPane extends BasePane {
         Label researcher_l = new Label("Editor");
         researcher_l.setTranslateY(-300);
 
-        createSubmission(ps);
+     //   createSubmission(ps);
         setDeadline(ps);
 
         DataStore db = DataStore.load();
@@ -89,40 +90,40 @@ public class EditorPane extends BasePane {
         ArrayList <Journal> journals = db.university.journals;
 
         journalBox = new ChoiceBox(FXCollections.observableArrayList(journals));
-        journalBox.setTranslateY(-45);
+        journalBox.setTranslateY(-35);
         journalBox.setTranslateX(195);
 
         Button getPaperBtn = new Button("Get Papers");
-        getPaperBtn.setTranslateY(-125);
-        getPaperBtn.setTranslateX(275);
+        getPaperBtn.setTranslateY(-185);
+        getPaperBtn.setTranslateX(390);
 
         getPaperBtn.setOnAction(e -> {
             Journal j = journalBox.getValue();
             paperBox.setItems(FXCollections.observableArrayList(j.papers));
             paperBox.setVisible(true);
-            paperBox.setTranslateY(-25);
+            paperBox.setTranslateY(-23);
             paperBox.setTranslateX(195);
         });
 
         paperBox = new ChoiceBox();
         paperBox.setVisible(false);
-        paperBox.setTranslateY(-35);
+        paperBox.setTranslateY(-23);
         paperBox.setTranslateX(195);
 
         reviewer1 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer1.setTranslateY(-15);
+        reviewer1.setTranslateY(-11);
         reviewer1.setTranslateX(195);
 
         reviewer2 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer2.setTranslateY(5);
+        reviewer2.setTranslateY(1);
         reviewer2.setTranslateX(195);
 
         reviewer3 = new ChoiceBox(FXCollections.observableArrayList(reviewers));
-        reviewer3.setTranslateY(25);
+        reviewer3.setTranslateY(13);
         reviewer3.setTranslateX(195);
 
         Button submitBtn = new Button("Submit");
-        submitBtn.setTranslateY(-20);
+        submitBtn.setTranslateY(-12);
         submitBtn.setTranslateX(275);
 
         submitBtn.setOnAction(e -> {
@@ -132,12 +133,12 @@ public class EditorPane extends BasePane {
         });
 
 	pickR = new Label("Select a Reviewer");
-        pickR.setTranslateY(-10);
-        pickR.setTranslateX(120);
+        pickR.setTranslateY(-133);
+        pickR.setTranslateX(59);
 
 	selctJ = new Label("Select Journal");
-	selctJ.setTranslateY(-30);
-	selctJ.setTranslateX(120);
+	selctJ.setTranslateY(-225);
+	selctJ.setTranslateX(59);
 
         addChild(journalBox);
         addChild(paperBox);
@@ -211,13 +212,13 @@ public class EditorPane extends BasePane {
     private void setDeadline(Stage ps) {
         TextField deadlineTF = new TextField("yyyy-mm-dd");
         deadlineTF.setTranslateX(195);
-        deadlineTF.setTranslateY(180);
+        deadlineTF.setTranslateY(210);
         deadlineTF.setMinWidth(85);
         deadlineTF.setMaxWidth(85);
 
         Label selectJournalL = new Label("Set journal deadline");
         selectJournalL.setTranslateX(60);
-        selectJournalL.setTranslateY(150);
+        selectJournalL.setTranslateY(182);
         selectJournalL.setMinWidth(120);
         selectJournalL.setMaxWidth(120);
 
@@ -229,7 +230,7 @@ public class EditorPane extends BasePane {
 
         ChoiceBox selectDeadlineCB = new ChoiceBox();
         selectDeadlineCB.setTranslateX(195);
-        selectDeadlineCB.setTranslateY(210);
+        selectDeadlineCB.setTranslateY(240);
         selectDeadlineCB.setMinWidth(95);
 
         DataStore db = DataStore.load();
@@ -237,7 +238,7 @@ public class EditorPane extends BasePane {
 
         ChoiceBox selectJournalCB = new ChoiceBox();
         selectJournalCB.setTranslateX(195);
-        selectJournalCB.setTranslateY(150);
+        selectJournalCB.setTranslateY(180);
         selectJournalCB.setMinWidth(120);
         for (Journal journal : journalList) {
             selectJournalCB.getItems().add(journal.name);
@@ -259,7 +260,7 @@ public class EditorPane extends BasePane {
 
         Button deadlineB = new Button("Add");
         deadlineB.setTranslateX(320);
-        deadlineB.setTranslateY(180);
+        deadlineB.setTranslateY(210);
         deadlineB.setMinWidth(40);
 
         deadlineB.setOnAction(e -> {
@@ -286,7 +287,7 @@ public class EditorPane extends BasePane {
 
         Button deadlineDeleteB = new Button("Remove");
         deadlineDeleteB.setTranslateX(320);
-        deadlineDeleteB.setTranslateY(210);
+        deadlineDeleteB.setTranslateY(240);
         deadlineDeleteB.setMinWidth(60);
 
         deadlineDeleteB.setOnAction(e -> {
