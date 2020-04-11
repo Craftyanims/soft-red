@@ -49,6 +49,8 @@ public class ReviewerPane extends BasePane {
         super(ps, "Reviewer Pane");
 //        this.setCenter(pane);
         pane = new StackPane();
+
+        pane.setPadding(new Insets(20));
         pane2 = new VBox();
         initGUI();
         initJournalList(ps);
@@ -64,7 +66,7 @@ public class ReviewerPane extends BasePane {
         GridPane gp = new GridPane();
         Label title = new Label("Journals");
         title.setFont(new Font(30));
-        int currentRow = 0;
+        int currentRow = 0;e
         gp.add(title, 0, currentRow, 4, 1);
         currentRow++;
 
@@ -81,16 +83,15 @@ public class ReviewerPane extends BasePane {
                 //Button view = new Button("View");
 
                 Button addComment = new Button("UPLOAD COMMENTS");
+                String name = Auth.getCurrentUser().name;
                 Reviewer r = db.university.findReviewer(name);
 
                 if (j.reviewers.contains(r)) {
                     addComment.setOnAction(e -> {
                         try {
-                            Reviewer r = db.university.findReviewer(name);
                             File entry = selectFile(ps);
                             System.out.println("Saving. . .");
                             String path = saveFile(entry);
-                            String name = Auth.getCurrentUser().name;
                             Review review = new Review(r, j, path);
                             j.addReview(review);
                             System.out.println("Complete!");
@@ -122,10 +123,6 @@ public class ReviewerPane extends BasePane {
         String sig = "_COMMENT_" + Auth.getCurrentUser().name;
         String path = "Journal_Comments\\" + source.getName() + sig + ".pdf";
         File dest = new File(path);
-        DataStore db = new DataStore();
-        University u = db.load().university;
-        u.journals.add(new Journal(source.getName() + sig));
-        db.serialize();
         //boolean b = dest.mkdirs();
 
         InputStream is = null;
@@ -167,7 +164,6 @@ public class ReviewerPane extends BasePane {
     public void initGUI() {
         BorderPane bp = new BorderPane();
         HBox bg = new HBox();
-        bg.setPadding(new Insets(20));
         Image image = new Image("GUI_assets/icon_reviewer.png");
         ImageView iv = new ImageView(image);
         iv.setFitWidth(200);
