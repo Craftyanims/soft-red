@@ -66,7 +66,7 @@ public class ReviewerPane extends BasePane {
         GridPane gp = new GridPane();
         Label title = new Label("Assigned Paper");
         title.setFont(new Font(30));
-        int currentRow = 0;
+        int currentRow = 0;e
         gp.add(title, 0, currentRow, 4, 1);
         currentRow++;
 
@@ -76,6 +76,10 @@ public class ReviewerPane extends BasePane {
         for (Journal jo : db.university.journals) {
             for (Paper j : jo.papers) {
                 Label journalName = new Label(j.name);
+
+                Button view = new Button("VIEW");
+//                edit.setOnAction(event -> editJournal(j));
+
                 //Button view = new Button("View");
 
                 Button addComment = new Button("UPLOAD COMMENTS");
