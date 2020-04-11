@@ -49,7 +49,7 @@ public class JournalItemPage extends BasePane {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	// this function creates the Journal Item Page which shows the name of the journal and the name of the editor assigned to it
 	private void buildJournalItemPage() {
 		
 		String editorName = "No editor assigned";
@@ -70,6 +70,8 @@ public class JournalItemPage extends BasePane {
 		this.setCenter(mainPane);
 	}
 	
+	//generates the list of papers in selected journal with paper name label
+	//and author name label and generates a view paper button 
 	private VBox generatePaperList() {
 		VBox paperList = new VBox(20);
 		
@@ -90,7 +92,7 @@ public class JournalItemPage extends BasePane {
 		
 		return paperList;
 	}
-	
+	//this function is called when the 'View Paper' button is clicked and navigates to Paper Item Page
 	private void viewPaper(Paper p) {
 		Pane viewItem = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
 		
