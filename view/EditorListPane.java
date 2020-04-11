@@ -31,10 +31,6 @@ public class EditorListPane extends GridPane {
 		this.editors = editors;
 		this.title = title;
 		
-		
-		// For debugging only
-		//this.setGridLinesVisible(true);
-		
 		// Style this grid
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
