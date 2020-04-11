@@ -30,10 +30,6 @@ public class ResearcherListPane extends GridPane {
 		this.researchers = researchers;
 		this.title = title;
 		
-		
-		// For debugging only
-		//this.setGridLinesVisible(true);
-		
 		// Style this grid
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
