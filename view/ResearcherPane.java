@@ -322,5 +322,4 @@ public class ResearcherPane extends BasePane {
 
     }
 
-
 }
