@@ -78,9 +78,8 @@ public class ReviewerPane extends BasePane {
                 Label journalName = new Label(j.name);
 
                 Button view = new Button("VIEW");
-//                edit.setOnAction(event -> editJournal(j));
+                edit.setOnAction(event -> editJournal(j));
 
-                //Button view = new Button("View");
 
                 Button addComment = new Button("UPLOAD COMMENTS");
                 String name = Auth.getCurrentUser().name;
@@ -116,6 +115,11 @@ public class ReviewerPane extends BasePane {
                 add(gp);
 
     }
+    
+    private void editJournal(Paper p){
+        PaperItemPage pip = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
+		Navigation.navigate(pip);
+    }
 
     private String saveFile(File source) throws IOException {
         File folder = new File("Journal_Comments");
@@ -123,7 +127,6 @@ public class ReviewerPane extends BasePane {
         String sig = "_COMMENT_" + Auth.getCurrentUser().name;
         String path = "Journal_Comments\\" + source.getName() + sig + ".pdf";
         File dest = new File(path);
-        //boolean b = dest.mkdirs();
 
         InputStream is = null;
         OutputStream os = null;
