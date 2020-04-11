@@ -81,7 +81,6 @@ public class EditorPane extends BasePane {
         Label researcher_l = new Label("Editor");
         researcher_l.setTranslateY(-300);
 
-     //   createSubmission(ps);
         setDeadline(ps);
 
         DataStore db = DataStore.load();
@@ -175,16 +174,6 @@ public class EditorPane extends BasePane {
 
     }
 
-	//creates a lable for select reviewer
- //   public void createSubmission(Stage ps) {
-
-//        pickR = new Label("Select a Reviewer");
-//        pickR.setTranslateY(10);
- //       pickR.setTranslateX(60);
-
- //       pane2.getChildren().addAll(pickR);
-  //      addChild(pane2);
- //  }
 
 
     //allows editors to assign reviewers to a paper and stores the information into an array list.
