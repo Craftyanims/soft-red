@@ -27,7 +27,6 @@ public class JournalItemPage extends BasePane {
 	private VBox mainPane;
 	private int currentRow = 0;
 	private String title;
-    
 	
 	public JournalItemPage(Stage stage, String title, Journal journal) {
 		super(stage, title);
@@ -36,38 +35,12 @@ public class JournalItemPage extends BasePane {
 		this.mainPane = new VBox();
 		buildJournalItemPage();
 		
-//		this.setAlignment(Pos.CENTER);
-//		this.setHgap(10);
-//		this.setVgap(10);
-//		this.setPadding(new Insets(25, 25, 25, 25));
-		
-		
-	//	addFakePapers();
-		
-		
-		
-		/*-----------------------------------------------
-		|
-		|	Name: <JOURNAL NAME>
-		|	Editor: <EDITOR NAME>
-		|	
-		|	1. Paper Name
-		|		Author: NAME
-		|		Button: View paper
-		|
-		|	2. Paper Name 2
-		|		Author: Name
-		|		Button: View paper
-		|   etc...
-		|
-		|
-		-------------------------------------------------*/
 		
 
-			Label title1 = new Label(this.title);
-			title1.setFont(new Font(30));
-			this.add(title1, 0, currentRow, 4, 1);
-			currentRow++;
+		Label title1 = new Label(this.title);
+		title1.setFont(new Font(30));
+		this.add(title1, 0, currentRow, 4, 1);
+		currentRow++;
 		
 		
 	}
@@ -75,27 +48,6 @@ public class JournalItemPage extends BasePane {
 	private void add(Label title2, int i, int currentRow2, int j, int k) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	private void addFakePapers() {
-		
-		try {
-			Paper paper1 = new Paper("Paper Title");
-			paper1.author = new Researcher("res name", "password");
-			Paper paper2 = new Paper("Paper Title");
-			paper2.author = new Researcher("res2 name", "password");
-			Paper paper3 = new Paper("Paper Title");
-			paper3.author = new Researcher("res3 name", "password");
-			
-			
-			journal.papers.add(paper1);
-			journal.papers.add(paper2);
-			journal.papers.add(paper3);
-		}
-		catch(Exception e) {
-			//TODO: Handle errors properly
-		}
-
 	}
 	
 	private void buildJournalItemPage() {
@@ -138,26 +90,11 @@ public class JournalItemPage extends BasePane {
 		
 		return paperList;
 	}
-
-
-	
-
-
-	
 	
 	private void viewPaper(Paper p) {
 		Pane viewItem = new PaperItemPage(Navigation.primaryStage, "Paper Item Page", p);
 		
 		Navigation.navigate(viewItem);
 	}
-//	
-//	private void editJournal(Journal j) {
-//		
-//		// HACK: With proper design Navigation.primaryStage shouldn't be needed
-//		Pane editPane = new EditJournalPane(Navigation.primaryStage, j);
-//		
-//		Navigation.navigate(editPane);
-//	}
-	
 
 }
