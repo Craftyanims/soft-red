@@ -31,8 +31,6 @@ public class PaperItemPage extends BasePane {
 	private VBox mainPane;
 	private int currentRow = 0;
 	private String title;
-//	private ArrayList<Reviewer> reviewers;
-
 
 	public PaperItemPage(Stage stage, String title, Paper paper) {
 		super(stage, title);
@@ -51,9 +49,6 @@ public class PaperItemPage extends BasePane {
 		Label status = new Label("Status: " + getFriendlyStatus(this.paper.status));
 		this.mainPane.getChildren().add(status);
 
-		//Display the list of reviews for the paper
-	//	generateFakeReviews();
-		this.mainPane.getChildren().add(generateReviewsList());
 
 		//Display the Editor's accept and reject buttons
 		this.mainPane.getChildren().add(generateAcceptRejectButtons());
@@ -64,23 +59,6 @@ public class PaperItemPage extends BasePane {
 
 	}
 
-	private void addFakeReviewers() {
-
-		try {
-			Reviewer re1 = new Reviewer("name1", "password1");
-			Reviewer re2 = new Reviewer("name2", "password2");
-			Reviewer re3 = new Reviewer("name3", "password3");
-
-			paper.reviewers.add(re1);
-			paper.reviewers.add(re2);
-			paper.reviewers.add(re3);
-
-		}
-		catch(Exception e) {
-			//TODO: Handle errors properly
-		}
-
-	}
 
 	private void buildPaperListPage() {
 		Label name = new Label("Name: " + paper.name);
@@ -96,12 +74,10 @@ public class PaperItemPage extends BasePane {
 		this.setCenter(mainPane);
 	}
 
-//	private void nominatedReviewers() {
 
-//	}
 	private VBox generateReviewerList() {
 		VBox reviewerList = new VBox(20);
-		Boolean isNominatedList = false;  
+		Boolean isNominatedList = false;
 		List<Reviewer> list = paper.reviewers;
 			if(list.size() == 0) {
 				list = paper.nominated;
@@ -113,9 +89,6 @@ public class PaperItemPage extends BasePane {
 			if(isNominatedList == true) {
 				reviewerName1.setText("Reviewer: " + r.name + " (Researcher Request)");
 			}
-	//		Label reviewerName2 = new Label("Reviewer 2: " + r.reviewer.name);
-	//		Label reviewerName3 = new Label("Reviewer 3: " + r.reviewer.name);
-	//		Button editReviewerButton = new Button("Edit Reviewers");
 
 			itemBox.getChildren().addAll(reviewerName1);
 			reviewerList.getChildren().add(itemBox);
@@ -127,28 +100,6 @@ public class PaperItemPage extends BasePane {
 	private void editReviewers() {
 		EditorPane.paper = paper;
 		Navigation.navigate(EditorPane.class);
-	}
-
-	/**
-	 * A temporary function to see the reviews before the review creation code
-	 * has been finished
-	 */
-	private void generateFakeReviews() {
-		try {
-			Reviewer reviewer1 = new Reviewer("rev name", "");
-			Reviewer reviewer2 = new Reviewer("rev name2", "");
-			Reviewer reviewer3 = new Reviewer("rev name3", "");
-			Review r1 = new Review(reviewer1, this.paper, "C:/fakepath");
-			Review r2 = new Review(reviewer2, this.paper, "C:/fakepath2");
-			Review r3 = new Review(reviewer3, this.paper, "C:/fakepath3");
-
-			this.paper.reviews.add(r1);
-			this.paper.reviews.add(r2);
-			this.paper.reviews.add(r3);
-		}
-		catch(Exception e) {
-			//TODO: deal with exceptions
-		}
 	}
 
 	private VBox generateReviewsList() {

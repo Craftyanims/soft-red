@@ -47,7 +47,6 @@ public class ReviewerPane extends BasePane {
 
     public ReviewerPane(Stage ps) {
         super(ps, "Reviewer Pane");
-//        this.setCenter(pane);
         pane = new StackPane();
 
         pane.setPadding(new Insets(20));
@@ -99,11 +98,9 @@ public class ReviewerPane extends BasePane {
                             error.printStackTrace();
                         }
                     });
-//                delete.setOnAction(event -> deleteJournal(j));
 
                     gp.add(journalName, 0, currentRow);
                     gp.add(view, 1, currentRow);
-                    //this.add(view, 2, currentRow);
                     gp.add(addComment, 2, currentRow);
                     currentRow++;
                 }
