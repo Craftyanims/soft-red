@@ -85,9 +85,10 @@ public class PaperItemPage extends BasePane {
 			}
 		for(Reviewer r : list) {
 			VBox itemBox = new VBox(10);
-			Label reviewerName1 = new Label("Reviewer: " + r.name);
+			String reviewerName = r == null ? "No reviewer set" : r.name;
+			Label reviewerName1 = new Label("Reviewer: " + reviewerName);
 			if(isNominatedList == true) {
-				reviewerName1.setText("Reviewer: " + r.name + " (Researcher Request)");
+				reviewerName1.setText("Reviewer: " + reviewerName + " (Researcher Request)");
 			}
 
 			itemBox.getChildren().addAll(reviewerName1);
