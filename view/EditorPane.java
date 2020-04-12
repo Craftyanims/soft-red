@@ -123,7 +123,7 @@ public class EditorPane extends BasePane {
 
         Button submitBtn = new Button("Submit");
         submitBtn.setTranslateY(-12);
-        submitBtn.setTranslateX(275);
+        submitBtn.setTranslateX(300);
 
         submitBtn.setOnAction(e -> {
         	setReviewers();

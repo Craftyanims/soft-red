@@ -135,8 +135,8 @@ public class ResearcherPane extends BasePane {
             entry = selectFile(ps);
         });
         Button submitBtn = new Button("Submit");
-        submitBtn.setTranslateY(263);
-        submitBtn.setTranslateX(150);
+        submitBtn.setTranslateY(262);
+        submitBtn.setTranslateX(180);
 
 
         submitBtn.setOnAction(e -> {
