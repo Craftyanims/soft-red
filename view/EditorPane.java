@@ -214,8 +214,8 @@ public class EditorPane extends BasePane {
         Label deadlineErrorL = new Label("Must be a valid date in the format: yyyy-mm-dd");
         deadlineErrorL.setVisible(false);
         deadlineErrorL.setTextFill(Color.web("#FF7263"));
-        deadlineErrorL.setTranslateX(0);
-        deadlineErrorL.setTranslateY(0);
+        deadlineErrorL.setTranslateX(100);
+        deadlineErrorL.setTranslateY(280);
 
         ChoiceBox selectDeadlineCB = new ChoiceBox();
         selectDeadlineCB.setTranslateX(195);
